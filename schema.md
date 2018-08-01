@@ -1,4 +1,4 @@
-### Users Table
+### Users
 
 | column name     | data type | details                   |
 |-----------------|-----------|---------------------------|
@@ -11,7 +11,7 @@
 | created_at      | string    | not null                  |
 | updated_at      | string    | not null                  |
 
-### Stocks Table
+### Stocks
 
 | column name | data type | details                        |
 |-------------|-----------|--------------------------------|
@@ -24,7 +24,7 @@
 | created_at  | string    | not null                       |
 | updated_at  | string    | not null                       |
 
-### Exchange Table
+### Exchanges
 
 | column name | data type | details                        |
 |-------------|-----------|--------------------------------|
@@ -33,7 +33,7 @@
 | created_at  | string    | not null                       |
 | updated_at  | string    | not null                       |
 
-### Stock Ownerships Table
+### Stock Ownerships
 
 | column name | data type | details                        |
 |-------------|-----------|--------------------------------|
@@ -43,4 +43,41 @@
 | created_at  | string    | not null                       |
 | updated_at  | string    | not null                       |
 
-### Stock Watches Table (stocks on people's watchlists)
+### Stock Watches (stocks on people's watchlists)
+
+| column name | data type | details                        |
+|-------------|-----------|--------------------------------|
+| id          | integer   | not null, primary key          |
+| user_id     | integer   | not null, indexed, foreign key |
+| stock_id    | integer   | not null, indexed, foreign key |
+| created_at  | string    | not null                       |
+| updated_at  | string    | not null                       |
+
+### Followers
+
+| column name | data type | details                        |
+|-------------|-----------|--------------------------------|
+| id          | integer   | not null, primary key          |
+| follower_id | integer   | not null, indexed, foreign key |
+| followee_id | integer   | not null, indexed, foreign key |
+| created_at  | string    | not null                       |
+| updated_at  | string    | not null                       |
+
+### Collections
+
+| column name | data type | details               |
+|-------------|-----------|-----------------------|
+| id          | integer   | not null, primary key |
+| name        | string    | not null, unique      |
+| created_at  | string    | not null              |
+| updated_at  | string    | not null              |
+
+### Collection Items
+
+| column name   | data type | details                        |
+|---------------|-----------|--------------------------------|
+| id            | integer   | not null, primary key          |
+| stock_id      | integer   | not null, indexed, foreign key |
+| collection_id | integer   | not null, indexed, foreign key |
+| created_at    | string    | not null                       |
+| updated_at    | string    | not null                       |

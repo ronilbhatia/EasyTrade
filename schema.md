@@ -43,6 +43,18 @@
 | created_at  | string    | not null                       |
 | updated_at  | string    | not null                       |
 
+### Transactions
+
+| column name | data type | details                        |
+|-------------|-----------|--------------------------------|
+| id          | integer   | not null, primary key          |
+| user_id     | integer   | not null, indexed, foreign_key |
+| stock_id    | integer   | not null, indexed, foreign_key |
+| price       | float     | not null                       |
+| num_shares  | integer   | not null                       |
+| created_at  | string    | not null                       |
+| updated_at  | string    | not null                       |
+
 ### Stock Watches (stocks on people's watchlists)
 
 | column name | data type | details                        |

@@ -1,3 +1,5 @@
+## Frontend Routes and Components
+Our components are organized as follows:
 * `Root`
   * `App`
     * `NavBar`

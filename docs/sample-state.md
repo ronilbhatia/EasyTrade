@@ -1,3 +1,4 @@
+# Sample State
 ```js
 {
   entities: {
@@ -67,6 +68,23 @@
       3: {
         id: 3,
         stockId: 2,
+        userId: 2
+      }
+    },
+    watches: {
+      1: {
+        id: 1,
+        stockId: 3,
+        userId: 1
+      },
+      2: {
+        id: 2,
+        stockId: 1,
+        userId: 3
+      },
+      3: {
+        id: 3,
+        stockId: 3,
         userId: 2
       }
     },

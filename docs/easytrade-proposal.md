@@ -1,8 +1,8 @@
-Welcome to the Easy-Trade wiki!
+Welcome to the EasyTrade wiki!
 
-# Easy-Trade Proposal
+# EasyTrade Proposal
 
-[Easy-Trade Heroku]()
+[EasyTrade Heroku]()
 
 + [MVP list](mvp-list)
 + [Database Schema](database-schema)

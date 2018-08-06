@@ -1,4 +1,5 @@
-### `users`
+# Database Schema
+## `users`
 
 | column name       | data type | details                   |
 |-------------------|-----------|---------------------------|
@@ -11,7 +12,7 @@
 | `updated_at`      | string    | not null                  |
 
 
-### `stocks`
+## `stocks`
 
 | column name   | data type | details                        |
 |---------------|-----------|--------------------------------|
@@ -25,7 +26,7 @@
 | `created_at`  | string    | not null                       |
 | `updated_at`  | string    | not null                       |
 
-### `exchanges`
+## `exchanges`
 
 | column name   | data type | details                        |
 |---------------|-----------|--------------------------------|
@@ -34,7 +35,7 @@
 | `created_at`  | string    | not null                       |
 | `updated_at`  | string    | not null                       |
 
-### `stockOwnerships`
+## `stockOwnerships`
 
 | column name   | data type | details                        |
 |---------------|-----------|--------------------------------|
@@ -44,7 +45,7 @@
 | `created_at`  | string    | not null                       |
 | `updated_at`  | string    | not null                       |
 
-### `transactions`
+## `transactions`
 
 | column name   | data type | details                        |
 |---------------|-----------|--------------------------------|
@@ -56,7 +57,7 @@
 | `created_at`  | string    | not null                       |
 | `updated_at`  | string    | not null                       |
 
-### `stockWatches` (stocks on people's watchlists)
+## `stockWatches` (stocks on people's watchlists)
 
 | column name   | data type | details                        |
 |---------------|-----------|--------------------------------|
@@ -66,7 +67,7 @@
 | `created_at`  | string    | not null                       |
 | `updated_at`  | string    | not null                       |
 
-### `followers`
+## `followers`
 
 | column name   | data type | details                        |
 |---------------|-----------|--------------------------------|
@@ -76,7 +77,7 @@
 | `created_at`  | string    | not null                       |
 | `updated_at`  | string    | not null                       |
 
-### `collections`
+## `collections`
 
 | column name   | data type | details               |
 |---------------|-----------|-----------------------|
@@ -85,7 +86,7 @@
 | `created_at`  | string    | not null              |
 | `updated_at`  | string    | not null              |
 
-### `collectionItems`
+## `collectionItems`
 
 | column name     | data type | details                        |
 |-----------------|-----------|--------------------------------|

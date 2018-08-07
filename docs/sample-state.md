@@ -44,31 +44,35 @@
       1: {
         id: 1,
         username: "Warren Buffett",
-        stockIds: [1, 3]
         imgUrl: "https://s3.amazonaws.com/easytrade/filename"
       },
       2: {
         id: 2,
         username: "Jordan Belfort",
-        stockIds: [2]
         imgUrl: "https://s3.amazonaws.com/easytrade/filename"
       }
     },
-    ownerships: {
+    transactions: {
       1: {
         id: 1,
         stockId: 1,
-        userId: 1
+        userId: 1,
+        price: 52.00
+        num_shares: 30
       },
       2: {
         id: 2,
         stockId: 3,
-        userId: 1
+        userId: 1,
+        price: 31.96,
+        num_shares: 200
       },
       3: {
         id: 3,
         stockId: 2,
-        userId: 2
+        userId: 2,
+        price: 106.43,
+        num_shares: 10
       }
     },
     watches: {

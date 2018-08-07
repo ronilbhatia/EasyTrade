@@ -11,14 +11,14 @@
   * `DELETE /api/session` - log out
 
 ### `stocks`
-  * `GET /api/stocks` - returns relevant stocks (filtered by data/params
+  * `GET /api/stocks` - returns relevant stocks (filtered by data/params)
   * `GET /api/stocks/:ticker` - returns a stock
 
-### `stockOwnerships`
-  * `GET /api/users/:id/stocks` - returns all stocks owned by a user
-  * `POST /api/users/:id/stocks` - adds stock to user's portfolio
-  * `PATCH /api/users/:id/stocks` - edit's stock in user's portfolio (num shares owned)
-  * `DELETE /api/users/:id/stocks` - remove's stock from user's portfolio
+### `transactions`
+  * `GET /api/transactions` - returns all of current user's transactions
+  * `POST /api/transactions` - adds current user transaction
+  * `PATCH /api/transactions` - edits current user transaction
+  * `DELETE /api/transactions` - removes current user transaction
 
 ### `stockWatches`
   * `GET /api/stock-watches` - returns all stocks watched by a user

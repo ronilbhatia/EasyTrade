@@ -42,21 +42,6 @@
 | `created_at`  | string    | not null                       |
 | `updated_at`  | string    | not null                       |
 
-## `stockOwnerships`
-
-| column name   | data type | details                        |
-|---------------|-----------|--------------------------------|
-| `id`          | integer   | not null, primary key          |
-| `user_id`     | integer   | not null, indexed, foreign key |
-| `stock_id`    | integer   | not null, indexed, foreign key |
-| `created_at`  | string    | not null                       |
-| `updated_at`  | string    | not null                       |
-
-* `user_id` references `users`
-* `stock_id` references `stocks`
-* index on `[stock_id, user_id], unique: true`
-* index on `user_id`
-
 ## `transactions`
 
 | column name   | data type | details                        |

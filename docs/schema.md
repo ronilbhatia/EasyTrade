@@ -11,6 +11,9 @@
 | `created_at`      | string    | not null                  |
 | `updated_at`      | string    | not null                  |
 
+* index on `username, unique: true`
+* index on `email, unique: true`
+* index on `session_token, unique: true`
 
 ## `stocks`
 
@@ -25,6 +28,10 @@
 | `exchange_id` | string    | not null, indexed, foreign_key |
 | `created_at`  | string    | not null                       |
 | `updated_at`  | string    | not null                       |
+
+* `exchange_id` references `exchanges`
+* index on `exchange_id`
+* index on `ticker, unique: true`
 
 ## `exchanges`
 
@@ -45,6 +52,11 @@
 | `created_at`  | string    | not null                       |
 | `updated_at`  | string    | not null                       |
 
+* `user_id` references `users`
+* `stock_id` references `stocks`
+* index on `[stock_id, user_id], unique: true`
+* index on `user_id`
+
 ## `transactions`
 
 | column name   | data type | details                        |
@@ -57,6 +69,11 @@
 | `created_at`  | string    | not null                       |
 | `updated_at`  | string    | not null                       |
 
+* `user_id` references `users`
+* `stock_id` references `stocks`
+* index on `[stock_id, user_id]`
+* index on `user_id`
+
 ## `stockWatches` (stocks on people's watchlists)
 
 | column name   | data type | details                        |
@@ -67,6 +84,11 @@
 | `created_at`  | string    | not null                       |
 | `updated_at`  | string    | not null                       |
 
+* `user_id` references `users`
+* `stock_id` references `stocks`
+* index on `[stock_id, user_id], unique: true`
+* index on `user_id`
+
 ## `followers`
 
 | column name   | data type | details                        |
@@ -76,6 +98,10 @@
 | `followee_id` | integer   | not null, indexed, foreign key |
 | `created_at`  | string    | not null                       |
 | `updated_at`  | string    | not null                       |
+
+* `follower_id` and `followee_id` reference `users`
+* index on `[follower_id, followee_id], unique: true`
+* index on `followee_id`
 
 ## `collections`
 
@@ -95,3 +121,8 @@
 | `collection_id` | integer   | not null, indexed, foreign key |
 | `created_at`    | string    | not null                       |
 | `updated_at`    | string    | not null                       |
+
+* `stock_id` references `stocks`
+* `collection_id` references `collections`
+* index on `[collection_id, stock_id]`
+* index on `stock_id`

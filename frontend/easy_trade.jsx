@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Root from './components/Root';
+import configureStore from './store/store';
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
-  ReactDOM.render(<h1>What is good fam</h1>, root);
+  const store = configureStore();
+  ReactDOM.render(<h1><Root store={store}/></h1>, root);
 });

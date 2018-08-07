@@ -21,9 +21,9 @@
   * `DELETE /api/users/:id/stocks` - remove's stock from user's portfolio
 
 ### `stockWatches`
-  * `GET /api/users/:id/stock-watches` - returns all stocks watched by a user
-  * `POST /api/users/:id/stock-watches` - adds stock to user's watchlist
-  * `DELETE /api/users/:id/stock-watches` - removes stock from user's watchlist
+  * `GET /api/stock-watches` - returns all stocks watched by a user
+  * `POST /api/stock-watches` - adds stock to user's watchlist
+  * `DELETE /api/stock-watches` - removes stock from user's watchlist
 
 ### `collections`
   * `GET /api/stocks/:ticker/collections` - returns all collections stock is included in

@@ -19,7 +19,7 @@ EasyTrade, a Robinhood clone, is an investing application that allows users to p
   * Data reflects the real-time value of stocks
   * Adequate styling
   * Smooth, bug-free navigation
-### 5. Ownerships/Watchlist (8/13/2018, 2 days)
+### 5. Ownerships/Watchlist (8/13/2018, 2 days) - CRUD
   * Logged in users can purchase/sell stocks and add stocks they are interested in to their watchlist
   * Adequate styling
   * Smooth, bug-free navigation

@@ -45,13 +45,13 @@
         id: 1,
         username: "Warren Buffett",
         stockIds: [1, 3]
-        imgUrl: "https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwiT__7Fxc3cAhVo3IMKHV2iCRwQjRx6BAgBEAU&url=https%3A%2F%2Fwww.biography.com%2Fpeople%2Fwarren-buffett-9230729&psig=AOvVaw3YmNlSowvVwhchCIJaK9DI&ust=1533270952353699"
+        imgUrl: "https://s3.amazonaws.com/easytrade/filename"
       },
       2: {
         id: 2,
         username: "Jordan Belfort",
         stockIds: [2]
-        imgUrl: "https://m.media-amazon.com/images/M/MV5BM2QzODgxMTUtZGJhMy00NzJlLTk0NzQtZGZjNjkwMzg4NjNhXkEyXkFqcGdeQXVyNTc3MjUzNTI@._V1_.jpg"
+        imgUrl: "https://s3.amazonaws.com/easytrade/filename"
       }
     },
     ownerships: {

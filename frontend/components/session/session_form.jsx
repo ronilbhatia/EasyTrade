@@ -28,41 +28,48 @@ class SessionForm extends React.Component {
     let path, linkTxt, buttonTxt, emailField;
     if (this.props.formType === 'signup') {
       path = '/login';
-      linkTxt = 'Sign In!';
-      buttonTxt = 'Sign Up!';
+      linkTxt = 'Sign In';
+      buttonTxt = 'Sign Up';
       emailField = (
         <label>Email
-          <input type="text" onChange={this.update('email')} value={this.state.email} />
+          <br />
+          <input required type="text" onChange={this.update('email')} value={this.state.email} />
           <br />
         </label>
       );
     } else {
       path = '/signup';
-      linkTxt = 'Sign Up!';
-      buttonTxt = 'Sign In!';
+      linkTxt = 'Sign Up';
+      buttonTxt = 'Sign In';
       emailField = "";
     }
 
     return (
-      <div>
-        <ul>
-          {
-            errors.map((error, idx) => <li key={idx}>{error}</li>)
-          }
-        </ul>
-        <h1>{buttonTxt}</h1>
-        <form onSubmit={this.handleSubmit}>
-          <label>Username
-            <input type="text" onChange={this.update('username')} value={this.state.username} />
-          </label>
-          <br />
-          {emailField}
-          <label>Password
-            <input type="password" onChange={this.update('password')} value={this.state.password} />
-          </label>
-          <input type="submit" value={buttonTxt} />
-        </form>
-        <Link to={path}>{linkTxt}</Link>
+      <div className="sessionform">
+        <div className="sessionform-image">
+        </div>
+        <div className="sessionform-text">
+          <h2>Welcome to EasyTrade</h2>
+          <form onSubmit={this.handleSubmit}>
+            {emailField}
+            <label>Username
+              <br />
+              <input required type="text" onChange={this.update('username')} value={this.state.username} />
+            </label>
+            <br />
+            <label>Password
+              <br />
+              <input required type="password" onChange={this.update('password')} value={this.state.password} />
+            </label>
+            <br />
+            <ul className="sessionform-errors">
+              {
+                errors.map((error, idx) => <li key={idx}>{error}</li>)
+              }
+            </ul>
+            <input className="signup-button" type="submit" value={buttonTxt} />
+          </form>
+        </div>
       </div>
     );
   }

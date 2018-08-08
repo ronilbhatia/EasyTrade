@@ -13,13 +13,6 @@
  *= require_tree .
  *= require_self
  */
-* {
-  box-sizing: border-box;
-}
-
- a {
-   text-decoration: none;
- }
 
 .nav-bar {
   display: flex;
@@ -30,7 +23,7 @@
   background: white;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 30px 8px 45px;
+  padding: 8px 45px 8px 55px;
 }
 
 .nav-bar img {
@@ -43,13 +36,13 @@
   width: 80px;
   margin-left: 20px;
   color: #21ce99;
-  font-size: 14px;
+  font-size: 13px;
   font-family: "DIN Web", "Hiragino Sans GB", STXihei, 华文细黑, "Microsoft YaHei", 微软雅黑, sans-serif;
   font-weight: bold;
 }
 
 .panes h1 {
-  font-size: 50px;
+  font-size: 52px;
   padding: 0;
   margin: 0;
   font-family: sans-serif;
@@ -59,11 +52,11 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 60px 50px;
+  padding: 70px 52px;
 }
 
 .pane1-text {
-  margin-top: 150px;
+  margin-top: 145px;
   margin-left: 50px;
 }
 
@@ -72,7 +65,7 @@
 }
 
 .pane1 header {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .pane1 div {
@@ -89,8 +82,8 @@
 .signup-button {
   color: white;
   background: #21ce99;
-  padding: 15px 20px;
-  font-weight: 700;
+  padding: 15px;
+  font-weight: normal;
   font-family: sans-serif;
   border-radius: 7%;
 }

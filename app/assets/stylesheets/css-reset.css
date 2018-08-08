@@ -1,0 +1,13 @@
+html, head, header, body, h1, h2, h3, h4, h5, h6, main, nav, aside,
+div, span, img, strong, section, figcaption, footer, button
+menu, ul, ol {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+a {
+  text-decoration: none;
+}

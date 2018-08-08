@@ -1,0 +1,70 @@
+// Place all the styles related to the Sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.sessionform {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.sessionform-image {
+  width: 50%;
+  height: 660px;
+  background-image: url("https://d2ue93q3u507c2.cloudfront.net/assets/generated_assets/94977d34f99015525dcd0fc9987fcbe6.png");
+  background-position: 50%;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+}
+
+.sessionform-text {
+  width: 50%;
+  height: 660px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  padding: 50px;
+  font-family: sans-serif;
+}
+
+.sessionform h2 {
+  margin-top: 5px;
+  margin-bottom: 25px;
+}
+
+.sessionform label {
+  font-size: 13px;
+  font-weight: lighter;
+  padding: 10px 0;
+}
+
+.sessionform input {
+  margin: 10px 0;
+  width: 372px;
+  height: 28px;
+  border: 1px solid #fafafa;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 13px;
+  background: #fafafa;
+
+}
+
+.sessionform input:hover {
+  border: 1px solid lightgray;
+}
+
+.sessionform .signup-button {
+  margin-top: 90px;
+  padding: 15px 45px;
+  font-size: 12px;
+  font-weight: 700;
+  height: auto;
+  width: auto;
+  background: #21ce99;
+}

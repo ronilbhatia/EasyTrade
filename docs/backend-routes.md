@@ -16,14 +16,15 @@
 
 ### `transactions`
   * `GET /api/transactions` - returns all of current user's transactions
-  * `POST /api/transactions` - adds current user transaction
-  * `PATCH /api/transactions` - edits current user transaction
-  * `DELETE /api/transactions` - removes current user transaction
+  * `GET /api/transactions/:id` - returns a specific transaction
+  * `POST /api/transactions` - adds transaction
+  * `PATCH /api/transactions/:id` - edits transaction
+  * `DELETE /api/transactions/:id` - removes transaction
 
 ### `stockWatches`
   * `GET /api/stock-watches` - returns all stocks watched by a user
   * `POST /api/stock-watches` - adds stock to user's watchlist
-  * `DELETE /api/stock-watches` - removes stock from user's watchlist
+  * `DELETE /api/stock-watches/:id` - removes stock from user's watchlist
 
 ### `collections`
   * `GET /api/stocks/:ticker/collections` - returns all collections stock is included in

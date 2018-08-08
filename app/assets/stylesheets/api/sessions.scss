@@ -32,8 +32,27 @@
   font-family: sans-serif;
 }
 
+.sessionform-text ul {
+  margin-top: 30px;
+}
+
+.sessionform-text ul li {
+  display: flex;
+  padding: 17.5px 0;
+  font-size: 13px;
+  align-items: center;
+}
+
+.sessionform-text ul li img {
+  height: 18px;
+  width: 18px;
+  margin-right: 10px;
+  vertical-align: baseline;
+  text-align: none;
+}
+
 .sessionform h2 {
-  margin-top: 5px;
+  margin-top: 10px;
   margin-bottom: 25px;
 }
 
@@ -60,8 +79,8 @@
 }
 
 .sessionform .signup-button {
-  margin-top: 90px;
-  padding: 15px 45px;
+  margin-top: 60px;
+  padding: 17px 50px;
   font-size: 12px;
   font-weight: 700;
   height: auto;

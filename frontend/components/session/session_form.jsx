@@ -23,6 +23,11 @@ class SessionForm extends React.Component {
       this.setState({ [field]: e.target.value });
     };
   }
+
+  componentWillUnmount() {
+    
+  }
+
   render() {
     let { errors } = this.props;
     let path, linkTxt, buttonTxt, emailField;
@@ -64,7 +69,7 @@ class SessionForm extends React.Component {
             <br />
             <ul className="sessionform-errors">
               {
-                errors.map((error, idx) => <li key={idx}>{error}</li>)
+                errors.map((error, idx) => <li key={idx}><img src={window.images.exclamation_circle} />{error}</li>)
               }
             </ul>
             <input className="signup-button" type="submit" value={buttonTxt} />

@@ -8,6 +8,10 @@ class Main extends React.Component {
 
   render() {
     const { currentUser } = this.props;
+    const demoUser = {
+      username: 'user',
+      password: 'testing'
+    };
     const display = currentUser ? (
       <div>
         <nav className="nav-bar">
@@ -30,7 +34,7 @@ class Main extends React.Component {
               </div>
               <Link to="/signup" className="signup-button">Sign Up</Link>
             </section>
-            <img className="pane1-img" src="https://d2ue93q3u507c2.cloudfront.net/assets/marketing/images/home_redesign/iPhoneHome_still.png"/>
+            <img className="pane1-img" src={window.images.pane1_img}/>
           </section>
         </main>
       </div>
@@ -54,7 +58,7 @@ class Main extends React.Component {
                 <p>EasyTrade lets you learn to invest in the stock</p>
                 <p>market for free.</p>
               </div>
-              <Link to="/signup" className="signup-button">Sign Up</Link>
+              <button className="signup-button" onClick={() => this.props.demoLogin(demoUser)}>Demo</button>
             </section>
             <img className="pane1-img" src="https://d2ue93q3u507c2.cloudfront.net/assets/marketing/images/home_redesign/iPhoneHome_still.png"/>
           </section>

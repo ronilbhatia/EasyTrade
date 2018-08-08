@@ -69,7 +69,7 @@
 }
 
 .pane1 div {
-  padding-bottom: 40px;
+  padding-bottom: 25px;
 }
 
 .pane1 p {
@@ -80,10 +80,13 @@
 }
 
 .signup-button {
+  cursor: pointer;
   color: white;
   background: #21ce99;
-  padding: 15px;
+  margin: 0;
+  padding: 14px 21px;
   font-weight: normal;
+  font-size: 16px;
   font-family: sans-serif;
-  border-radius: 7%;
+  border-radius: 4px;
 }

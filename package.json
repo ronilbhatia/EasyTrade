@@ -9,6 +9,7 @@
     "chart.js": "^2.7.2",
     "lodash": "^4.17.10",
     "react": "^16.4.2",
+    "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",

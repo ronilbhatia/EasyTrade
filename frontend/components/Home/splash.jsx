@@ -16,7 +16,7 @@ const Splash = ({ demoLogin, demoUser }) => {
           </div>
           <button className="signup-button" onClick={() => demoLogin(demoUser)}>Demo</button>
         </section>
-        <img className="pane1-img" src="https://d2ue93q3u507c2.cloudfront.net/assets/marketing/images/home_redesign/iPhoneHome_still.png"/>
+        <img className="pane1-img" src={window.images.pane1_img}/>
       </section>
     </main>
   );

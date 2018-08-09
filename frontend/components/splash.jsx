@@ -1,11 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Splash = ({ demoLogin }) => {
-  const demoUser = {
-    username: 'user',
-    password: 'testing'
-  };
+const Splash = ({ demoLogin, demoUser }) => {
   return (
     <main className="panes">
       <section className="pane1">

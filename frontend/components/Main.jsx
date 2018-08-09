@@ -10,6 +10,10 @@ class Main extends React.Component {
 
   render() {
     const { currentUser, logout, demoLogin } = this.props;
+    const demoUser = {
+      username: 'user',
+      password: 'testing'
+    };
     const display = currentUser ? (
       <div>
         <NavBar currentUser={currentUser} logout={logout}/>
@@ -32,8 +36,8 @@ class Main extends React.Component {
       </div>
     ) : (
       <div>
-        <NavBar currentUser={currentUser}/>
-        <Splash demoLogin={demoLogin}/>
+        <NavBar currentUser={currentUser} demoLogin={demoLogin} demoUser={demoUser}/>
+        <Splash demoLogin={demoLogin} demoUser={demoUser}/>
       </div>
     );
     return (

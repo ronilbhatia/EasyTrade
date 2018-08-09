@@ -34,7 +34,8 @@
 .nav-link {
   display: inline-block;
   width: 80px;
-  margin-left: 20px;
+  margin-right: 20px;
+  margin-left: 15px;
   color: #21ce99;
   font-size: 13px;
   font-family: "DIN Web", "Hiragino Sans GB", STXihei, 华文细黑, "Microsoft YaHei", 微软雅黑, sans-serif;
@@ -43,6 +44,10 @@
   border-color: rgba(0, 0, 0, 1);
   border: none;
   cursor: pointer;
+}
+
+.nav-link:last-child {
+  margin: 0;
 }
 
 .panes h1 {

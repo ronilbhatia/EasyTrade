@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import NavBar from './nav_bar';
+import NavBar from '../nav_bar/nav_bar';
 import Splash from './splash';
 
-class Main extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -48,4 +48,4 @@ class Main extends React.Component {
   }
 }
 
-export default Main;
+export default Home;

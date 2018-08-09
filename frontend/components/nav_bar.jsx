@@ -6,7 +6,7 @@ const NavBar = (props) => {
     <nav className="nav-bar">
       <img src={window.images.logo} />
       <section className="nav-links">
-        <button onClick={props.logout} className="nav-link">Log Out!</button>
+        <button onClick={props.logout} className="nav-link">Log Out</button>
       </section>
     </nav>
   ) : (

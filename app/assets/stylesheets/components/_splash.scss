@@ -1,0 +1,49 @@
+.panes h1 {
+  font-size: 52px;
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.pane1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 70px 52px;
+}
+
+.pane1-text {
+  margin-top: 145px;
+  margin-left: 50px;
+}
+
+.pane1-img {
+  height: 675px;
+}
+
+.pane1 header {
+  margin-bottom: 25px;
+}
+
+.pane1 div {
+  padding-bottom: 25px;
+}
+
+.pane1 p {
+  font-size: 18px;
+  font-family: sans-serif;
+  margin: 5px 0;
+  font-weight: lighter;
+}
+
+.signup-button {
+  cursor: pointer;
+  color: white;
+  background: #21ce99;
+  margin: 0;
+  padding: 14px 21px;
+  font-weight: normal;
+  font-size: 16px;
+  font-family: sans-serif;
+  border-radius: 4px;
+}

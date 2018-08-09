@@ -1,0 +1,35 @@
+.nav-bar {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 45px 8px 55px;
+}
+
+.nav-bar img {
+  height: 45px;
+  width: 45px;
+}
+
+.nav-link {
+  display: inline-block;
+  width: 80px;
+  margin-right: 20px;
+  margin-left: 15px;
+  color: #21ce99;
+  font-size: 13px;
+  font-family: "DIN Web", "Hiragino Sans GB", STXihei, 华文细黑, "Microsoft YaHei", 微软雅黑, sans-serif;
+  font-weight: bold;
+  background-color: white;
+  border-color: rgba(0, 0, 0, 1);
+  border: none;
+  cursor: pointer;
+}
+
+.nav-link:last-child {
+  margin: 0;
+}

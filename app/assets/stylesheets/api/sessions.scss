@@ -13,7 +13,10 @@
 
 .sessionform-image {
   width: 50%;
-  height: 660px;
+  position:fixed;
+  top:0;
+  bottom:0;
+  left:0;
   background-image: url("https://d2ue93q3u507c2.cloudfront.net/assets/generated_assets/94977d34f99015525dcd0fc9987fcbe6.png");
   background-position: 50%;
   background-size: cover;
@@ -23,7 +26,10 @@
 
 .sessionform-text {
   width: 50%;
-  height: 660px;
+  position:fixed;
+  top:0;
+  bottom:0;
+  right:0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -71,11 +77,15 @@
   padding: 10px 20px;
   font-size: 13px;
   background: #fafafa;
-
 }
 
 .sessionform input:hover {
   border: 1px solid lightgray;
+}
+
+.sessionform input:focus {
+  border: 1px solid #21ce99;
+  outline: none;
 }
 
 .sessionform .signup-button {

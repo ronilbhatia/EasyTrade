@@ -23,9 +23,9 @@
 | `name`        | string    | not null                       |
 | `ticker`      | string    | not null, indexed, unique      |
 | `max_shares`  | integer   | not null                       |
+| `exchange_id` | integer   | not null, indexed, foreign_key |
 | `ceo`         | string    |                                |
 | `hq_location` | string    |                                |
-| `exchange_id` | integer   | not null, indexed, foreign_key |
 | `created_at`  | datetime  | not null                       |
 | `updated_at`  | datetime  | not null                       |
 

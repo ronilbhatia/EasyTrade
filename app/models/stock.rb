@@ -14,6 +14,6 @@
 #
 
 class Stock < ApplicationRecord
-  validates :name, :ticker, :max_shares, :exchange_id, presence: true
+  validates :name, :ticker, :exchange_id, presence: true
   validates :ticker, uniqueness: true
 end

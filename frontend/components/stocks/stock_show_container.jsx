@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
-import StockShow from './post_show';
-import { fetchPost } from '../../actions/post_actions';
+import StockShow from './stock_show';
+import { fetchStock } from '../../actions/stock_actions';
 
 const mapStateToProps = (state, ownProps) => ({
-  stock: state.stocks[ownProps.match.params.stockId]
+  stock: state.entities.stocks[ownProps.match.params.ticker]
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchPost: id => dispatch(fetchPost(id))
+  fetchStock: ticker => dispatch(fetchStock(ticker))
 });
 
-export default connect (mapStateToProps, mapDispatchToProps)(StockShow);
+export default connect(mapStateToProps, mapDispatchToProps)(StockShow);

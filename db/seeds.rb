@@ -1,29 +1,10 @@
-# This file should contain all the record creation needed to seed the database with its default values.
+f# This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
 # Examples:
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-# stocks = [
-#   {
-#     name: 'Starbucks',
-#     ticker: 'SBUX',
-#     max_shares: 1380000000,
-#     exchange_id: 1,
-#     ceo: 'Kevin Johnson',
-#     hq_location: 'Seattle, Washington'
-#   },
-#   {
-#     name: 'Microsoft',
-#     ticker: 'MSFT',
-#     max_shares: 7683198000,
-#     exchange_id: 1,
-#     ceo: 'Satya Nadella',
-#     hq_location: 'Redmond, Washington'
-#   }
-# ]
 
 # nasdaq_stock_string = "AABA|Altaba Inc. - Common Stock|Q|N|N|100|N|N
 # AAL|American Airlines Group, Inc. - Common Stock|Q|N|N|100|N|N

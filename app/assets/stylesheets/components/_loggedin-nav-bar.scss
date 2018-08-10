@@ -1,0 +1,35 @@
+.loggedin-nav-bar {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px 20px 48px;
+}
+
+.loggedin-nav-bar img {
+  height: 45px;
+  width: 45px;
+}
+
+.loggedin-nav-link {
+  display: inline-block;
+  padding-top: 5px;
+  margin-right: 30px;
+  margin-left: 30px;
+  color: black;
+  font-size: 12.5px;
+  font-family: DIN Pro,-apple-system,BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  background-color: white;
+  border-color: rgba(0, 0, 0, 1);
+  border: none;
+  cursor: pointer;
+}
+
+.loggedin-nav-link:last-child {
+  margin: 0;
+}

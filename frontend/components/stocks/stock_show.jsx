@@ -1,4 +1,6 @@
 import React from 'react';
+import NavBar from '../nav_bar/nav_bar';
+import PortfolioChart from '../charts/portfolio_chart';
 
 class StockShow extends React.Component {
   constructor(props) {
@@ -11,14 +13,18 @@ class StockShow extends React.Component {
   }
 
   render() {
-    const { stock } = this.props;
+    const { stock, currentUser, logout } = this.props;
     return (
       <div>
-      {stock ? (
-        <h1>{this.props.stock.ticker}</h1>
-      ) : (
-        <h1>STOCK SHOW</h1>
-      )}
+        <NavBar currentUser={currentUser} logout={logout}/>
+        <main className="stock-show">
+          {stock ? (
+            <h1>{this.props.stock.ticker}</h1>
+          ) : (
+            <h1>STOCK SHOW</h1>
+          )}
+          <PortfolioChart currentUser={currentUser} balance={parseFloat(5400.00)}/>
+        </main>
       </div>
     );
   }

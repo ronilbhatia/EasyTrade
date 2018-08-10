@@ -3411,7 +3411,8 @@ stocks.each do |stock|
   Stock.create(stock)
 end
 
-nyse_stocks = File.readlines("../companylist.csv")[1..-1]
+nyse_stocks = File.readlines("companylist.csv")[1..-1]
+
 nyse_stocks.map! do |stock|
   stock.split(",")
 end

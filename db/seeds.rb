@@ -5,6 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+stocks.destroy_all
+exchanges.destroy_all
 
 nasdaq_stock_string = "AABA|Altaba Inc. - Common Stock|Q|N|N|100|N|N
 AAL|American Airlines Group, Inc. - Common Stock|Q|N|N|100|N|N
@@ -3404,13 +3406,11 @@ end
 stocks = build_stock_objects(nasdaq_stock_string)
 
 exchanges = Exchange.create([{ name: 'NASDAQ'}, { name: 'NYSE' }])
-stocks.map! do |stock|
-  {
-    ticker: stock[0].delete("\""),
-    name: stock[1].delete("\""),
-    exchange_id: 1
-  }
+
+stocks.each do |stock|
+  Stock.create(stock)
 end
+
 nyse_stocks = File.readlines("../companylist.csv")[1..-1]
 nyse_stocks.map! do |stock|
   stock.split(",")

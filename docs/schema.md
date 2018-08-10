@@ -59,6 +59,19 @@
 * index on `[stock_id, user_id]`
 * index on `user_id`
 
+## `deposits`
+
+| column name   | data type | details                        |
+|---------------|-----------|--------------------------------|
+| `id`          | integer   | not null, primary key          |
+| `user_id`     | integer   | not null, indexed, foreign_key |
+| `amount`      | float     | not null                       |
+| `created_at`  | string    | not null                       |
+| `updated_at`  | string    | not null                       |
+
+* `user_id` references `users`
+* index on `user_id`
+
 ## `stockWatches` (stocks on people's watchlists)
 
 | column name   | data type | details                        |

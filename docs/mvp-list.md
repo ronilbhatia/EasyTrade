@@ -7,18 +7,18 @@ EasyTrade, a Robinhood clone, is an investing application that allows users to p
   * Users can sign up, sign in, and log out
   * Users can use a demo login to try the site
   * Users can't use certain features without logging in (buying/selling stocks)
-### 3. Dashboard + Portfolio (8/9/2018, 2 days)
-  * Users have a private dashboard of stocks owned and on their watchlist
-  * Users have a chart for their overall portfolio showing their balance fluctuation over time
-  * Adequate styling
-  * Smooth, bug-free navigation
-  * Adequate and appropriate seeds to demonstrate the feature
-### 4. Asset/Stock Detail (8/11/2018, 2 days)
+### 3. Asset/Stock Detail (8/9/2018, 2 days)
   * Stocks have a chart showing their price fluctuation over time
   * Stocks have news feed below price chart showing articles relevant to the Company itself or the industry it operates in
   * Data reflects the real-time value of stocks
   * Adequate styling
   * Smooth, bug-free navigation
+### 4. Dashboard + Portfolio (8/11/2018, 2 days)
+  * Users have a private dashboard of stocks owned and on their watchlist
+  * Users have a chart for their overall portfolio showing their balance fluctuation over time
+  * Adequate styling
+  * Smooth, bug-free navigation
+  * Adequate and appropriate seeds to demonstrate the feature
 ### 5. Ownerships/Watchlist (8/13/2018, 2 days) - CRUD
   * Logged in users can purchase/sell stocks and add stocks they are interested in to their watchlist
   * Adequate styling

@@ -19,8 +19,8 @@ class Home extends React.Component {
       <div>
         <NavBar currentUser={currentUser} logout={logout}/>
         <main className="user-home">
-          <PortfolioChart currentUser={currentUser}/>
-          <aside>
+          <PortfolioChart currentUser={currentUser} balance={parseFloat(5400.00)}/>
+          <aside className="stock-dashboard">
             PLACEHOLDER TEXT
           </aside>
         </main>

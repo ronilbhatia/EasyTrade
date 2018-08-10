@@ -49,20 +49,14 @@ class PortfolioChart extends React.Component {
             },
             responsive: true,
             maintainAspectRatio: false,
-            annotation: {
-              annotations: [
-                  {
-                      type: 'line',
-                      mode: 'horizontal',
-                      scaleID: 'y-axis-0',
-                      value: 25,
-                      draggable: true,
-                      onDrag: function(event) {
-                          console.log(event.subject.config.value);
-                      }
-                  }
-              ]
-          }
+            tooltips: {
+              mode: "index",
+              intersect: "false"
+            },
+            hover: {
+              mode: "nearest",
+              intersect: true
+            }
           }}
         />
       </div>

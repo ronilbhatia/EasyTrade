@@ -5,8 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-stocks.destroy_all
-exchanges.destroy_all
+Stock.destroy_all
+Exchange.destroy_all
 
 nasdaq_stock_string = "AABA|Altaba Inc. - Common Stock|Q|N|N|100|N|N
 AAL|American Airlines Group, Inc. - Common Stock|Q|N|N|100|N|N

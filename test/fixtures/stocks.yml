@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  ticker: MyString
+  ticker: MyString
+  max_shares: 1
+  ceo: MyString
+  hq_location: MyString
+  exchange_id: 1
+
+two:
+  name: MyString
+  ticker: MyString
+  ticker: MyString
+  max_shares: 1
+  ceo: MyString
+  hq_location: MyString
+  exchange_id: 1

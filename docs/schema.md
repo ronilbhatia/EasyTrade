@@ -8,8 +8,8 @@
 | `email`           | string    | not null, indexed, unique |
 | `password_digest` | string    | not null                  |
 | `session_token`   | string    | not null, indexed, unique |
-| `created_at`      | string    | not null                  |
-| `updated_at`      | string    | not null                  |
+| `created_at`      | datetime  | not null                  |
+| `updated_at`      | datetime  | not null                  |
 
 * index on `username, unique: true`
 * index on `email, unique: true`
@@ -25,9 +25,9 @@
 | `max_shares`  | integer   | not null                       |
 | `ceo`         | string    |                                |
 | `hq_location` | string    |                                |
-| `exchange_id` | string    | not null, indexed, foreign_key |
-| `created_at`  | string    | not null                       |
-| `updated_at`  | string    | not null                       |
+| `exchange_id` | integer   | not null, indexed, foreign_key |
+| `created_at`  | datetime  | not null                       |
+| `updated_at`  | datetime  | not null                       |
 
 * `exchange_id` references `exchanges`
 * index on `exchange_id`
@@ -39,8 +39,8 @@
 |---------------|-----------|--------------------------------|
 | `id`          | integer   | not null, primary key          |
 | `name`        | string    | not null                       |
-| `created_at`  | string    | not null                       |
-| `updated_at`  | string    | not null                       |
+| `created_at`  | datetime  | not null                       |
+| `updated_at`  | datetime  | not null                       |
 
 ## `transactions`
 
@@ -51,8 +51,8 @@
 | `stock_id`    | integer   | not null, indexed, foreign_key |
 | `price`       | float     | not null                       |
 | `num_shares`  | integer   | not null                       |
-| `created_at`  | string    | not null                       |
-| `updated_at`  | string    | not null                       |
+| `created_at`  | datetime  | not null                       |
+| `updated_at`  | datetime  | not null                       |
 
 * `user_id` references `users`
 * `stock_id` references `stocks`
@@ -66,8 +66,8 @@
 | `id`          | integer   | not null, primary key          |
 | `user_id`     | integer   | not null, indexed, foreign_key |
 | `amount`      | float     | not null                       |
-| `created_at`  | string    | not null                       |
-| `updated_at`  | string    | not null                       |
+| `created_at`  | datetime  | not null                       |
+| `updated_at`  | datetime  | not null                       |
 
 * `user_id` references `users`
 * index on `user_id`
@@ -79,8 +79,8 @@
 | `id`          | integer   | not null, primary key          |
 | `user_id`     | integer   | not null, indexed, foreign key |
 | `stock_id`    | integer   | not null, indexed, foreign key |
-| `created_at`  | string    | not null                       |
-| `updated_at`  | string    | not null                       |
+| `created_at`  | datetime  | not null                       |
+| `updated_at`  | datetime  | not null                       |
 
 * `user_id` references `users`
 * `stock_id` references `stocks`
@@ -94,8 +94,8 @@
 | `id`          | integer   | not null, primary key          |
 | `follower_id` | integer   | not null, indexed, foreign key |
 | `followee_id` | integer   | not null, indexed, foreign key |
-| `created_at`  | string    | not null                       |
-| `updated_at`  | string    | not null                       |
+| `created_at`  | datetime  | not null                       |
+| `updated_at`  | datetime  | not null                       |
 
 * `follower_id` and `followee_id` reference `users`
 * index on `[follower_id, followee_id], unique: true`
@@ -107,8 +107,8 @@
 |---------------|-----------|-----------------------|
 | `id`          | integer   | not null, primary key |
 | `name`        | string    | not null, unique      |
-| `created_at`  | string    | not null              |
-| `updated_at`  | string    | not null              |
+| `created_at`  | datetime  | not null              |
+| `updated_at`  | datetime  | not null              |
 
 ## `collectionItems`
 
@@ -117,8 +117,8 @@
 | `id`            | integer   | not null, primary key          |
 | `stock_id`      | integer   | not null, indexed, foreign key |
 | `collection_id` | integer   | not null, indexed, foreign key |
-| `created_at`    | string    | not null                       |
-| `updated_at`    | string    | not null                       |
+| `created_at`    | datetime  | not null                       |
+| `updated_at`    | datetime  | not null                       |
 
 * `stock_id` references `stocks`
 * `collection_id` references `collections`

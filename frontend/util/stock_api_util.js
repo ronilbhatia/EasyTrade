@@ -11,6 +11,18 @@ export const fetchStockDailyData = ticker => (
   })
 );
 
+export const fetchStockIntradayData = ticker => (
+  $.ajax({
+    url: `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&outputsize=full&apikey=8HKZIEMV1YT01X2A&interval=5min`
+  })
+);
+
+export const fetchStockHistoricalData = ticker => (
+  $.ajax({
+    url: `https://api.intrinio.com/historical_data?identifier=${ticker}&start_date=2013-08-10&item=adj_close_price&page_size=2500&sort_order=asc`
+  })
+);
+
 export const fetchStockInfo = ticker => {
   var https = require("https");
   var username = "0cb46201c7bd30b4ff564cf83515645a";
@@ -22,7 +34,7 @@ export const fetchStockInfo = ticker => {
     headers: {
       "Authorization": auth
     }
-  })
+  });
 };
 // export { request };
 

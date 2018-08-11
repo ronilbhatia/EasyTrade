@@ -19,10 +19,6 @@ class StockShow extends React.Component {
     }
   }
 
-  refreshStock(res) {
-    this.setState({ stock: res.data.user });
-  }
-
   render() {
     const { currentUser, logout, fetchStockInfo } = this.props;
     let stock;

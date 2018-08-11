@@ -20,7 +20,7 @@ class StockAbout extends React.Component {
     let shortDescription = this.state.stock.short_description;
     shortDescription = shortDescription.split(".").slice(0, 3).join(".");
     return (
-      <p>
+      <p className="stock-short-description">
         {shortDescription}.
       </p>
     );
@@ -34,8 +34,44 @@ class StockAbout extends React.Component {
         <h2>About</h2>
         {
           stock ? (
-            <div className="stock-short-description">
+            <div>
               {this.renderShortDescription()}
+              <ul className="stock-facts">
+                <li>
+                  <h3>CEO</h3>
+                  <h4>{this.state.stock.ceo}</h4>
+                </li>
+                <li>
+                  <h3>Employees</h3>
+                  <h4>{this.state.stock.employees}</h4>
+                </li>
+                <li>
+                  <h3>Headquarters</h3>
+                  <h4>{this.state.stock.hq_address_city}, {this.state.stock.hq_state}</h4>
+                </li>
+                <li>
+                  <h3>Founded</h3>
+                  <h4>1976</h4>
+                </li>
+              </ul>
+              <ul className="stock-facts">
+                <li>
+                  <h3>Market Cap</h3>
+                  <h4>1976</h4>
+                </li>
+                <li>
+                  <h3>Price-Earnings Ratio</h3>
+                  <h4>1976</h4>
+                </li>
+                <li>
+                  <h3>Dividend Yield</h3>
+                  <h4>1976</h4>
+                </li>
+                <li>
+                  <h3>Average Volume</h3>
+                  <h4>1976</h4>
+                </li>
+              </ul>
             </div>
           ) : (
             <p>

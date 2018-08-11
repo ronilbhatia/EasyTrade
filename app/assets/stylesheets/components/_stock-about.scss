@@ -7,3 +7,29 @@
   font-size: 24px;
   font-weight: 700;
 }
+
+.stock-short-description {
+  margin: 42px 5px;
+  padding-right: 260px;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.stock-facts {
+  display: flex;
+  margin: 5px;
+  margin-bottom: 15px;
+  li {
+    width: 173px;
+    h3 {
+      font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
+      font-weight: 500;
+    }
+    h4 {
+      font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
+      font-weight: 400;
+      font-size: 13px;
+    }
+  }
+}

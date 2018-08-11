@@ -4,6 +4,7 @@ import LoginFormContainer from './session/login_form_container';
 import HomeContainer from './Home/Home_container';
 import StockIndex from './stocks/stock_index';
 import StockShowContainer from './stocks/stock_show_container';
+import StockRechart from './charts/stock_rechart';
 import { Route, Redirect, Switch, Link } from 'react-router-dom';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 
@@ -15,6 +16,7 @@ const App = () => (
       <ProtectedRoute exact path="/stocks" component={StockIndex}/>
       <ProtectedRoute exact path="/stocks/:ticker" component={StockShowContainer}/>
       <Route exact path='/' component={HomeContainer} />
+      <Route path='/chart' component={StockRechart} />
       <Redirect to="/" />
     </Switch>
   </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import NavBar from '../nav_bar/nav_bar';
 import StockChart from '../charts/stock_chart';
+import StockAbout from '../stocks/stock_about';
 
 class StockShow extends React.Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class StockShow extends React.Component {
 
   componentDidMount() {
     this.props.fetchStock(this.props.match.params.ticker);
+    this.props.fetchStockInfo(this.props.match.params.ticker);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -27,13 +29,14 @@ class StockShow extends React.Component {
             <section className="stock-show">
               <main>
                 <StockChart stock={stock} currentUser={currentUser} balance={parseFloat(5400.00)}/>
+                <StockAbout stock={stock} />
               </main>
               <aside className="stock-dashboard">
                 PLACEHOLDER TEXT
               </aside>
             </section>
           ) : (
-            <h1>STOCK SHOW</h1>
+            <h1>LOADING</h1>
           )}
       </div>
     );

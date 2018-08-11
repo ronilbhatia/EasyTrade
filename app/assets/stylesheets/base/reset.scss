@@ -6,6 +6,7 @@ menu, ul, ol {
   padding: 0;
   border: 0;
   background: transparent;
+  font-family: inherit;
 }
 
 a {
@@ -14,4 +15,8 @@ a {
 
 li {
   list-style: none;
+}
+
+body {
+  font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif
 }

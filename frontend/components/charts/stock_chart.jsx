@@ -33,33 +33,45 @@ class StockChart extends React.Component {
     return (
       <div className="chart">
         <h1>{this.props.stock.name}</h1>
-        <h3>${this.props.balance.toString()}</h3>
-        <Line
-          data={this.state.chartData}
-          options={{
-            legend: {
-              display: false,
-            },
-            scales: {
-              xAxes: [{
-                display: false
-              }],
-              yAxes: [{
-                display: false
-              }]
-            },
-            responsive: true,
-            maintainAspectRatio: false,
-            tooltips: {
-              mode: "index",
-              intersect: "false"
-            },
-            hover: {
-              mode: "nearest",
-              intersect: true
-            }
-          }}
-        />
+        <h2>${this.props.balance.toString()}</h2>
+        <h3>+$121.78 ({Math.round(1217800/5400)/100}%)</h3>
+        <h3>+$121.78 ({Math.round(1217800/5400)/100}%)</h3>
+        <div className="stock-chart">
+          <Line
+            data={this.state.chartData}
+            options={{
+              legend: {
+                display: false,
+              },
+              scales: {
+                xAxes: [{
+                  display: false
+                }],
+                yAxes: [{
+                  display: false
+                }]
+              },
+              responsive: true,
+              maintainAspectRatio: false,
+              tooltips: {
+                mode: "index",
+                intersect: "false"
+              },
+              hover: {
+                mode: "nearest",
+                intersect: true
+              }
+            }}
+          />
+        <ul class="chart-range">
+            <li>1D</li>
+            <li>1W</li>
+            <li>1M</li>
+            <li>3M</li>
+            <li>1Y</li>
+            <li>5Y</li>
+          </ul>
+        </div>
       </div>
     );
   }

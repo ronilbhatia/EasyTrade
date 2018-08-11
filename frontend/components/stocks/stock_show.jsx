@@ -6,12 +6,11 @@ import StockAbout from '../stocks/stock_about';
 class StockShow extends React.Component {
   constructor(props) {
     super(props);
-    this.props = props;
   }
 
   componentDidMount() {
-    this.props.fetchStock(this.props.match.params.ticker);
-    this.props.fetchStockInfo(this.props.match.params.ticker);
+    this.props.fetchStock(this.props.match.params.ticker)
+      .then(res => this.setState({ stock: res.stock }));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -20,8 +19,15 @@ class StockShow extends React.Component {
     }
   }
 
+  refreshStock(res) {
+    this.setState({ stock: res.data.user });
+  }
+
   render() {
-    const { stock, currentUser, logout } = this.props;
+    const { currentUser, logout, fetchStockInfo } = this.props;
+    let stock;
+    if (this.state) { stock = this.state.stock;}
+    console.log(this.state);
     return (
       <div>
         <NavBar currentUser={currentUser} logout={logout}/>
@@ -29,7 +35,7 @@ class StockShow extends React.Component {
             <section className="stock-show">
               <main>
                 <StockChart stock={stock} currentUser={currentUser} balance={parseFloat(5400.00)}/>
-                <StockAbout stock={stock} />
+                <StockAbout stock={stock} fetchStockInfo={fetchStockInfo}/>
               </main>
               <aside className="stock-dashboard">
                 PLACEHOLDER TEXT

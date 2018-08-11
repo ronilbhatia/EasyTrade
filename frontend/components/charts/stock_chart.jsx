@@ -63,7 +63,7 @@ class StockChart extends React.Component {
               }
             }}
           />
-        <ul class="chart-range">
+        <ul className="chart-range">
             <li>1D</li>
             <li>1W</li>
             <li>1M</li>

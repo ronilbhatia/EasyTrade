@@ -2,9 +2,6 @@ import React from 'react';
 import { LineChart, Line, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
 
 class StockRechart extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     const data = [

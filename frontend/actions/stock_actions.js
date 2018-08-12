@@ -9,13 +9,15 @@ const receiveStock = stock => ({
   stock
 });
 
-const receiveStockInfo = stockInfo => ({
+const receiveStockInfo = (ticker, stockInfo) => ({
   type: RECEIVE_STOCK_INFO,
+  ticker,
   stockInfo
 });
 
-const receiveStockIntradayData = data => ({
+const receiveStockIntradayData = (ticker, data) => ({
   type: RECEIVE_STOCK_INTRADAY_DATA,
+  ticker,
   data
 });
 
@@ -26,10 +28,10 @@ export const fetchStock = ticker => dispatch => (
 
 export const fetchStockInfo = ticker => dispatch => (
   StockApiUtil.fetchStockInfo(ticker)
-    .then(stockInfo => dispatch(receiveStockInfo(stockInfo)))
+    .then(stockInfo => dispatch(receiveStockInfo(ticker, stockInfo)))
 );
 
 export const fetchStockIntradayData = ticker => dispatch => (
 StockApiUtil.fetchStockIntradayData(ticker)
-  .then(data => dispatch(receiveStockIntradayData(data['Time Series (5min)'])))
+  .then(data => dispatch(receiveStockIntradayData(ticker, data['Time Series (5min)'])))
 );

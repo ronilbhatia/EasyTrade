@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import StockRechart from './stock_rechart';
 import fetchStockIntradayData from '../../actions/stock_actions';
+import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -12,4 +13,4 @@ const mapDispatchToProps = dispatch => ({
   fetchStockIntradayData: ticker => dispatch(fetchStockIntradayData(ticker)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(StockRechart);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StockRechart));

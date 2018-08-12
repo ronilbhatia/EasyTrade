@@ -4,26 +4,29 @@ import StockChart from '../charts/stock_chart';
 import StockAbout from '../stocks/stock_about';
 
 class StockShow extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
-    this.props.fetchStock(this.props.match.params.ticker)
-      .then(res => this.setState({ stock: res.stock }));
+    const ticker = this.props.match.params.ticker;
+    Promise.all([
+      this.props.fetchStock(ticker),
+      this.props.fetchStockInfo(ticker),
+      this.props.fetchStockIntradayData(ticker)
+    ]);
+
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.match.params.ticker !== this.props.match.params.ticker) {
-      this.props.fetchStock(nextProps.match.params.ticker);
+      const ticker = nextProps.match.params.ticker;
+      Promise.all([
+        this.props.fetchStock(ticker),
+        this.props.fetchStockInfo(ticker),
+        this.props.fetchStockIntradayData(ticker)
+      ]);
     }
   }
 
   render() {
-    const { currentUser, logout, fetchStockInfo } = this.props;
-    let stock;
-    if (this.state) { stock = this.state.stock;}
-    console.log(this.state);
+    const { stock, currentUser, logout, fetchStockInfo } = this.props;
     return (
       <div>
         <NavBar currentUser={currentUser} logout={logout}/>

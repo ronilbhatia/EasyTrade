@@ -38,7 +38,7 @@ class StockChart extends React.Component {
         <h3>+$121.78 ({Math.round(1217800/5400)/100}%)</h3>
         <h3>+$121.78 ({Math.round(1217800/5400)/100}%)</h3>
         <div className="stock-chart">
-        <StockRechart stock={this.props.stock}/>
+        <StockRechart />
         <ul className="chart-range">
             <li>1D</li>
             <li>1W</li>

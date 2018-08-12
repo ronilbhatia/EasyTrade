@@ -29,7 +29,7 @@ class SessionForm extends React.Component {
   }
 
   render() {
-    let { errors } = this.props;
+    let { errors, demoLogin } = this.props;
     let path, linkTxt, buttonTxt, emailField;
     if (this.props.formType === 'signup') {
       path = '/login';
@@ -72,7 +72,10 @@ class SessionForm extends React.Component {
                 errors.map((error, idx) => <li key={idx}><img src={window.images.exclamation_circle} />{error}</li>)
               }
             </ul>
-            <input className="signup-button" type="submit" value={buttonTxt} />
+            <div className="session-buttons">
+              <input className="signup-button" type="submit" value={buttonTxt} />
+              <button className="signup-button demo" onClick={() => demoLogin({username: 'user', password: 'testing'})}>Demo</button>
+            </div>
           </form>
         </div>
       </div>

@@ -93,3 +93,15 @@
   width: auto;
   background: #21ce99;
 }
+
+.sessionform .session-buttons {
+  display: flex;
+  width: 412px;
+  justify-content: space-between;
+}
+.signup-button.demo {
+  width: 142px;
+  height: 50px;
+  margin-bottom: 10px;
+  // margin-left: 50px;
+}

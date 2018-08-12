@@ -210,7 +210,7 @@ class StockRechart extends React.Component {
     let max = Math.max(...prices);
     let min = Math.min(...prices);
     let currPrice = this.state.initialData.currPrice;
-    let openPrice = dailyData[times[0]]['1. open'];
+    let openPrice = dailyData[times.reverse()[0]]['1. open'];
     openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
     let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
     if (priceFlux < 0) {

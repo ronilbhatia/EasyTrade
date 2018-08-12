@@ -9,7 +9,8 @@ class StockShow extends React.Component {
     Promise.all([
       this.props.fetchStock(ticker),
       this.props.fetchStockInfo(ticker),
-      this.props.fetchStockIntradayData(ticker)
+      this.props.fetchStockIntradayData(ticker),
+      this.props.fetchStockDailyData(ticker)
     ]);
 
   }
@@ -20,7 +21,8 @@ class StockShow extends React.Component {
       Promise.all([
         this.props.fetchStock(ticker),
         this.props.fetchStockInfo(ticker),
-        this.props.fetchStockIntradayData(ticker)
+        this.props.fetchStockIntradayData(ticker),
+        this.props.fetchStockDailyData(ticker)
       ]);
     }
   }
@@ -30,7 +32,7 @@ class StockShow extends React.Component {
     return (
       <div>
         <NavBar currentUser={currentUser} logout={logout}/>
-          {stock && stock.hasOwnProperty('intradayData') ? (
+          {stock && stock.hasOwnProperty('shortDescription') && stock.hasOwnProperty('intradayData') && stock.hasOwnProperty('dailyData') ? (
             <section className="stock-show">
               <main>
                 <StockChart stock={stock} />

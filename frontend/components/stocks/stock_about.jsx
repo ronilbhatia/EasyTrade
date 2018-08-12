@@ -32,7 +32,7 @@ class StockAbout extends React.Component {
                 </li>
                 <li>
                   <h3>Headquarters</h3>
-                  <h4>{stock.hq_address_city}, {stock.hq_state}</h4>
+                  <h4>{stock.hqCity}, {stock.hqState}</h4>
                 </li>
                 <li>
                   <h3>Founded</h3>

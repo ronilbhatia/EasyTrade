@@ -12,6 +12,9 @@ class StockRechart extends React.Component {
     this.render1DChart = this.render1DChart.bind(this);
     this.render1WChart = this.render1WChart.bind(this);
     this.render1MChart = this.render1MChart.bind(this);
+    this.render3MChart = this.render3MChart.bind(this);
+    this.render1YChart = this.render1YChart.bind(this);
+    this.render5YChart = this.render5YChart.bind(this);
   }
 
   render1DChart() {
@@ -69,7 +72,6 @@ class StockRechart extends React.Component {
   render1MChart() {
     let { dailyData } = this.state.initialData;
     let data = [];
-    debugger
     let times = Object.keys(dailyData);
     times = times.slice(0, 22).reverse();
     for(let i = 0; i < times.length; i++) {
@@ -87,16 +89,136 @@ class StockRechart extends React.Component {
     let currPrice = this.state.initialData.currPrice;
     let openPrice = dailyData[times[0]]['1. open'];
     openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
-    console.log(openPrice);
     let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
-    console.log(priceFlux);
     if (priceFlux < 0) {
       priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
     } else {
       priceFlux = "+$" + priceFlux.toString().slice(0);
     }
     let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
-    console.log(priceFluxPercentage);
+    this.setState({
+      currData: {
+        data,
+        currPrice,
+        priceFlux,
+        priceFluxPercentage,
+        min,
+        max,
+        dailyData
+      }
+    });
+  }
+
+  render3MChart() {
+    let { dailyData } = this.state.initialData;
+    let data = [];
+    let times = Object.keys(dailyData);
+    times = times.slice(0, 66).reverse();
+    for(let i = 0; i < times.length; i++) {
+      data.push({
+        time: times[i],
+        price: dailyData[times[i]]['4. close']
+      });
+    }
+    const prices = [];
+    for (let i = 0; i < data.length; i++) {
+      prices.push(parseFloat(data[i].price));
+    }
+    let max = Math.max(...prices);
+    let min = Math.min(...prices);
+    let currPrice = this.state.initialData.currPrice;
+    let openPrice = dailyData[times[0]]['1. open'];
+    openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
+    let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
+    if (priceFlux < 0) {
+      priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
+    } else {
+      priceFlux = "+$" + priceFlux.toString().slice(0);
+    }
+    let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
+    this.setState({
+      currData: {
+        data,
+        currPrice,
+        priceFlux,
+        priceFluxPercentage,
+        min,
+        max,
+        dailyData
+      }
+    });
+  }
+
+  render1YChart() {
+    let { dailyData } = this.state.initialData;
+    let data = [];
+    let times = Object.keys(dailyData);
+    times = times.slice(0, 251).reverse();
+    console.log(times);
+    for(let i = 0; i < times.length; i++) {
+      data.push({
+        time: times[i],
+        price: dailyData[times[i]]['4. close']
+      });
+    }
+    const prices = [];
+    for (let i = 0; i < data.length; i++) {
+      prices.push(parseFloat(data[i].price));
+    }
+    let max = Math.max(...prices);
+    let min = Math.min(...prices);
+    let currPrice = this.state.initialData.currPrice;
+    let openPrice = dailyData[times[0]]['1. open'];
+    openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
+    let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
+    if (priceFlux < 0) {
+      priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
+    } else {
+      priceFlux = "+$" + priceFlux.toString().slice(0);
+    }
+    let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
+    this.setState({
+      currData: {
+        data,
+        currPrice,
+        priceFlux,
+        priceFluxPercentage,
+        min,
+        max,
+        dailyData
+      }
+    });
+  }
+
+  render5YChart() {
+    let { dailyData } = this.state.initialData;
+    let data = [];
+    let times = Object.keys(dailyData);
+    times = times.slice(0, 1260);
+    for(let i = 0; i < times.length; i+=5) {
+      console.log(times[i]);
+      data.push({
+        time: times[i],
+        price: dailyData[times[i]]['4. close']
+      });
+    }
+    data = data.reverse();
+    const prices = [];
+    for (let i = 0; i < data.length; i++) {
+      prices.push(parseFloat(data[i].price));
+    }
+    let max = Math.max(...prices);
+    let min = Math.min(...prices);
+    let currPrice = this.state.initialData.currPrice;
+    let openPrice = dailyData[times[0]]['1. open'];
+    openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
+    let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
+    if (priceFlux < 0) {
+      priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
+    } else {
+      priceFlux = "+$" + priceFlux.toString().slice(0);
+    }
+    let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
     this.setState({
       currData: {
         data,
@@ -131,9 +253,9 @@ class StockRechart extends React.Component {
             <li><a className='chart-choice' onClick={this.render1DChart}>1D</a></li>
             <li><a className='chart-choice' onClick={this.render1WChart}>1W</a></li>
             <li><a className='chart-choice' onClick={this.render1MChart}>1M</a></li>
-            <li><a className='chart-choice'>3M</a></li>
-            <li><a className='chart-choice'>1Y</a></li>
-            <li><a className='chart-choice'>5Y</a></li>
+            <li><a className='chart-choice' onClick={this.render3MChart}>3M</a></li>
+            <li><a className='chart-choice' onClick={this.render1YChart}>1Y</a></li>
+            <li><a className='chart-choice' onClick={this.render5YChart}>5Y</a></li>
           </ul>
         </div>
       </div>

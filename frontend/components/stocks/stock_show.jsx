@@ -33,7 +33,7 @@ class StockShow extends React.Component {
           {stock ? (
             <section className="stock-show">
               <main>
-                <StockChart stock={stock} currentUser={currentUser} balance={parseFloat(5400.00)}/>
+                <StockChart stock={stock} balance={parseFloat(5400.00)}/>
                 <StockAbout stock={stock} fetchStockInfo={fetchStockInfo}/>
               </main>
               <aside className="stock-dashboard">

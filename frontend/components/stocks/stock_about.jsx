@@ -18,7 +18,7 @@ class StockAbout extends React.Component {
       <div className="stock-about">
         <h2>About</h2>
         {
-          (Object.keys(this.props.stock).length > 4) ? (
+          (Object.keys(stock).length > 4) ? (
             <div>
               {this.renderShortDescription()}
               <ul className="stock-facts">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
+import StockRechart from './stock_rechart';
 
 class StockChart extends React.Component {
   constructor(props) {
@@ -37,32 +38,7 @@ class StockChart extends React.Component {
         <h3>+$121.78 ({Math.round(1217800/5400)/100}%)</h3>
         <h3>+$121.78 ({Math.round(1217800/5400)/100}%)</h3>
         <div className="stock-chart">
-          <Line
-            data={this.state.chartData}
-            options={{
-              legend: {
-                display: false,
-              },
-              scales: {
-                xAxes: [{
-                  display: false
-                }],
-                yAxes: [{
-                  display: false
-                }]
-              },
-              responsive: true,
-              maintainAspectRatio: false,
-              tooltips: {
-                mode: "index",
-                intersect: "false"
-              },
-              hover: {
-                mode: "nearest",
-                intersect: true
-              }
-            }}
-          />
+        <StockRechart stock={this.props.stock}/>
         <ul className="chart-range">
             <li>1D</li>
             <li>1W</li>

@@ -1,6 +1,7 @@
 import {
   RECEIVE_STOCK,
-  RECEIVE_STOCK_INFO
+  RECEIVE_STOCK_INFO,
+  RECEIVE_STOCK_INTRADAY_DATA
 } from '../actions/stock_actions';
 import merge from 'lodash/merge';
 
@@ -17,6 +18,9 @@ const stocksReducer = (state = {}, action) => {
       nextState.employees = action.stockInfo.employees;
       nextState.hqCity = action.stockInfo.hq_address_city;
       nextState.hqState = action.stockInfo.hq_state;
+      return nextState;
+    case RECEIVE_STOCK_INTRADAY_DATA:
+      nextState.intradayData = action.data;
       return nextState;
     default:
       return state;

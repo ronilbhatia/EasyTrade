@@ -2,6 +2,10 @@ import React from 'react';
 import { LineChart, Line, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
 
 class StockRechart extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     const data = [
       { time: '9:00 AM ET', price: 5200 },
@@ -115,7 +119,7 @@ class StockRechart extends React.Component {
     ];
     return (
       <div className="rechart">
-        <LineChart width={730} height={250} data={data}
+        <LineChart width={710} height={195} data={data}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
           <YAxis
             hide={true}

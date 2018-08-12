@@ -64,6 +64,7 @@ class StockChart extends React.Component {
               data={data}
               min={min}
               max={max}
+              intradayData={intradayData}
             />
           ) : (
             <div>LOADING</div>

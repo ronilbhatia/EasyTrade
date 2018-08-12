@@ -1,7 +1,8 @@
 import {
   RECEIVE_STOCK,
   RECEIVE_STOCK_INFO,
-  RECEIVE_STOCK_INTRADAY_DATA
+  RECEIVE_STOCK_INTRADAY_DATA,
+  RECEIVE_STOCK_DAILY_DATA
 } from '../actions/stock_actions';
 import merge from 'lodash/merge';
 
@@ -21,6 +22,9 @@ const stocksReducer = (state = {}, action) => {
       return nextState;
     case RECEIVE_STOCK_INTRADAY_DATA:
       nextState[action.ticker].intradayData = action.data;
+      return nextState;
+    case RECEIVE_STOCK_DAILY_DATA:
+      nextState[action.ticker].dailyData = action.data;
       return nextState;
     default:
       return state;

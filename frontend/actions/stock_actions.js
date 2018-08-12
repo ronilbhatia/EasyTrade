@@ -3,6 +3,7 @@ import * as StockApiUtil from '../util/stock_api_util';
 export const RECEIVE_STOCK = 'RECEIVE_STOCK';
 export const RECEIVE_STOCK_INFO = 'RECEIVE_STOCK_INFO';
 export const RECEIVE_STOCK_INTRADAY_DATA = 'RECEIVE_STOCK_INTRADAY_DATA';
+export const RECEIVE_STOCK_DAILY_DATA = 'RECEIVE_STOCK_DAILY_DATA';
 
 const receiveStock = stock => ({
   type: RECEIVE_STOCK,
@@ -21,6 +22,12 @@ const receiveStockIntradayData = (ticker, data) => ({
   data
 });
 
+const receiveStockDailyData = (ticker, data) => ({
+  type: RECEIVE_STOCK_DAILY_DATA,
+  ticker,
+  data
+})
+
 export const fetchStock = ticker => dispatch => (
   StockApiUtil.fetchStock(ticker)
     .then(stock => dispatch(receiveStock(stock)))
@@ -32,6 +39,11 @@ export const fetchStockInfo = ticker => dispatch => (
 );
 
 export const fetchStockIntradayData = ticker => dispatch => (
-StockApiUtil.fetchStockIntradayData(ticker)
-  .then(data => dispatch(receiveStockIntradayData(ticker, data['Time Series (5min)'])))
+  StockApiUtil.fetchStockIntradayData(ticker)
+    .then(data => dispatch(receiveStockIntradayData(ticker, data['Time Series (5min)'])))
+);
+
+export const fetchStockDailyData = ticker => dispatch => (
+  StockApiUtil.fetchStockDailyData(ticker)
+    .then(data => dispatch(receiveStockDailyData(ticker, data['Time Series (Daily)'])))
 );

@@ -69,6 +69,10 @@ class StockRechart extends React.Component {
     });
   }
 
+  render1MChart() {
+    
+  }
+
   render() {
     let { currPrice, priceFlux, priceFluxPercentage, data, min, max } = this.state.currData;
     debugger

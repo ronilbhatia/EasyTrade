@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './components/Root';
 import configureStore from './store/store';
-import { fetchStockInfo, fetchStockIntradayData } from './actions/stock_actions';
+import { fetchStockInfo, fetchStockIntradayData, fetchStockDailyData } from './actions/stock_actions';
 // import { fetchStockInfo } from './util/stock_api_util';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.dispatch = store.dispatch;
   window.fetchStockInfo = fetchStockInfo;
   window.fetchStockIntradayData = fetchStockIntradayData;
+  window.fetchStockDailyData = fetchStockDailyData;
   // window.fetchStock = fetchStock;
   ReactDOM.render(<Root store={store}/>, root);
 });

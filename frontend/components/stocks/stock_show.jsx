@@ -30,11 +30,11 @@ class StockShow extends React.Component {
     return (
       <div>
         <NavBar currentUser={currentUser} logout={logout}/>
-          {stock ? (
+          {stock && stock.hasOwnProperty('intradayData') ? (
             <section className="stock-show">
               <main>
-                <StockChart stock={stock} balance={parseFloat(5400.00)}/>
-                <StockAbout stock={stock} fetchStockInfo={fetchStockInfo}/>
+                <StockChart stock={stock} />
+                <StockAbout stock={stock} />
               </main>
               <aside className="stock-dashboard">
                 PLACEHOLDER TEXT

@@ -17,6 +17,62 @@ class StockRechart extends React.Component {
     this.render5YChart = this.render5YChart.bind(this);
   }
 
+  calculateIntradayPriceData(data, times) {
+    let { intradayData } = this.state.initialData;
+    const prices = [];
+    for (let i = 0; i < data.length; i++) {
+      prices.push(parseFloat(data[i].price));
+    }
+    let max = Math.max(...prices);
+    let min = Math.min(...prices);
+    let currPrice = this.state.initialData.currPrice;
+    let openPrice = intradayData[times[0]]['1. open'];
+    openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
+    let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
+    if (priceFlux < 0) {
+      priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
+    } else {
+      priceFlux = "+$" + priceFlux.toString().slice(0);
+    }
+    let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
+    return {
+      max,
+      min,
+      currPrice,
+      openPrice,
+      priceFlux,
+      priceFluxPercentage
+    };
+  }
+
+  calculateDailyPriceData(data, times) {
+    let { dailyData } = this.state.initialData;
+    const prices = [];
+    for (let i = 0; i < data.length; i++) {
+      prices.push(parseFloat(data[i].price));
+    }
+    let max = Math.max(...prices);
+    let min = Math.min(...prices);
+    let currPrice = this.state.initialData.currPrice;
+    let openPrice = dailyData[times[0]]['1. open'];
+    openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
+    let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
+    if (priceFlux < 0) {
+      priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
+    } else {
+      priceFlux = "+$" + priceFlux.toString().slice(0);
+    }
+    let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
+    return {
+      max,
+      min,
+      currPrice,
+      openPrice,
+      priceFlux,
+      priceFluxPercentage
+    };
+  }
+
   render1DChart() {
     this.setState({ currData: this.state.initialData });
   }
@@ -40,22 +96,8 @@ class StockRechart extends React.Component {
         });
       }
     }
-    const prices = [];
-    for (let i = 0; i < data.length; i++) {
-      prices.push(parseFloat(data[i].price));
-    }
-    let max = Math.max(...prices);
-    let min = Math.min(...prices);
-    let currPrice = this.state.initialData.currPrice;
-    let openPrice = intradayData[times[0]]['1. open'];
-    openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
-    let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
-    if (priceFlux < 0) {
-      priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
-    } else {
-      priceFlux = "+$" + priceFlux.toString().slice(0);
-    }
-    let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
+    let { max, min, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateIntradayPriceData(data, times);
+
     this.setState({
       currData: {
         data,
@@ -69,6 +111,7 @@ class StockRechart extends React.Component {
     });
   }
 
+
   render1MChart() {
     let { dailyData } = this.state.initialData;
     let data = [];
@@ -80,22 +123,7 @@ class StockRechart extends React.Component {
         price: dailyData[times[i]]['4. close']
       });
     }
-    const prices = [];
-    for (let i = 0; i < data.length; i++) {
-      prices.push(parseFloat(data[i].price));
-    }
-    let max = Math.max(...prices);
-    let min = Math.min(...prices);
-    let currPrice = this.state.initialData.currPrice;
-    let openPrice = dailyData[times[0]]['1. open'];
-    openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
-    let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
-    if (priceFlux < 0) {
-      priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
-    } else {
-      priceFlux = "+$" + priceFlux.toString().slice(0);
-    }
-    let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
+    let { max, min, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, times);
     this.setState({
       currData: {
         data,
@@ -120,22 +148,7 @@ class StockRechart extends React.Component {
         price: dailyData[times[i]]['4. close']
       });
     }
-    const prices = [];
-    for (let i = 0; i < data.length; i++) {
-      prices.push(parseFloat(data[i].price));
-    }
-    let max = Math.max(...prices);
-    let min = Math.min(...prices);
-    let currPrice = this.state.initialData.currPrice;
-    let openPrice = dailyData[times[0]]['1. open'];
-    openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
-    let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
-    if (priceFlux < 0) {
-      priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
-    } else {
-      priceFlux = "+$" + priceFlux.toString().slice(0);
-    }
-    let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
+    let { max, min, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, times);
     this.setState({
       currData: {
         data,
@@ -154,29 +167,13 @@ class StockRechart extends React.Component {
     let data = [];
     let times = Object.keys(dailyData);
     times = times.slice(0, 251).reverse();
-    console.log(times);
     for(let i = 0; i < times.length; i++) {
       data.push({
         time: times[i],
         price: dailyData[times[i]]['4. close']
       });
     }
-    const prices = [];
-    for (let i = 0; i < data.length; i++) {
-      prices.push(parseFloat(data[i].price));
-    }
-    let max = Math.max(...prices);
-    let min = Math.min(...prices);
-    let currPrice = this.state.initialData.currPrice;
-    let openPrice = dailyData[times[0]]['1. open'];
-    openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
-    let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
-    if (priceFlux < 0) {
-      priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
-    } else {
-      priceFlux = "+$" + priceFlux.toString().slice(0);
-    }
-    let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
+    let { max, min, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, times);
     this.setState({
       currData: {
         data,
@@ -196,29 +193,13 @@ class StockRechart extends React.Component {
     let times = Object.keys(dailyData);
     times = times.slice(0, 1260);
     for(let i = 0; i < times.length; i+=5) {
-      console.log(times[i]);
       data.push({
         time: times[i],
         price: dailyData[times[i]]['4. close']
       });
     }
     data = data.reverse();
-    const prices = [];
-    for (let i = 0; i < data.length; i++) {
-      prices.push(parseFloat(data[i].price));
-    }
-    let max = Math.max(...prices);
-    let min = Math.min(...prices);
-    let currPrice = this.state.initialData.currPrice;
-    let openPrice = dailyData[times.reverse()[0]]['1. open'];
-    openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
-    let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
-    if (priceFlux < 0) {
-      priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
-    } else {
-      priceFlux = "+$" + priceFlux.toString().slice(0);
-    }
-    let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
+    let { max, min, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, times);
     this.setState({
       currData: {
         data,

@@ -42,19 +42,19 @@ class StockAbout extends React.Component {
               <ul className="stock-facts">
                 <li>
                   <h3>Market Cap</h3>
-                  <h4>1976</h4>
+                  <h4>$476.4M</h4>
                 </li>
                 <li>
                   <h3>Price-Earnings Ratio</h3>
-                  <h4>1976</h4>
+                  <h4>25.34</h4>
                 </li>
                 <li>
                   <h3>Dividend Yield</h3>
-                  <h4>1976</h4>
+                  <h4>1.42</h4>
                 </li>
                 <li>
                   <h3>Average Volume</h3>
-                  <h4>1976</h4>
+                  <h4>10.5M</h4>
                 </li>
               </ul>
             </div>

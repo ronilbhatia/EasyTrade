@@ -18,12 +18,14 @@ class Home extends React.Component {
     const display = currentUser ? (
       <div>
         <NavBar currentUser={currentUser} logout={logout}/>
-        <main className="user-home">
-          <PortfolioChart currentUser={currentUser} balance={parseFloat(5400.00)}/>
+        <section className="user-home">
+          <main>
+            <PortfolioChart currentUser={currentUser}/>
+          </main>
           <aside className="stock-dashboard">
             PLACEHOLDER TEXT
           </aside>
-        </main>
+        </section>
       </div>
     ) : (
       <div>

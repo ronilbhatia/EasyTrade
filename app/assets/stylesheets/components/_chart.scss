@@ -1,6 +1,11 @@
+.chart-choice {
+  cursor: pointer;
+}
+
 .chart {
   margin: 0 5px;
   width: 676px;
+  border-bottom: 1px solid #eee;
 }
 
 .stock-chart {

@@ -48,9 +48,9 @@ export const fetchStockInfo = ticker => dispatch => (
 export const fetchStockIntradayData = ticker => dispatch => {
   StockApiUtil.fetchStockIntradayData(ticker)
     .then(data => {
-      debugger
-      if (data === undefined) {
-        return dispatch(fetchStockIntradayData(ticker));
+      if (data.Information) {
+        debugger
+        setTimeout(5000, dispatch(fetchStockIntradayData(ticker)));
       } else {
         console.log(data);
         return dispatch(receiveStockIntradayData(ticker, data['Time Series (5min)']));

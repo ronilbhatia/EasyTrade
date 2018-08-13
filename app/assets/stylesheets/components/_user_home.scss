@@ -2,10 +2,21 @@
   display: flex;
   width: 1036px;
   margin: 100px auto;
-  h3 {
+  h1 {
     font-size: 32px;
     font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
+    font-weight: 600;
+  }
+  h2 {
+    font-size: 38px;
+    font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  h3 {
+    font-size: 13px;
+    font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
     font-weight: 700;
-    margin-bottom: 50px;
+    margin-bottom: 4px;
   }
 }

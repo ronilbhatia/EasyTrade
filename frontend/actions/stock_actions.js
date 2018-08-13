@@ -47,12 +47,14 @@ export const fetchStockInfo = ticker => dispatch => (
 
 export const fetchStockIntradayData = ticker => dispatch => (
   StockApiUtil.fetchStockIntradayData(ticker)
-    .then(data => dispatch(receiveStockIntradayData(ticker, data['Time Series (5min)'])))
+    .then(data => dispatch(receiveStockIntradayData(ticker, data['Time Series (5min)'])),
+          error => dispatch(fetchStockIntradayData(ticker)))
 );
 
 export const fetchStockDailyData = ticker => dispatch => (
   StockApiUtil.fetchStockDailyData(ticker)
-    .then(data => dispatch(receiveStockDailyData(ticker, data['Time Series (Daily)'])))
+    .then(data => dispatch(receiveStockDailyData(ticker, data['Time Series (Daily)'])),
+          error => dispatch(fetchStockDailyData(ticker)))
 );
 
 export const fetchStockNews = ticker => dispatch => (

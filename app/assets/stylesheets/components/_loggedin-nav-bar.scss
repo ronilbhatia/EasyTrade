@@ -23,7 +23,7 @@
   color: black;
   font-size: 12.5px;
   font-family: DIN Pro,-apple-system,BlinkMacSystemFont, sans-serif;
-  font-weight: 500;
+  font-weight: 700;
   background-color: white;
   border-color: rgba(0, 0, 0, 1);
   border: none;
@@ -32,4 +32,12 @@
 
 .loggedin-nav-link:last-child {
   margin: 0;
+}
+
+.loggedin-nav-link:hover {
+  color: red;
+}
+
+.svg-logo:hover {
+  fill: red;
 }

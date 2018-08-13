@@ -67,4 +67,4 @@ export const fetchStockDailyData = ticker => dispatch => (
 export const fetchStockNews = ticker => dispatch => (
   StockApiUtil.fetchStockNews(ticker)
     .then(news => dispatch(receiveStockNews(ticker, news.articles)))
-)
+);

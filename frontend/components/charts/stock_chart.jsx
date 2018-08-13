@@ -56,7 +56,10 @@ class StockChart extends React.Component {
       priceFlux = "+$" + priceFlux.toString().slice(1);
     }
     let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
-    if (priceFluxPercentage.toString().split('.')[1].length === 1) {
+    debugger
+    if (priceFluxPercentage.toString().indexOf('.') === -1) {
+      priceFluxPercentage += ".00";
+    } else if (priceFluxPercentage.toString().split('.')[1].length === 1) {
       priceFluxPercentage += "0";
     }
     return (

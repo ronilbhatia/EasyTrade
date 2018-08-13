@@ -21,6 +21,7 @@ class Home extends React.Component {
         <section className="user-home">
           <main>
             <PortfolioChart currentUser={currentUser}/>
+            <NewsIndex />
           </main>
           <aside className="stock-dashboard">
             PLACEHOLDER TEXT

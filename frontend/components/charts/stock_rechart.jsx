@@ -31,10 +31,18 @@ class StockRechart extends React.Component {
     let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
     if (priceFlux < 0) {
       priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
+    } else if (priceFlux.toString().indexOf('.') === -1) {
+      priceFlux = "+$" + priceFlux.toString() + ".00";
     } else {
-      priceFlux = "+$" + priceFlux.toString().slice(0);
+      priceFlux = "+$" + priceFlux.toString();
+    }
+    if (priceFlux.split('.')[1].length === 1) {
+      priceFlux += "0";
     }
     let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
+    if (priceFluxPercentage.toString().split('.')[1].length === 1) {
+      priceFluxPercentage += "0";
+    }
     return {
       max,
       min,
@@ -59,10 +67,18 @@ class StockRechart extends React.Component {
     let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
     if (priceFlux < 0) {
       priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
+    } else if (priceFlux.toString().indexOf('.') === -1) {
+      priceFlux = "+$" + priceFlux.toString() + ".00";
     } else {
-      priceFlux = "+$" + priceFlux.toString().slice(0);
+      priceFlux = "+$" + priceFlux.toString();
+    }
+    if (priceFlux.split('.')[1].length === 1) {
+      priceFlux += "0";
     }
     let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
+    if (priceFluxPercentage.toString().split('.')[1].length === 1) {
+      priceFluxPercentage += "0";
+    }
     return {
       max,
       min,

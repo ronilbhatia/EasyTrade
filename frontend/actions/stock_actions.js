@@ -45,11 +45,18 @@ export const fetchStockInfo = ticker => dispatch => (
     .then(stockInfo => dispatch(receiveStockInfo(ticker, stockInfo)))
 );
 
-export const fetchStockIntradayData = ticker => dispatch => (
+export const fetchStockIntradayData = ticker => dispatch => {
   StockApiUtil.fetchStockIntradayData(ticker)
-    .then(data => dispatch(receiveStockIntradayData(ticker, data['Time Series (5min)'])),
-          error => dispatch(fetchStockIntradayData(ticker)))
-);
+    .then(data => {
+      debugger
+      if (data === undefined) {
+        return dispatch(fetchStockIntradayData(ticker));
+      } else {
+        console.log(data);
+        return dispatch(receiveStockIntradayData(ticker, data['Time Series (5min)']));
+      }
+    }, error => dispatch(fetchStockIntradayData(ticker)))
+};
 
 export const fetchStockDailyData = ticker => dispatch => (
   StockApiUtil.fetchStockDailyData(ticker)

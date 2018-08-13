@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import NavBar from '../nav_bar/nav_bar';
 import Splash from './splash';
-import NewsIndex from './news';
+import NewsIndexContainer from './news_index_container';
 import PortfolioChart from '../charts/portfolio_chart';
 
 class Home extends React.Component {
@@ -11,7 +11,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { currentUser, logout, demoLogin } = this.props;
+    const { currentUser, logout, demoLogin, fetchNews } = this.props;
     const demoUser = {
       username: 'user',
       password: 'testing'
@@ -22,7 +22,7 @@ class Home extends React.Component {
         <section className="user-home">
           <main>
             <PortfolioChart currentUser={currentUser}/>
-            <NewsIndex />
+            <NewsIndexContainer />
           </main>
           <aside className="stock-dashboard">
             PLACEHOLDER TEXT

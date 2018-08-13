@@ -7,7 +7,7 @@ export const fetchStock = (ticker) => (
 export const fetchStockDailyData = ticker => (
   $.ajax({
     method: 'get',
-    url: `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=8HKZIEMV1YT01X2A&outputsize=full`
+    url: `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=U9STF363FZMQNHM6&outputsize=full`
   })
 );
 

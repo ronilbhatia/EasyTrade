@@ -1,0 +1,31 @@
+.stock-news-item {
+  display: flex;
+  width: 676px;
+  height: 194px;
+  justify-content: space-between;;
+  img {
+    width: 198px;
+    height: 136px;
+    border-radius: 4px;
+  }
+  main {
+    width: 450px;
+    height: 100px;
+  }
+  h3 {
+    color: black;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
+  }
+  h4 {
+    color: black;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
+  }
+  p {
+    color: black;
+    font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
+  }
+}

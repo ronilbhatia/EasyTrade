@@ -67,7 +67,7 @@ class StockAbout extends React.Component {
 
       </div>
     );
-  };
+  }
 }
 
 export default StockAbout;

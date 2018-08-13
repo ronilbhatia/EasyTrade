@@ -53,8 +53,8 @@
 
 * `user_id` references `users`
 * `stock_id` references `stocks`
-* index on `[stock_id, user_id]`
-* index on `user_id`
+* index on `[user_id, stock_id]`
+* index on `stock_id`
 
 ## `deposits`
 

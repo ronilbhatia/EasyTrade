@@ -16,4 +16,6 @@
 class Stock < ApplicationRecord
   validates :name, :ticker, :exchange_id, presence: true
   validates :ticker, uniqueness: true
+
+  has_many :transactions
 end

@@ -23,6 +23,12 @@ export const fetchStockHistoricalData = ticker => (
   })
 );
 
+export const fetchStockNews = ticker => (
+  $.ajax({
+    url: `https://newsapi.org/v2/everything?q=${ticker}&sortBy=publishedAt&apiKey=f0b1d8074e784145b023467d4fc9c649&language=en&domains=wsj.com,nytimes.com,seekingalpha.com,yahoo.com`
+  })
+);
+
 export const fetchStockInfo = ticker => {
   var https = require("https");
   var username = "0cb46201c7bd30b4ff564cf83515645a";

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import NavBar from '../nav_bar/nav_bar';
 import Splash from './splash';
+import NewsIndex from './news';
 import PortfolioChart from '../charts/portfolio_chart';
 
 class Home extends React.Component {

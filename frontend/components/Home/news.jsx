@@ -6,7 +6,11 @@ class NewsIndex extends React.Component {
   }
 
   render() {
-
+    return (
+      <div className='news recent'>
+        <h2>Recent News</h2>
+      </div>
+    );
   }
 }
 

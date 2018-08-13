@@ -6,7 +6,7 @@ class StockNews extends React.Component {
     const { news } = this.props;
     console.log(news);
     return (
-      <div className='stock-news'>
+      <div className='news'>
         <h2>News</h2>
         <ul>
           {

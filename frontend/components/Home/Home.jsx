@@ -26,30 +26,15 @@ class Home extends React.Component {
           </main>
           <aside className="stock-dashboard">
             <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
-            <h4>Stocks</h4>
+            <ul>
+              {
+                Object.keys(currentUser.stocks).map(stock => {
+                  return (
+                    <h4>{stock} {currentUser.stocks[stock]}</h4>
+                  );
+                })
+              }
+            </ul>
           </aside>
         </section>
       </div>

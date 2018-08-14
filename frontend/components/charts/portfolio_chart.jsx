@@ -5,6 +5,7 @@ import StockRechart from './stock_rechart';
 class PortfolioChart extends React.Component {
 
   render() {
+    let { currentUser } = this.props;
     let data = [
       { time: '9:00 AM ET', price: 5200 },
       { time: '9:05 AM ET', price: 5300 },
@@ -115,9 +116,10 @@ class PortfolioChart extends React.Component {
       { time: '5:50 PM ET', price: 5500 },
       { time: '5:55 PM ET', price: 5400 }
     ];
+    console.log(currentUser);
     return (
       <div className="chart">
-        <h2>{`$5400.00`}</h2>
+        <h2>${currentUser.buyingPower}</h2>
         <h3>{`$1.20`} ({`3.21`}%)</h3>
         <div className="stock-chart">
           <LineChart width={710} height={195} data={data}

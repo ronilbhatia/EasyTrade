@@ -61,7 +61,7 @@ class User < ApplicationRecord
       end
     end
 
-    buying_power
+    buying_power.round(2)
   end
 
   def calculate_stocks

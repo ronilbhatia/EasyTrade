@@ -21,24 +21,46 @@ const stocksReducer = (state = {}, action) => {
       }
       return nextState;
     case RECEIVE_STOCK_INFO:
-      nextState[action.ticker].shortDescription = action.stockInfo.short_description;
-      nextState[action.ticker].ceo = action.stockInfo.ceo;
-      nextState[action.ticker].employees = action.stockInfo.employees;
-      nextState[action.ticker].hqCity = action.stockInfo.hq_address_city;
-      nextState[action.ticker].hqState = action.stockInfo.hq_state;
+      if (nextState[action.ticker]) {
+        nextState[action.ticker].shortDescription = action.stockInfo.short_description;
+        nextState[action.ticker].ceo = action.stockInfo.ceo;
+        nextState[action.ticker].employees = action.stockInfo.employees;
+        nextState[action.ticker].hqCity = action.stockInfo.hq_address_city;
+        nextState[action.ticker].hqState = action.stockInfo.hq_state;
+      } else {
+        nextState[action.ticker] = {
+          shortDescription: action.stockInfo.short_description,
+          ceo: action.stockInfo.ceo,
+          employees: action.stockInfo.employees,
+          hqCity: action.stockInfo.hq_address_city,
+          hqState: action.stockInfo.hq_state
+        };
+      }
       return nextState;
     case RECEIVE_STOCK_INTRADAY_DATA:
-      nextState[action.ticker].intradayData = action.data;
+      if (nextState[action.ticker]) {
+        nextState[action.ticker].intradayData = action.data;
+      } else {
+        nextState[action.ticker] = {
+          intradayData: action.data
+        };
+      }
       return nextState;
     case RECEIVE_STOCK_DAILY_DATA:
-      nextState[action.ticker].dailyData = action.data;
+      if (nextState[action.ticker]) {
+        nextState[action.ticker].dailyData = action.data;
+      } else {
+        nextState[action.ticker] = {
+          dailyData: action.data
+        };
+      }
       return nextState;
     case RECEIVE_STOCK_NEWS:
       if (nextState[action.ticker]) {
         nextState[action.ticker].news = action.news;
       } else {
         nextState[action.ticker] = {
-          next: action.news
+          news: action.news
         };
       }
       return nextState;

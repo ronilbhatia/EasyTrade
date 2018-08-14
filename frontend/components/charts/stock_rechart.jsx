@@ -65,6 +65,7 @@ class StockRechart extends React.Component {
     let openPrice = dailyData[times[0]]['1. open'];
     openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
     let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
+    console.log(openPrice, currPrice, priceFlux);
     if (priceFlux < 0) {
       priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
     } else if (priceFlux.toString().indexOf('.') === -1) {
@@ -215,6 +216,7 @@ class StockRechart extends React.Component {
       });
     }
     data = data.reverse();
+    times = times.reverse();
     let { max, min, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, times);
     this.setState({
       currData: {

@@ -1,15 +1,19 @@
 import React from 'react';
 import StockRechart from '../charts/stock_rechart';
+import StockIndexItem from './stock_index_item';
 
-class StockIndex extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>Stocks on stocks on stocks</h1>
-        <StockRechart />
-      </div>
-    );
-  }
-}
+const StockIndex = ({ currentUser }) => {
+  return (
+    <ul>
+      {
+        currentUser.stocks.map((stock, idx) => {
+          return (
+            <StockIndexItem stock={stock} key={idx}/>
+          );
+        })
+      }
+    </ul>
+  );
+};
 
 export default StockIndex;

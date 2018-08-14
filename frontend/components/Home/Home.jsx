@@ -4,6 +4,7 @@ import NavBar from '../nav_bar/nav_bar';
 import Splash from './splash';
 import NewsIndexContainer from './news_index_container';
 import PortfolioChart from '../charts/portfolio_chart';
+import StockIndex from '../stocks/stock_index';
 
 class Home extends React.Component {
   constructor(props) {
@@ -21,20 +22,12 @@ class Home extends React.Component {
         <NavBar currentUser={currentUser} logout={logout}/>
         <section className="user-home">
           <main>
-            <PortfolioChart currentUser={currentUser}/>
+            <PortfolioChart currentUser={currentUser} />
             <NewsIndexContainer />
           </main>
           <aside className="stock-dashboard">
             <h4>Stocks</h4>
-            <ul>
-              {
-                Object.keys(currentUser.stocks).map(stock => {
-                  return (
-                    <h4>{stock} {currentUser.stocks[stock]}</h4>
-                  );
-                })
-              }
-            </ul>
+            <StockIndex currentUser={currentUser} />
           </aside>
         </section>
       </div>
@@ -53,3 +46,5 @@ class Home extends React.Component {
 }
 
 export default Home;
+
+// <h4>{stock} {currentUser.stocks[stock]}</h4>

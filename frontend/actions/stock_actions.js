@@ -5,6 +5,7 @@ export const RECEIVE_STOCK_INFO = 'RECEIVE_STOCK_INFO';
 export const RECEIVE_STOCK_INTRADAY_DATA = 'RECEIVE_STOCK_INTRADAY_DATA';
 export const RECEIVE_STOCK_DAILY_DATA = 'RECEIVE_STOCK_DAILY_DATA';
 export const RECEIVE_STOCK_NEWS = 'RECEIVE_STOCK_NEWS';
+export const RECEIVE_USER_STOCKS = 'RECEIVE_USER_STOCKS';
 
 const receiveStock = stock => ({
   type: RECEIVE_STOCK,
@@ -33,6 +34,11 @@ const receiveStockNews = (ticker, news) => ({
   type: RECEIVE_STOCK_NEWS,
   ticker,
   news
+});
+
+const receiveUserStocks = stocks => ({
+  type: RECEIVE_USER_STOCKS,
+  stocks
 });
 
 export const fetchStock = ticker => dispatch => (
@@ -74,4 +80,9 @@ export const fetchStockDailyData = ticker => dispatch => (
 export const fetchStockNews = ticker => dispatch => (
   StockApiUtil.fetchStockNews(ticker)
     .then(news => dispatch(receiveStockNews(ticker, news.articles)))
+);
+
+export const fetchUserStocks = tickers => dispatch => (
+  StockApiUtil.fetchUserStocks(tickers)
+    .then(stocks => dispatch(receiveUserStocks(stocks)))
 );

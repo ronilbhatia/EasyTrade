@@ -42,6 +42,14 @@ export const fetchStockInfo = ticker => {
     }
   });
 };
-// export { request };
 
-// .then(res => console.log(res["Time Series (Daily)"]['2018-08-08']))
+export const fetchUserStocks = tickers => {
+  let url = 'https://www.alphavantage.co/query?function=BATCH_QUOTES_US&apikey=B46V4AYA6Y9N0447&symbols='
+  tickers.forEach(ticker => {
+    url += ticker;
+  });
+
+  return $.ajax({
+    url
+  });
+};

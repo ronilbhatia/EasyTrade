@@ -10,6 +10,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
+require 'open-uri'
 
 class User < ApplicationRecord
   validates :username, :email, :session_token, presence: true, uniqueness: true
@@ -84,7 +85,30 @@ class User < ApplicationRecord
       end
     end
 
-    stocks
+    url = 'https://www.alphavantage.co/query?function=BATCH_QUOTES_US&apikey=B46V4AYA6Y9N0447&symbols='
+    stocks.each { |k, _| url += "#{k},"}
+    stocks = stocks.map { |stock| { symbol: stock[0], shares: stock[1]}}.sort_by { |stock| stock[:symbol] }
+    #Credit to user245031 and lolmaus - Andrey Mikhaylov on Stack Overflow for the code to make API call in Ruby
+    response = JSON.parse(open(url).read)
+    if response[:Information]
+      sleep(10)
+      calculate_stocks
+    else
+      response = response['Stock Batch Quotes'].sort_by { |stock| stock['1. symbol'] }
+    end
+    puts stocks
+    puts response
+    # debugger
+    stocks.each_with_index do |stock, idx|
+      price = response[idx]['5. price'].to_f.round(2).to_s
+      if !price.include?('.')
+        price += '.00'
+      elsif price.split('.')[1].length == 1
+        price += '0'
+      end
+      stock[:price] = price
+    end
+    return stocks
   end
 
 end

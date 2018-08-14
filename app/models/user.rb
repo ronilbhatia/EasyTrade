@@ -18,7 +18,7 @@ class User < ApplicationRecord
 
   has_many :transactions
   has_many :deposits
-  
+
   after_initialize :ensure_session_token
 
   attr_reader :password
@@ -46,6 +46,16 @@ class User < ApplicationRecord
     self.session_token = SecureRandom.urlsafe_base64
     self.save!
     self.session_token
+  end
+
+  def calculate_buying_power
+    total_deposits = 0
+    self.deposits.each { |deposit| total_deposits += deposit.amount }
+    total_deposits
+
+    total_transactions = 0
+    self.transactions.each { |transaction| total_transactions += transaction.price * transaction.num_shares }
+    total_deposits - total_transactions
   end
 
 end

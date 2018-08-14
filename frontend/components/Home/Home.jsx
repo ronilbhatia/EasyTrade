@@ -25,7 +25,31 @@ class Home extends React.Component {
             <NewsIndexContainer />
           </main>
           <aside className="stock-dashboard">
-            PLACEHOLDER TEXT
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
+            <h4>Stocks</h4>
           </aside>
         </section>
       </div>

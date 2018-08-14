@@ -243,7 +243,8 @@ class StockRechart extends React.Component {
               hide={true}
               domain={[min, max]}
               />
-            <Tooltip />
+            <Tooltip
+            />
             <Line type="linear" dataKey="price" stroke="#82ca9d" dot={false} strokeWidth={2} />
           </LineChart>
           <ul className="chart-range">

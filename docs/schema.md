@@ -48,6 +48,7 @@
 | `stock_id`    | integer   | not null, indexed, foreign_key |
 | `price`       | float     | not null                       |
 | `num_shares`  | integer   | not null                       |
+| `type`        | string    | not null                       |
 | `created_at`  | datetime  | not null                       |
 | `updated_at`  | datetime  | not null                       |
 

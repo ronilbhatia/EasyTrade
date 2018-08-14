@@ -1,3 +1,17 @@
 .stock-dashboard {
-  margin-left: 50px;
+  margin-left: 70px;
+  margin-bottom: 200px;
+  border: 1px solid #eee;
+  bottom: 10px;
+  width: 275px;
+  position: static;
+  height: calc(100% - 1000px);
+  box-shadow: 3px 0px 2px #fafafa, -3px 0px 2px #fafafa, 0px 3px 2px #fafafa, 0px -3px 2px #fafafa;
+
+  h4 {
+    padding: 15px 25px;
+    border-bottom: 1px solid #eee;
+    width: 275px;
+    height: 52px;
+  }
 }

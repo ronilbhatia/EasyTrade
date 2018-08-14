@@ -49,13 +49,42 @@ class User < ApplicationRecord
   end
 
   def calculate_buying_power
-    total_deposits = 0
-    self.deposits.each { |deposit| total_deposits += deposit.amount }
-    total_deposits
+    buying_power = 0
+    self.deposits.each { |deposit| buying_power += deposit.amount }
 
-    total_transactions = 0
-    self.transactions.each { |transaction| total_transactions += transaction.price * transaction.num_shares }
-    total_deposits - total_transactions
+    self.transactions.each do |transaction|
+      transaction_amount = transaction.price * transaction.num_shares
+      if transaction.order_type == 'buy'
+        buying_power -= transaction_amount
+      else
+        buying_power += transaction_amount
+      end
+    end
+
+    buying_power
+  end
+
+  def calculate_stocks
+    stocks = {}
+
+    self.transactions.each do |transaction|
+      curr_stock = Stock.find(transaction.stock_id)
+      if stocks[curr_stock.ticker]
+        if transaction.order_type == 'buy'
+          stocks[curr_stock.ticker] += transaction.num_shares
+        else
+          stocks[curr_stock.ticker] -= transaction.num_shares
+        end
+      else
+        if transaction.order_type == 'buy'
+          stocks[curr_stock.ticker] = transaction.num_shares
+        else
+          stocks[curr_stock.ticker] = -transaction.num_shares
+        end
+      end
+    end
+
+    stocks
   end
 
 end

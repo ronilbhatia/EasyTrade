@@ -91,7 +91,7 @@ class User < ApplicationRecord
 
     #Credit to user245031 and lolmaus - Andrey Mikhaylov on Stack Overflow for the code to make API call in Ruby
     response = JSON.parse(open(url).read)
-    if response[:Information]
+    if response['Information']
       sleep(10)
       calculate_stocks
     else
@@ -127,10 +127,9 @@ class User < ApplicationRecord
     end
     data = []
     sorted_transactions = transactions.sort_by { |transaction| transaction.transaction_date }.to_a
-    (5.years.ago.to_datetime..sorted_transactions.first.transaction_date.to_datetime).each do |time|
-      data.push({ time: time, balance: net_deposits })
-    end
-    puts data
+    # (5.years.ago.to_datetime..sorted_transactions.first.transaction_date.to_datetime).each do |time|
+    #   data.push({ time: time, balance: net_deposits })
+    # end
 
     user_transactions = self.transactions
     unique_stocks = transactions.select(:stock_id).distinct.to_a
@@ -141,7 +140,7 @@ class User < ApplicationRecord
     unique_stocks.each { |stock| url += "#{stock.ticker}, " }
     response = JSON.parse(open(url).read)
     cash_balance = net_deposits
-    curr_stocks = {}
+    curr_stocks = Hash.new(0)
 
     sorted_transactions.each_with_index do |transaction, idx|
       curr_stock = Stock.find(transaction.stock_id)
@@ -162,6 +161,7 @@ class User < ApplicationRecord
       else
         range = transaction.transaction_date.to_datetime..sorted_transactions[idx+1].transaction_date.to_datetime
       end
+      stock_value = 0
       range.each do |time|
         stock_value = 0
         year = time.year.to_s
@@ -171,13 +171,13 @@ class User < ApplicationRecord
         stock_day_info = nil
         curr_stocks.each do |k, v|
           stock_day_info = response[k]['chart'].find { |days| days['date'] == date_string}
-          stock_value += stock_day_info['close'] unless stock_day_info.nil?
+          stock_value += stock_day_info['close'] * v unless stock_day_info.nil?
         end
         balance = cash_balance + stock_value
         data.push({ time: time, balance: balance }) unless stock_day_info.nil?
       end
     end
 
-    puts data
+    return data
   end
 end

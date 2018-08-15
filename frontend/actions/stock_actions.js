@@ -44,6 +44,10 @@ const receiveUserStocks = stocks => ({
 export const fetchStock = ticker => dispatch => (
   StockApiUtil.fetchStock(ticker)
     .then(stock => dispatch(receiveStock(stock)))
+    .then(() => dispatch(fetchStockInfo(ticker)))
+    .then(() => dispatch(fetchStockIntradayData(ticker)))
+    .then(() => dispatch(fetchStockDailyData(ticker)))
+    .then(() => dispatch(fetchStockNews(ticker)))
 );
 
 export const fetchStockInfo = ticker => dispatch => (

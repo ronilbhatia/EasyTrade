@@ -7,26 +7,27 @@ import StockNews from '../stocks/stock_news';
 class StockShow extends React.Component {
   componentDidMount() {
     const ticker = this.props.match.params.ticker;
-    Promise.all([
-      this.props.fetchStock(ticker),
-      this.props.fetchStockInfo(ticker),
-      this.props.fetchStockIntradayData(ticker),
-      this.props.fetchStockDailyData(ticker),
-      this.props.fetchStockNews(ticker)
-    ]);
-
+    // Promise.all([
+    //   this.props.fetchStock(ticker),
+    //   this.props.fetchStockInfo(ticker),
+    //   this.props.fetchStockIntradayData(ticker),
+    //   this.props.fetchStockDailyData(ticker),
+    //   this.props.fetchStockNews(ticker)
+    // ]);
+    this.props.fetchStock(ticker);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.match.params.ticker !== this.props.match.params.ticker) {
       const ticker = nextProps.match.params.ticker;
-      Promise.all([
-        this.props.fetchStock(ticker),
-        this.props.fetchStockInfo(ticker),
-        this.props.fetchStockIntradayData(ticker),
-        this.props.fetchStockDailyData(ticker),
-        this.props.fetchStockNews(ticker)
-      ]);
+      // Promise.all([
+      //   this.props.fetchStock(ticker),
+      //   this.props.fetchStockInfo(ticker),
+      //   this.props.fetchStockIntradayData(ticker),
+      //   this.props.fetchStockDailyData(ticker),
+      //   this.props.fetchStockNews(ticker)
+      // ]);
+      this.props.fetchStock(ticker);
     }
   }
 

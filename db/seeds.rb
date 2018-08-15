@@ -3417,20 +3417,23 @@ end
 
 nyse_stocks = File.readlines("#{Rails.root}/db/companylist.csv")[1..-1]
 #
-# nyse_stocks.map!6 |stock|
-180   stock.split(",")
-# end
-#
-# nyse_stocks.map! do |stock|
-#   {
-#     ticker: stock[0].delete("\""),
-#     name: stock[1].delete("\""),
-#     exchange_id: 2
-#   6
-# end
-#195 42se_stocks.each do |stock|
-#   Stock.create(stock)
-# end
+
+nyse_stocks.map! do |stock|
+  stock.split(",")
+end
+
+nyse_stocks.map! do |stock|
+  {
+    ticker: stock[0].delete("\""),
+    name: stock[1].delete("\""),
+    exchange_id: 2
+  }
+end
+
+nyse_stocks.each do |stock|
+  Stock.create(stock)
+end
+
 # # Deposit.destroy_all
 Deposit.create({user_id: 1, amount: 20000})
 # Transaction.destroy_all

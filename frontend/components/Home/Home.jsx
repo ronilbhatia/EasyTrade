@@ -17,6 +17,7 @@ class Home extends React.Component {
       username: 'user',
       password: 'testing'
     };
+    debugger
     let balance, balanceData, dailyData, monthData, openBalance, balances, max, min, balanceFlux, balanceFluxPercentage
     if (currentUser) {
       balance = currentUser.balance;

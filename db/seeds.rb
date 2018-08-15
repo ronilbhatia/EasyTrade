@@ -3416,28 +3416,44 @@ stocks.each do |stock|
 end
 
 nyse_stocks = File.readlines("#{Rails.root}/db/companylist.csv")[1..-1]
-
-nyse_stocks.map! do |stock|
-  stock.split(",")
-end
-
-nyse_stocks.map! do |stock|
-  {
-    ticker: stock[0].delete("\""),
-    name: stock[1].delete("\""),
-    exchange_id: 2
-  }
-end
-
-nyse_stocks.each do |stock|
-  Stock.create(stock)
-end
-# Deposit.destroy_all
+#
+# nyse_stocks.map!6 |stock|
+180   stock.split(",")
+# end
+#
+# nyse_stocks.map! do |stock|
+#   {
+#     ticker: stock[0].delete("\""),
+#     name: stock[1].delete("\""),
+#     exchange_id: 2
+#   6
+# end
+#195 42se_stocks.each do |stock|
+#   Stock.create(stock)
+# end
+# # Deposit.destroy_all
 Deposit.create({user_id: 1, amount: 20000})
 # Transaction.destroy_all
 
-## Create one transaction so heroku don't break
-Transaction.create({user_id: 1, stock_id: 1, price: 10.10, num_shares: 100, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
+## With stocks starting from 0
+Transaction.create({user_id: 1, stock_id: 6, price: 180.10, num_shares: 10, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
+Transaction.create({user_id: 1, stock_id: 2017, price: 95.14, num_shares: 15, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
+Transaction.create({user_id: 1, stock_id: 6234, price: 20.43, num_shares: 30, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
+Transaction.create({user_id: 1, stock_id: 2102, price: 180.22, num_shares: 7, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
+Transaction.create({user_id: 1, stock_id: 384, price: 30.20, num_shares: 6, order_type: 'buy', transaction_date: (500 + (365*rand)).days.ago})
+Transaction.create({user_id: 1, stock_id: 1077, price: 5.10, num_shares: 200, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
+Transaction.create({user_id: 1, stock_id: 1076, price: 143.45, num_shares: 5, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
+Transaction.create({user_id: 1, stock_id: 175, price: 1540.42, num_shares: 3, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
+Transaction.create({user_id: 1, stock_id: 5243, price: 73.68, num_shares: 20, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
+Transaction.create({user_id: 1, stock_id: 6, price: 195.42, num_shares: 2, order_type: 'sell', transaction_date: (200*rand).days.ago})
+Transaction.create({user_id: 1, stock_id: 2017, price: 106.67, num_shares: 5, order_type: 'sell', transaction_date: (200*rand).days.ago})
+Transaction.create({user_id: 1, stock_id: 6234, price: 32.43, num_shares: 10, order_type: 'sell', transaction_date: (200*rand).days.ago})
+Transaction.create({user_id: 1, stock_id: 2102, price: 345.22, num_shares: 2, order_type: 'sell', transaction_date: (200*rand).days.ago})
+Transaction.create({user_id: 1, stock_id: 384, price: 155.12, num_shares: 1, order_type: 'sell', transaction_date: (200*rand).days.ago})
+Transaction.create({user_id: 1, stock_id: 1077, price: 2.10, num_shares: 50, order_type: 'sell', transaction_date: (200*rand).days.ago})
+Transaction.create({user_id: 1, stock_id: 1076, price: 174.12, num_shares: 1, order_type: 'sell', transaction_date: (200*rand).days.ago})
+Transaction.create({user_id: 1, stock_id: 5243, price: 68.12, num_shares: 4, order_type: 'sell', transaction_date: (200*rand).days.ago})
+
 
 #### With Local stock ids
 # Transaction.destroy_all

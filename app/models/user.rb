@@ -67,6 +67,7 @@ class User < ApplicationRecord
 
   def calculate_stocks
     stocks = {}
+    return stocks if transactions.empty?
 
     self.transactions.each do |transaction|
       curr_stock = Stock.find(transaction.stock_id)
@@ -124,6 +125,7 @@ class User < ApplicationRecord
       acc += deposit.amount
     end
     data = []
+    return data if transactions.empty?
     sorted_transactions = transactions.sort_by { |transaction| transaction.transaction_date }.to_a
     # (5.years.ago.to_datetime..sorted_transactions.first.transaction_date.to_datetime).each do |time|
     #   data.push({ time: time, balance: net_deposits })
@@ -184,6 +186,7 @@ class User < ApplicationRecord
       acc += deposit.amount
     end
     data = []
+    return data if transactions.empty?
     sorted_transactions = transactions.sort_by { |transaction| transaction.transaction_date }.to_a
 
     user_transactions = self.transactions

@@ -3436,6 +3436,9 @@ end
 Deposit.create({user_id: 1, amount: 20000})
 # Transaction.destroy_all
 
+## Create one transaction so heroku don't break
+Transaction.create({user_id: 1, stock_id: 1, price: 10.10, num_shares: 100, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
+
 #### With Local stock ids
 # Transaction.destroy_all
 # Transaction.create({user_id: 1, stock_id: 19766, price: 208.10, num_shares: 10, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})

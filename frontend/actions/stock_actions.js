@@ -78,7 +78,7 @@ export const fetchStockDailyData = ticker => dispatch => (
         console.log(data);
         return dispatch(receiveStockDailyData(ticker, data['Time Series (Daily)']));
       }
-    }, error => dispatch(fetchStockIntradayData(ticker)))
+    }, error => dispatch(fetchStockDailyData(ticker)))
 );
 
 export const fetchStockNews = ticker => dispatch => (

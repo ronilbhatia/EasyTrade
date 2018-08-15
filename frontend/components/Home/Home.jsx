@@ -17,21 +17,28 @@ class Home extends React.Component {
       username: 'user',
       password: 'testing'
     };
-    debugger
-    let balance, balanceData, dailyData, monthData, openBalance, balances, max, min, balanceFlux, balanceFluxPercentage
+    let balance, balanceData, dailyData, monthData, openBalance, balances, max, min, balanceFlux, balanceFluxPercentage;
     if (currentUser) {
       balance = currentUser.balance;
       balanceData = currentUser.balanceData.reverse();
       dailyData = currentUser.dailyData;
-      openBalance = dailyData[0].balance;
-      balances = [];
-      for (let i = 0; i < dailyData.length; i++) {
-        balances.push(parseFloat(dailyData[i].balance));
+      if (dailyData.length == 0) {
+        openBalance = balance;
+        balanceFlux = 0;
+        balanceFluxPercentage = 0;
+        max = 0;
+        min = 0;
+      } else {
+        if (dailyData[0]) { openBalance = dailyData[0].balance;}
+        balances = [];
+        for (let i = 0; i < dailyData.length; i++) {
+          balances.push(parseFloat(dailyData[i].balance));
+        }
+        max = Math.max(...balances);
+        min = Math.min(...balances);
+        balanceFlux = Math.round((balance - openBalance) * 100)/100;
+        balanceFluxPercentage = Math.round((balanceFlux/openBalance)*10000)/100;
       }
-      max = Math.max(...balances);
-      min = Math.min(...balances);
-      balanceFlux = Math.round((balance - openBalance) * 100)/100;
-      balanceFluxPercentage = Math.round((balanceFlux/openBalance)*10000)/100;
     }
 
     const display = currentUser ? (

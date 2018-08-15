@@ -18,15 +18,24 @@ class PortfolioChart extends React.Component {
   }
 
   calculateDailyPriceData(data, balance) {
-    const openBalance = data[0].balance;
-    const balances = [];
-    for (let i = 0; i < data.length; i++) {
-      balances.push(parseFloat(data[i].balance));
+    let openBalance, balances, max, min, balanceFlux, balanceFluxPercentage;
+    if (data.length === 0) {
+      openBalance = balance;
+      balanceFlux = 0;
+      balanceFluxPercentage = 0;
+      max = 0;
+      min = 0;
+    } else {
+      openBalance = data[0].balance;
+      balances = [];
+      for (let i = 0; i < data.length; i++) {
+        balances.push(parseFloat(data[i].balance));
+      }
+      max = Math.max(...balances);
+      min = Math.min(...balances);
+      balanceFlux = Math.round((balance - openBalance) * 100)/100;
+      balanceFluxPercentage = Math.round((balanceFlux/openBalance)*10000)/100;
     }
-    const max = Math.max(...balances);
-    const min = Math.min(...balances);
-    const balanceFlux = Math.round((balance - openBalance) * 100)/100;
-    const balanceFluxPercentage = Math.round((balanceFlux/openBalance)*10000)/100;
     return {
       max,
       min,

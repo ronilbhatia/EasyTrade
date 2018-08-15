@@ -3,16 +3,25 @@ import StockRechart from '../charts/stock_rechart';
 import StockIndexItem from './stock_index_item';
 
 const StockIndex = ({ currentUser }) => {
+  debugger
   return (
-    <ul>
+    <div>
       {
-        currentUser.stocks.map((stock, idx) => {
-          return (
-            <StockIndexItem stock={stock} key={idx}/>
-          );
-        })
+        Object.keys(currentUser.stocks).length > 0 ? (
+          <ul>
+            {
+              currentUser.stocks.map((stock, idx) => {
+                return (
+                  <StockIndexItem stock={stock} key={idx}/>
+                );
+              })
+            }
+          </ul>
+        ) : (
+          <div></div>
+        )
       }
-    </ul>
+    </div>
   );
 };
 

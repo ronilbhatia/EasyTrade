@@ -17,12 +17,38 @@ class Home extends React.Component {
       username: 'user',
       password: 'testing'
     };
+    let balance, balanceData, dailyData, monthData, openBalance, balances, max, min, balanceFlux, balanceFluxPercentage
+    if (currentUser) {
+      balance = currentUser.balance;
+      balanceData = currentUser.balanceData.reverse();
+      dailyData = currentUser.dailyData;
+      openBalance = dailyData[0].balance;
+      balances = [];
+      for (let i = 0; i < dailyData.length; i++) {
+        balances.push(parseFloat(dailyData[i].balance));
+      }
+      max = Math.max(...balances);
+      min = Math.min(...balances);
+      balanceFlux = Math.round((balance - openBalance) * 100)/100;
+      balanceFluxPercentage = Math.round((balanceFlux/openBalance)*10000)/100;
+    }
+
     const display = currentUser ? (
       <div>
         <NavBar currentUser={currentUser} logout={logout}/>
         <section className="user-home">
           <main>
-            <PortfolioChart currentUser={currentUser} />
+            <PortfolioChart
+              currentUser={currentUser}
+              balance={balance}
+              balanceData={balanceData}
+              dailyData={dailyData}
+              data={dailyData}
+              max={max}
+              min={min}
+              balanceFlux={balanceFlux}
+              balanceFluxPercentage={balanceFluxPercentage}
+            />
             <NewsIndexContainer />
           </main>
           <aside className="stock-dashboard">
@@ -46,5 +72,3 @@ class Home extends React.Component {
 }
 
 export default Home;
-
-// <h4>{stock} {currentUser.stocks[stock]}</h4>

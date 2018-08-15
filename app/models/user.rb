@@ -88,6 +88,7 @@ class User < ApplicationRecord
     url = 'https://www.alphavantage.co/query?function=BATCH_QUOTES_US&apikey=B46V4AYA6Y9N0447&symbols='
     stocks.each { |k, _| url += "#{k},"}
     stocks = stocks.map { |stock| { symbol: stock[0], shares: stock[1]}}.sort_by { |stock| stock[:symbol] }
+
     #Credit to user245031 and lolmaus - Andrey Mikhaylov on Stack Overflow for the code to make API call in Ruby
     response = JSON.parse(open(url).read)
     if response[:Information]
@@ -98,7 +99,6 @@ class User < ApplicationRecord
     end
     puts stocks
     puts response
-    # debugger
     stocks.each_with_index do |stock, idx|
       price = response[idx]['5. price'].to_f.round(2).to_s
       if !price.include?('.')
@@ -111,4 +111,73 @@ class User < ApplicationRecord
     return stocks
   end
 
+  def calculate_balance
+    stocks = calculate_stocks
+    balance = calculate_buying_power
+    stocks.each do |stock|
+      balance += (stock[:price].to_f * stock[:shares])
+    end
+
+    return balance.round(2)
+  end
+
+  def calculate_balance_data
+    net_deposits = self.deposits.to_a.reduce(0) do |acc, deposit|
+      acc += deposit.amount
+    end
+    data = []
+    sorted_transactions = transactions.sort_by { |transaction| transaction.transaction_date }.to_a
+    (5.years.ago.to_datetime..sorted_transactions.first.transaction_date.to_datetime).each do |time|
+      data.push({ time: time, balance: net_deposits })
+    end
+    puts data
+
+    user_transactions = self.transactions
+    unique_stocks = transactions.select(:stock_id).distinct.to_a
+    unique_stocks.map! { |transaction| Stock.find(transaction.stock_id) }
+
+    range = ((Time.now - sorted_transactions.first.transaction_date.to_time)/(60*60*24*365)).ceil
+    url = "https://api.iextrading.com/1.0/stock/market/batch?types=quote,news,chart&range=#{range}y&last=5&symbols="
+    unique_stocks.each { |stock| url += "#{stock.ticker}, " }
+    response = JSON.parse(open(url).read)
+    cash_balance = net_deposits
+    curr_stocks = {}
+
+    sorted_transactions.each_with_index do |transaction, idx|
+      curr_stock = Stock.find(transaction.stock_id)
+      if curr_stocks[curr_stock.ticker]
+        if transaction.order_type == 'buy'
+          curr_stocks[curr_stock.ticker] += transaction.num_shares
+          cash_balance -= transaction.num_shares * transaction.price
+        else
+          curr_stocks[curr_stock.ticker] -= transaction.num_shares
+          cash_balance += transaction.num_shares * transaction.price
+        end
+      else
+        curr_stocks[curr_stock.ticker] = transaction.num_shares
+        cash_balance -= transaction.num_shares * transaction.price
+      end
+      if idx == sorted_transactions.length - 1
+        range = transaction.transaction_date.to_datetime..Time.now.to_datetime
+      else
+        range = transaction.transaction_date.to_datetime..sorted_transactions[idx+1].transaction_date.to_datetime
+      end
+      range.each do |time|
+        stock_value = 0
+        year = time.year.to_s
+        month = time.month < 10 ? '0' + time.month.to_s : time.month.to_s
+        day = time.day < 10 ? '0' + time.day.to_s : time.day.to_s
+        date_string = "#{year}-#{month}-#{day}"
+        stock_day_info = nil
+        curr_stocks.each do |k, v|
+          stock_day_info = response[k]['chart'].find { |days| days['date'] == date_string}
+          stock_value += stock_day_info['close'] unless stock_day_info.nil?
+        end
+        balance = cash_balance + stock_value
+        data.push({ time: time, balance: balance }) unless stock_day_info.nil?
+      end
+    end
+
+    puts data
+  end
 end

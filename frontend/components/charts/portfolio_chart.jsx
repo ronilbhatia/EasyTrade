@@ -119,7 +119,7 @@ class PortfolioChart extends React.Component {
     console.log(currentUser);
     return (
       <div className="chart">
-        <h2>${currentUser.buyingPower}</h2>
+        <h2>${currentUser.balance}</h2>
         <h3>{`$1.20`} ({`3.21`}%)</h3>
         <div className="stock-chart">
           <LineChart width={710} height={195} data={data}

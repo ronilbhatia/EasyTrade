@@ -9,7 +9,8 @@
 # Exchange.destroy_all
 #
 
-User.create({ email: 'user@user.com', username: 'user', password: 'testing' })
+user = User.new({ email: 'user@user.com', username: 'user', password: 'testing' })
+user.save!
 
 nasdaq_stock_string = "AABA|Altaba Inc. - Common Stock|Q|N|N|100|N|N
 AAL|American Airlines Group, Inc. - Common Stock|Q|N|N|100|N|N

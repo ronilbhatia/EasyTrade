@@ -234,7 +234,7 @@ class User < ApplicationRecord
       end
       if transaction_index < sorted_transactions.length
         if timeObject > sorted_transactions[transaction_index].transaction_date
-          let transaction = sorted_transactions[transaction_index]
+          transaction = sorted_transactions[transaction_index]
           if curr_stocks[curr_stock.ticker]
             if transaction.order_type == 'buy'
               curr_stocks[curr_stock.ticker] += transaction.num_shares

@@ -226,6 +226,7 @@ class User < ApplicationRecord
     prev_balance = open_balance
     times.each do |time|
       # debugger
+
       timeObject = Time.new(Time.now.year, Time.now.month, Time.now.day, time.split(':')[0].to_i - 3, time.split(':')[1])
       if timeObject > Time.now
         data.push({ time: time, balance: nil })
@@ -233,7 +234,7 @@ class User < ApplicationRecord
       end
       if transaction_index < sorted_transactions.length
         if timeObject > sorted_transactions[transaction_index].transaction_date
-          let transaction = sorted_transaction[transaction_index]
+          let transaction = sorted_transactions[transaction_index]
           if curr_stocks[curr_stock.ticker]
             if transaction.order_type == 'buy'
               curr_stocks[curr_stock.ticker] += transaction.num_shares

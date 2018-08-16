@@ -56,6 +56,7 @@ class StockTransaction extends React.Component {
       cost: '0.00',
       currPrice
     });
+    window.location.reload();
   }
 
   render() {

@@ -2,7 +2,8 @@
   display: flex;
   width: 676px;
   height: 194px;
-  justify-content: space-between;;
+  justify-content: space-between;
+  align-items: center;
   img {
     width: 198px;
     height: 136px;
@@ -28,4 +29,8 @@
     color: black;
     font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
   }
+}
+
+.stock-news-item:hover {
+  background: #eee;
 }

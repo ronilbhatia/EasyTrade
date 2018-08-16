@@ -1,32 +1,19 @@
 import React from 'react';
 import NavBar from '../nav_bar/nav_bar';
 import StockChart from '../charts/stock_chart';
-import StockAbout from '../stocks/stock_about';
-import StockNews from '../stocks/stock_news';
+import StockAbout from './stock_about';
+import StockNews from './stock_news';
+import StockTransaction from './stock_transaction';
 
 class StockShow extends React.Component {
   componentDidMount() {
     const ticker = this.props.match.params.ticker;
-    // Promise.all([
-    //   this.props.fetchStock(ticker),
-    //   this.props.fetchStockInfo(ticker),
-    //   this.props.fetchStockIntradayData(ticker),
-    //   this.props.fetchStockDailyData(ticker),
-    //   this.props.fetchStockNews(ticker)
-    // ]);
     this.props.fetchStock(ticker);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.match.params.ticker !== this.props.match.params.ticker) {
       const ticker = nextProps.match.params.ticker;
-      // Promise.all([
-      //   this.props.fetchStock(ticker),
-      //   this.props.fetchStockInfo(ticker),
-      //   this.props.fetchStockIntradayData(ticker),
-      //   this.props.fetchStockDailyData(ticker),
-      //   this.props.fetchStockNews(ticker)
-      // ]);
       this.props.fetchStock(ticker);
     }
   }
@@ -43,9 +30,7 @@ class StockShow extends React.Component {
                 <StockAbout stock={stock} />
                 <StockNews news={stock.news} />
               </main>
-              <aside className="stock-dashboard">
-                PLACEHOLDER TEXT
-              </aside>
+              <StockTransaction stock={stock} />
             </section>
           ) : (
             <h1>LOADING</h1>

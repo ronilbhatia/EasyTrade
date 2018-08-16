@@ -18,14 +18,15 @@ class Home extends React.Component {
       password: 'testing'
     };
     let balance, balanceData, dailyData, monthData, openBalance, balances, max, min, balanceFlux, balanceFluxPercentage;
+    let neg = "+";
     if (currentUser) {
       balance = currentUser.balance;
       balanceData = currentUser.balanceData.reverse();
       dailyData = currentUser.dailyData;
       if (dailyData.length == 0) {
         openBalance = balance;
-        balanceFlux = 0;
-        balanceFluxPercentage = 0;
+        balanceFlux = '0.00';
+        balanceFluxPercentage = '0.00';
         max = 0;
         min = 0;
       } else {
@@ -38,6 +39,7 @@ class Home extends React.Component {
         min = Math.min(...balances);
         balanceFlux = Math.round((balance - openBalance) * 100)/100;
         balanceFluxPercentage = Math.round((balanceFlux/openBalance)*10000)/100;
+        if (balanceFlux < 0) { neg = "-" ;}
       }
     }
 
@@ -54,6 +56,7 @@ class Home extends React.Component {
               data={dailyData}
               max={max}
               min={min}
+              neg={neg}
               balanceFlux={balanceFlux}
               balanceFluxPercentage={balanceFluxPercentage}
             />

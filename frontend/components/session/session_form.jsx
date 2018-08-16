@@ -74,7 +74,7 @@ class SessionForm extends React.Component {
             </ul>
             <div className="session-buttons">
               <input className="signup-button" type="submit" value={buttonTxt} />
-              <button className="signup-button demo" onClick={() => demoLogin({username: 'user', password: 'testing'})}>Demo</button>
+              <button type="button" className="signup-button demo" onClick={() => demoLogin({username: 'user', password: 'testing'})}>Demo</button>
             </div>
           </form>
         </div>

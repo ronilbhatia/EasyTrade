@@ -3,24 +3,25 @@
   margin-left: 10px;
   border: 1px solid #eee;
   box-shadow: 3px 0px 2px #fafafa, -3px 0px 2px #fafafa, 0px 3px 2px #fafafa, 0px -3px 2px #fafafa;
-  height: 405px;
+  height: 402px;
   h3 {
     font-size: 16px;
     padding: 15px 18px;
     a {
       margin: 0 5px;
+      cursor: pointer;
     }
     border-bottom: 1px solid #eee;
+  }
+  h4 {
+    font-weight: 500;
+    font-size: 13px;
   }
   .transaction-shares {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px 5px 25px;
-    h4 {
-      font-weight: 500;
-      font-size: 13px;
-    }
     input {
       width: 58px;
       height: 12px;
@@ -35,10 +36,6 @@
     align-items: center;
     margin: 15px 22px 0 25px;
     padding-bottom: 20px;
-    h4 {
-      font-weight: 500;
-      font-size: 13px;
-    }
     p {
       // width: 58px;
       // height: 12px;
@@ -65,5 +62,16 @@
       padding: 17px 80px;
       cursor: pointer;
     }
+    padding-bottom: 22px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .buying-power {
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 500;
   }
 }

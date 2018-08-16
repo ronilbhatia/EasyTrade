@@ -10,14 +10,15 @@ class Api::TransactionsController < ApplicationController
   def create
     @transaction = Transaction.new(transaction_params)
     @transaction.user_id = current_user.id
+    @transaction.transaction_date = Time.now
     if @transaction.save
-      render 'api/transactions/show', status: 200
+      render 'api/users/show', status: 200
     else
       render json: @transaction.errors.full_messages, status: 422
     end
   end
 
-  def create
+  def update
     @transaction = Transaction.find(params[:id])
 
     if @transaction.update(transaction_params)
@@ -35,6 +36,6 @@ class Api::TransactionsController < ApplicationController
   private
 
   def transaction_params
-    params.require(:transaction).params(:stock_id, :price, :num_shares, :order_type)
+    params.require(:transaction).permit(:stock_id, :price, :num_shares, :order_type)
   end
 end

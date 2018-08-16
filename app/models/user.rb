@@ -87,6 +87,7 @@ class User < ApplicationRecord
     end
 
     url = 'https://www.alphavantage.co/query?function=BATCH_QUOTES_US&apikey=B46V4AYA6Y9N0447&symbols='
+    # url = "https://api.iextrading.com/1.0/stock/market/batch?types=quote,news,chart&range=1d&last=5&symbols="
     stocks.each { |k, _| url += "#{k},"}
     stocks = stocks.map { |stock| { symbol: stock[0], shares: stock[1]}}.sort_by { |stock| stock[:symbol] }
 
@@ -94,18 +95,18 @@ class User < ApplicationRecord
     response = JSON.parse(open(url).read)
     if response['Information']
       sleep(10)
-      calculate_stocks
+      stocks = calculate_stocks
     else
       response = response['Stock Batch Quotes'].sort_by { |stock| stock['1. symbol'] }
-    end
-    stocks.each_with_index do |stock, idx|
-      price = response[idx]['5. price'].to_f.round(2).to_s
-      if !price.include?('.')
-        price += '.00'
-      elsif price.split('.')[1].length == 1
-        price += '0'
+      stocks.each_with_index do |stock, idx|
+        price = response[idx]['5. price'].to_f.round(2).to_s
+        if !price.include?('.')
+          price += '.00'
+        elsif price.split('.')[1].length == 1
+          price += '0'
+        end
+        stock[:price] = price
       end
-      stock[:price] = price
     end
     return stocks
   end

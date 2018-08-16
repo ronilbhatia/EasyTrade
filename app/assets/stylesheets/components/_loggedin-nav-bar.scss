@@ -42,3 +42,20 @@
 .svg-logo:hover {
   fill: #21ce99;
 }
+
+.site-navigation {
+  display: flex;
+  justify-content: space-between;
+  width: 1120px;
+  margin-left: 20px;
+
+  input {
+    border: none;
+    height: 32px;
+    width: 400px;
+    padding: 2px 20px 0 20px;
+  }
+  input:focus {
+    outline: none;
+  }
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import StockSearchBarContainer from '../stocks/stock_search_bar_container';
 
 const NavBar = ({ currentUser, demoLogin, demoUser, logout }) => {
   const display = currentUser ? (
@@ -13,9 +14,12 @@ const NavBar = ({ currentUser, demoLogin, demoUser, logout }) => {
           </g>
         </svg>
       </NavLink>
-      <section className="loggedin-nav-links">
-        <NavLink to="/" className="loggedin-nav-link">Home</NavLink>
-        <button onClick={logout} className="loggedin-nav-link">Log Out</button>
+      <section className="site-navigation">
+        <StockSearchBarContainer />
+        <section className="loggedin-nav-links">
+          <NavLink to="/" className="loggedin-nav-link">Home</NavLink>
+          <button onClick={logout} className="loggedin-nav-link">Log Out</button>
+        </section>
       </section>
     </nav>
   ) : (

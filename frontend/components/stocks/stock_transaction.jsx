@@ -49,13 +49,6 @@ class StockTransaction extends React.Component {
       price: currPrice
     };
     this.props.createTransaction(transaction);
-    this.setState({
-      stock_id,
-      num_shares: '',
-      order_type: 'buy',
-      cost: '0.00',
-      currPrice
-    });
     window.location.reload();
   }
 

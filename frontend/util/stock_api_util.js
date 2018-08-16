@@ -4,6 +4,12 @@ export const fetchStock = (ticker) => (
   })
 );
 
+export const fetchStocks = () => (
+  $.ajax({
+    url: 'api/stocks'
+  })
+);
+
 export const fetchStockDailyData = ticker => (
   $.ajax({
     method: 'get',

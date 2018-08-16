@@ -1,5 +1,6 @@
 import {
   RECEIVE_STOCK,
+  RECEIVE_STOCKS,
   RECEIVE_STOCK_INFO,
   RECEIVE_STOCK_INTRADAY_DATA,
   RECEIVE_STOCK_DAILY_DATA,
@@ -13,6 +14,9 @@ const stocksReducer = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_STOCK:
       nextState[action.stock.ticker] = action.stock;
+      return nextState;
+    case RECEIVE_STOCKS:
+      nextState.allStocks = action.allStocks;
       return nextState;
     case RECEIVE_STOCK_INFO:
         nextState[action.ticker].shortDescription = action.stockInfo.short_description;

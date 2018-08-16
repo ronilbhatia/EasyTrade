@@ -225,7 +225,6 @@ class User < ApplicationRecord
 
     prev_balance = open_balance
     times.each do |time|
-      # debugger
 
       timeObject = Time.new(Time.now.year, Time.now.month, Time.now.day, time.split(':')[0].to_i - 3, time.split(':')[1])
       if timeObject > Time.now

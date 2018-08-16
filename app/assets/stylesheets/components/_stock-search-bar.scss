@@ -1,0 +1,35 @@
+.stock-search-bar {
+  // display: flex;
+  border: 1px solid #eee;
+  width: 477px;
+  height: 36px;
+  .search-res {
+    background: white;
+    z-index: 999;
+    font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
+    h4 {
+      padding: 15px 20px;
+      color: #ddd;
+    }
+    .search-res-item {
+      // display: flex;
+      // justify-content: flex-start;
+      padding: 15px 20px;
+      p {
+        display: inline-block;
+        color: black;
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .search-ticker {
+        width: 70px;
+      }
+      .search-name {
+        width: 300px;
+      }
+    }
+    .search-res-item:hover {
+      background: #fafafa;
+    }
+  }
+}

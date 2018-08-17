@@ -4,9 +4,16 @@
   width: 477px;
   height: 36px;
   .search-res {
+    display: none;
+  }
+  input:focus + .search-res, .search-res:focus-within, .search-res:focus, .search-res:active {
+    display: block;
     background: white;
     z-index: 999;
     font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    border-bottom: 1px solid #eee;
     h4 {
       padding: 15px 20px;
       color: #ddd;

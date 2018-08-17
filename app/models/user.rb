@@ -160,7 +160,10 @@ class User < ApplicationRecord
       if idx == sorted_transactions.length - 1
         range = transaction.transaction_date.to_datetime..Time.now.to_datetime
       else
-        range = transaction.transaction_date.to_datetime..sorted_transactions[idx+1].transaction_date.to_datetime
+        transaction_datetime = transaction.transaction_date.to_datetime
+        next_transaction_datetime = sorted_transactions[idx+1].transaction_date.to_datetime
+        range = transaction_datetime..next_transaction_datetime
+        next if transaction_datetime.year == next_transaction_datetime.year && transaction_datetime.month == next_transaction_datetime.month && transaction_datetime.day == next_transaction_datetime.day
       end
       stock_value = 0
       range.each do |time|

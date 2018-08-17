@@ -27,7 +27,6 @@ class StockChart extends React.Component {
         return {
           time,
           price: null
-          // price: intradayData[dateString + ' ' + prevTime]['4. close']
         };
       } else {
         prevTime = time;

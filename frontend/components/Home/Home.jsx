@@ -21,7 +21,8 @@ class Home extends React.Component {
     let neg = "+";
     if (currentUser) {
       balance = currentUser.balance;
-      balanceData = currentUser.balanceData.reverse();
+      balanceData = currentUser.balanceData;
+      balanceData.push({ time: new Date, balance })
       dailyData = currentUser.dailyData;
       if (dailyData.length == 0) {
         openBalance = balance;
@@ -75,6 +76,7 @@ class Home extends React.Component {
         <Splash demoLogin={demoLogin} demoUser={demoUser}/>
       </div>
     );
+    debugger
     return (
       <div>
         {display}

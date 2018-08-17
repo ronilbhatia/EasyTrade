@@ -36,9 +36,7 @@ class PortfolioChart extends React.Component {
       }
       max = Math.max(...balances);
       min = Math.min(...balances);
-      // balanceFlux = Math.round((balance - openBalance) * 100)/100;
       balanceFlux = parseFloat(balance - openBalance);
-      // balanceFluxPercentage = Math.round((balanceFlux/openBalance)*10000)/100;
       balanceFluxPercentage = parseFloat(balanceFlux * 100/openBalance);
       if (balanceFlux < 0) { neg = "-" ;}
     }
@@ -58,7 +56,8 @@ class PortfolioChart extends React.Component {
 
   render1WChart() {
     let { balanceData, balance } = this.state.initialData;
-    let data = balanceData.slice(0, 5).reverse();
+    let data = balanceData.slice(0);
+    data = data.reverse().slice(0, 6).reverse();
     let { max, min, neg, openBalance, balanceFlux, balanceFluxPercentage } = this.calculateDailyPriceData(data, balance);
     this.setState({
       currData: {
@@ -78,7 +77,9 @@ class PortfolioChart extends React.Component {
 
   render1MChart() {
     let { balanceData, balance } = this.state.initialData;
-    let data = balanceData.slice(0, 21).reverse();
+    debugger
+    let data = balanceData.slice(0)
+    data = data.reverse().slice(0, 22).reverse();
     let { max, min, neg, openBalance, balanceFlux, balanceFluxPercentage } = this.calculateDailyPriceData(data, balance);
     this.setState({
       currData: {
@@ -97,7 +98,8 @@ class PortfolioChart extends React.Component {
 
   render3MChart() {
     let { balanceData, balance } = this.state.initialData;
-    let data = balanceData.slice(0, 66).reverse();
+    let data = balanceData.slice(0);
+    data = data.reverse().slice(0, 67).reverse();
     let { max, min, neg, openBalance, balanceFlux, balanceFluxPercentage } = this.calculateDailyPriceData(data, balance);
     this.setState({
       currData: {
@@ -116,7 +118,8 @@ class PortfolioChart extends React.Component {
 
   render1YChart() {
     let { balanceData, balance } = this.state.initialData;
-    let data = balanceData.slice(0, 251).reverse();
+    let data = balanceData.slice(0);
+    data = data.reverse().slice(0, 252).reverse();
     let { max, min, neg, openBalance, balanceFlux, balanceFluxPercentage } = this.calculateDailyPriceData(data, balance);
     this.setState({
       currData: {
@@ -135,7 +138,7 @@ class PortfolioChart extends React.Component {
 
   renderAllChart() {
     let { balanceData, balance } = this.state.initialData;
-    let data = balanceData.slice(0).reverse();
+    let data = balanceData.slice(0);
     let { max, min, neg, openBalance, balanceFlux, balanceFluxPercentage } = this.calculateDailyPriceData(data, balance);
     this.setState({
       currData: {

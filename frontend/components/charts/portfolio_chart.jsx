@@ -158,6 +158,7 @@ class PortfolioChart extends React.Component {
     balance = parseFloat(balance).formatMoney(2);
     balanceFlux = Math.abs(parseFloat(balanceFlux)).formatMoney(2);
     balanceFluxPercentage = parseFloat(balanceFluxPercentage).formatMoney(2);
+    debugger
     return (
       <div className="chart">
         <h2 id="portfolio-balance">${balance}</h2>

@@ -62,8 +62,8 @@ class StockTransaction extends React.Component {
     return (
       <aside className="stock-transaction">
         <h3>
-          <a onClick={() => this.updateType('buy')}>Buy {`${stock.ticker}`}</a>
-          <a onClick={() => this.updateType('sell')}>Sell {`${stock.ticker}`}</a>
+          <a className={this.state.order_type === 'buy' ? 'active' : ''} onClick={() => this.updateType('buy')}>Buy {`${stock.ticker}`}</a>
+          <a className={this.state.order_type === 'sell' ? 'active' : ''} onClick={() => this.updateType('sell')}>Sell {`${stock.ticker}`}</a>
         </h3>
         <form onSubmit={this.handleSubmit}>
           <div className='transaction-shares'>

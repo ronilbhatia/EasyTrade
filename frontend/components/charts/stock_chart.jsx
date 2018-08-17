@@ -26,13 +26,14 @@ class StockChart extends React.Component {
       if (!intradayData.hasOwnProperty(dateString + ' ' + time)) {
         return {
           time,
-          price: intradayData[dateString + ' ' + prevTime]['4. close']
+          price: null
+          // price: intradayData[dateString + ' ' + prevTime]['4. close']
         };
       } else {
         prevTime = time;
         return {
           time,
-          price: intradayData[dateString + ' ' + time]['4. close']
+          price: parseFloat(intradayData[dateString + ' ' + time]['4. close'])
         };
       }
     });
@@ -49,21 +50,8 @@ class StockChart extends React.Component {
     let openPrice = intradayData[dateString + ' 09:35:00']['1. open'];
     openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
     let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
-    // if (priceFlux < 0) {
-    //   priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
-    // } else if (priceFlux.toString().indexOf('.') === -1) {
-    //   priceFlux = "+$" + priceFlux.toString() + ".00";
-    // } else {
-    //   priceFlux = "+$" + priceFlux.toString().slice(1);
-    // }
     let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
     if (priceFlux < 0) { neg = "-" ;}
-    debugger
-    // if (priceFluxPercentage.toString().indexOf('.') === -1) {
-    //   priceFluxPercentage += ".00";
-    // } else if (priceFluxPercentage.toString().split('.')[1].length === 1) {
-    //   priceFluxPercentage += "0";
-    // }
     return (
       <div>
         {

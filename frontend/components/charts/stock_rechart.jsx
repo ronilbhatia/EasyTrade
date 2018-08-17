@@ -125,10 +125,6 @@ class StockRechart extends React.Component {
       });
     }
     let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, times);
-    // let price = document.getElementById('stock-price');
-    // let priceFluxHTML = document.getElementById('stock-price-flux');
-    // price.innerHTML = `$${this.props.price}`;
-    // priceFluxHTML.innerHTML = `${neg}$${priceFlux} (${priceFluxPercentage}%)`;
     this.setState({
       currData: {
         data,

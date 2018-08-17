@@ -173,7 +173,11 @@ class PortfolioChart extends React.Component {
               hide={true}
               domain={[min, max]}
               />
-            <Tooltip content={<CustomTooltip balance={balance} balanceFlux={balanceFlux} balanceFluxPercentage={balanceFluxPercentage} openBalance={openBalance} neg={neg}/>}/>
+            <Tooltip
+              content={<CustomTooltip balance={balance} balanceFlux={balanceFlux} balanceFluxPercentage={balanceFluxPercentage} openBalance={openBalance} neg={neg}/>}
+              offset={-75}
+              coordinate={{ x: 100, y: 140 }}
+            />
             <Line type="linear" dataKey="balance" stroke="#82ca9d" dot={false} strokeWidth={2} />
           </LineChart>
           <ul className="chart-range">

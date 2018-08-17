@@ -28,17 +28,19 @@ class CustomTooltip extends React.Component {
   }
 
   render() {
-    // debugger
-    // const { active } = this.props;
-    //
-    // if (active) {
-    //   const { payload } = this.props;
-    //   return (
-    //     <div className="custom-tooltip">
-    //       {payload[0].value}
-    //     </div>
-    //   );
-    // }
+    const { active } = this.props;
+
+    if (active) {
+      const { payload } = this.props;
+      if (payload && payload[0] && payload[0].payload) {
+        debugger
+        return (
+          <div className="custom-tooltip">
+            {payload[0].payload.time}
+          </div>
+        );
+      }
+    }
     return null;
   }
 }

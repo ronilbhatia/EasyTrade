@@ -68,7 +68,6 @@ class StockSearchBar extends React.Component {
           onChange={this.handleInput.bind(this)}
         />
         {this.renderStocks()}
-        <div className="search-res-wrapper" onClick={this.toggleOff}></div>
       </div>
     );
   }

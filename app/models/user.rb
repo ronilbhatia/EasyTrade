@@ -177,8 +177,9 @@ class User < ApplicationRecord
           stock_day_info = response[k]['chart'].find { |days| days['date'] == date_string}
           stock_value += stock_day_info['close'] * v unless stock_day_info.nil?
         end
+        formattedTime = "#{time.month}/#{time.day}/#{time.year}"
         balance = cash_balance + stock_value
-        data.push({ time: time, balance: balance.round(2) }) unless stock_day_info.nil?
+        data.push({ time: formattedTime, balance: balance.round(2) }) unless stock_day_info.nil?
       end
     end
 

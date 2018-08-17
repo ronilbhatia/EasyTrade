@@ -80,16 +80,21 @@ class StockRechart extends React.Component {
     let data = [];
     let times = Object.keys(intradayData).reverse();
     for(let i = 0; i < times.length; i++) {
+      let dateAndTime = times[i].split(' ');
+      let dateNums = dateAndTime[0].split('-');
+      let timeNums = dateAndTime[1].split(':');
+      let timeString = `${timeNums[0]}:${timeNums[1]}, ${dateNums[1]}/${dateNums[2]} ET`;
+      debugger;
       if (i === 0) {
         data.push({
-          time: times[i].split(' ')[1],
+          time: timeString,
           price: intradayData[times[i]]['4. close']
         });
       } else if (i % 2 === 0){
         continue;
       } else {
         data.push({
-          time: times[i].split(' ')[1],
+          time: timeString,
           price: intradayData[times[i]]['4. close']
         });
       }
@@ -245,7 +250,10 @@ class StockRechart extends React.Component {
               hide={true}
               domain={[min, max]}
               />
-            <Tooltip content={<CustomStockTooltip price={currPrice} priceFlux={priceFlux} priceFluxPercentage={priceFluxPercentage} openPrice={openPrice} neg={neg}/>}/>
+            <Tooltip
+              content={<CustomStockTooltip price={currPrice} priceFlux={priceFlux} priceFluxPercentage={priceFluxPercentage} openPrice={openPrice} neg={neg}/>}
+              offset={-35}
+            />
             <Line type="linear" dataKey="price" stroke="#82ca9d" dot={false} strokeWidth={2} />
           </LineChart>
           <ul className="chart-range">

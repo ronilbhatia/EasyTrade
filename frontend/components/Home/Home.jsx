@@ -22,7 +22,8 @@ class Home extends React.Component {
     if (currentUser) {
       balance = currentUser.balance;
       balanceData = currentUser.balanceData;
-      balanceData.push({ time: new Date, balance })
+      let time = new Date;
+      balanceData.push({ time: time.toLocaleDateString(), balance })
       dailyData = currentUser.dailyData;
       if (dailyData.length == 0) {
         openBalance = balance;

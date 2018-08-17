@@ -39,6 +39,10 @@
   color: #21ce99;
 }
 
+.loggedin-nav-link:focus {
+  outline: none;
+}
+
 .svg-logo:hover {
   fill: #21ce99;
 }

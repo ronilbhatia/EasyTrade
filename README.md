@@ -21,22 +21,3 @@ EasyTrade, a Robinhood clone, is an investing application that allows users to p
 * [Intrinio API](https://intrinio.com/)
 * [News API](https://newsapi.org/)
 * [Recharts](http://recharts.org/en-US/)
-
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

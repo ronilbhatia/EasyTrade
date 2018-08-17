@@ -7,8 +7,8 @@ class StockSearchBar extends React.Component {
     this.state = {
       inputVal: "",
     };
-    this.renderStocks.bind(this);
-    this.handleInput.bind(this);
+    this.renderStocks = this.renderStocks.bind(this);
+    this.handleInput = this.handleInput.bind(this);
   }
 
   componentDidMount() {
@@ -48,6 +48,12 @@ class StockSearchBar extends React.Component {
 
   }
 
+  // toggleOff() {
+  //   let ul = document.getElementsByClassName('search-res');
+  //   debugger;
+  //   ul.addClass
+  // }
+
   handleInput(e) {
     const inputVal = e.target.value;
     this.setState({ inputVal });
@@ -62,6 +68,7 @@ class StockSearchBar extends React.Component {
           onChange={this.handleInput.bind(this)}
         />
         {this.renderStocks()}
+        <div className="search-res-wrapper" onClick={this.toggleOff}></div>
       </div>
     );
   }

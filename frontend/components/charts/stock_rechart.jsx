@@ -1,5 +1,6 @@
 import React from 'react';
 import { LineChart, Line, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
+import CustomStockTooltip from './custom_stock_tooltip';
 
 class StockRechart extends React.Component {
   constructor(props) {
@@ -7,7 +8,8 @@ class StockRechart extends React.Component {
     this.state = {
       currData: this.props,
       initialData: this.props,
-      dailyData: this.props.dailyData
+      dailyData: this.props.dailyData,
+      active: '1D'
     };
     this.render1DChart = this.render1DChart.bind(this);
     this.render1WChart = this.render1WChart.bind(this);
@@ -19,6 +21,7 @@ class StockRechart extends React.Component {
 
   calculateIntradayPriceData(data, times) {
     let { intradayData } = this.state.initialData;
+    let neg = "+";
     const prices = [];
     for (let i = 0; i < data.length; i++) {
       prices.push(parseFloat(data[i].price));
@@ -29,23 +32,12 @@ class StockRechart extends React.Component {
     let openPrice = intradayData[times[0]]['1. open'];
     openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
     let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
-    if (priceFlux < 0) {
-      priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
-    } else if (priceFlux.toString().indexOf('.') === -1) {
-      priceFlux = "+$" + priceFlux.toString() + ".00";
-    } else {
-      priceFlux = "+$" + priceFlux.toString();
-    }
-    if (priceFlux.split('.')[1].length === 1) {
-      priceFlux += "0";
-    }
     let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
-    if (priceFluxPercentage.toString().split('.')[1].length === 1) {
-      priceFluxPercentage += "0";
-    }
+    if (priceFlux < 0) { neg = "-" ;}
     return {
       max,
       min,
+      neg,
       currPrice,
       openPrice,
       priceFlux,
@@ -55,6 +47,7 @@ class StockRechart extends React.Component {
 
   calculateDailyPriceData(data, times) {
     let { dailyData } = this.state.initialData;
+    let neg = "+";
     const prices = [];
     for (let i = 0; i < data.length; i++) {
       prices.push(parseFloat(data[i].price));
@@ -65,24 +58,12 @@ class StockRechart extends React.Component {
     let openPrice = dailyData[times[0]]['1. open'];
     openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
     let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
-    console.log(openPrice, currPrice, priceFlux);
-    if (priceFlux < 0) {
-      priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
-    } else if (priceFlux.toString().indexOf('.') === -1) {
-      priceFlux = "+$" + priceFlux.toString() + ".00";
-    } else {
-      priceFlux = "+$" + priceFlux.toString();
-    }
-    if (priceFlux.split('.')[1].length === 1) {
-      priceFlux += "0";
-    }
     let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
-    if (priceFluxPercentage.toString().split('.')[1].length === 1) {
-      priceFluxPercentage += "0";
-    }
+    if (priceFlux < 0) { neg = "-" ;}
     return {
       max,
       min,
+      neg,
       currPrice,
       openPrice,
       priceFlux,
@@ -91,7 +72,7 @@ class StockRechart extends React.Component {
   }
 
   render1DChart() {
-    this.setState({ currData: this.state.initialData });
+    this.setState({ currData: this.state.initialData, active: '1D' });
   }
 
   render1WChart() {
@@ -113,18 +94,21 @@ class StockRechart extends React.Component {
         });
       }
     }
-    let { max, min, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateIntradayPriceData(data, times);
+    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateIntradayPriceData(data, times);
 
     this.setState({
       currData: {
         data,
         currPrice,
+        openPrice,
         priceFlux,
         priceFluxPercentage,
         min,
         max,
+        neg,
         intradayData
-      }
+      },
+      active: '1W'
     });
   }
 
@@ -140,17 +124,24 @@ class StockRechart extends React.Component {
         price: dailyData[times[i]]['4. close']
       });
     }
-    let { max, min, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, times);
+    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, times);
+    // let price = document.getElementById('stock-price');
+    // let priceFluxHTML = document.getElementById('stock-price-flux');
+    // price.innerHTML = `$${this.props.price}`;
+    // priceFluxHTML.innerHTML = `${neg}$${priceFlux} (${priceFluxPercentage}%)`;
     this.setState({
       currData: {
         data,
         currPrice,
+        openPrice,
         priceFlux,
         priceFluxPercentage,
         min,
         max,
+        neg,
         dailyData
-      }
+      },
+      active: '1M'
     });
   }
 
@@ -165,17 +156,20 @@ class StockRechart extends React.Component {
         price: dailyData[times[i]]['4. close']
       });
     }
-    let { max, min, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, times);
+    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, times);
     this.setState({
       currData: {
         data,
         currPrice,
+        openPrice,
         priceFlux,
         priceFluxPercentage,
         min,
         max,
+        neg,
         dailyData
-      }
+      },
+      active: '3M'
     });
   }
 
@@ -190,17 +184,20 @@ class StockRechart extends React.Component {
         price: dailyData[times[i]]['4. close']
       });
     }
-    let { max, min, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, times);
+    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, times);
     this.setState({
       currData: {
         data,
         currPrice,
+        openPrice,
         priceFlux,
         priceFluxPercentage,
         min,
         max,
+        neg,
         dailyData
-      }
+      },
+      active: '1Y'
     });
   }
 
@@ -217,27 +214,34 @@ class StockRechart extends React.Component {
     }
     data = data.reverse();
     times = times.reverse();
-    let { max, min, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, times);
+    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, times);
     this.setState({
       currData: {
         data,
         currPrice,
+        openPrice,
         priceFlux,
         priceFluxPercentage,
         min,
         max,
-        dailyData
-      }
+        neg,
+        dailyData,
+      },
+      active: '5Y'
     });
   }
 
   render() {
-    let { currPrice, priceFlux, priceFluxPercentage, data, min, max } = this.state.currData;
+    let { currPrice, openPrice, priceFlux, priceFluxPercentage, data, min, max, neg } = this.state.currData;
+    debugger;
+    currPrice = parseFloat(currPrice).formatMoney(2);
+    priceFlux = Math.abs(parseFloat(priceFlux)).formatMoney(2);
+    priceFluxPercentage = parseFloat(priceFluxPercentage).formatMoney(2);
     return (
       <div className="chart">
         <h1>{this.props.stock.name}</h1>
-        <h2>${currPrice}</h2>
-        <h3>{priceFlux} ({priceFluxPercentage}%)</h3>
+        <h2 id="stock-price">${currPrice}</h2>
+        <h3 id="stock-price-flux">{neg}${priceFlux} ({priceFluxPercentage}%)</h3>
         <div className="stock-chart">
           <LineChart width={710} height={195} data={data}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
@@ -245,17 +249,16 @@ class StockRechart extends React.Component {
               hide={true}
               domain={[min, max]}
               />
-            <Tooltip
-            />
+            <Tooltip content={<CustomStockTooltip price={currPrice} priceFlux={priceFlux} priceFluxPercentage={priceFluxPercentage} openPrice={openPrice} neg={neg}/>}/>
             <Line type="linear" dataKey="price" stroke="#82ca9d" dot={false} strokeWidth={2} />
           </LineChart>
           <ul className="chart-range">
-            <li><a className='chart-choice' onClick={this.render1DChart}>1D</a></li>
-            <li><a className='chart-choice' onClick={this.render1WChart}>1W</a></li>
-            <li><a className='chart-choice' onClick={this.render1MChart}>1M</a></li>
-            <li><a className='chart-choice' onClick={this.render3MChart}>3M</a></li>
-            <li><a className='chart-choice' onClick={this.render1YChart}>1Y</a></li>
-            <li><a className='chart-choice' onClick={this.render5YChart}>5Y</a></li>
+            <li><a className={this.state.active === '1D' ? 'chart-choice active' : 'chart-choice'} onClick={this.render1DChart}>1D</a></li>
+            <li><a className={this.state.active === '1W' ? 'chart-choice active' : 'chart-choice'} onClick={this.render1WChart}>1W</a></li>
+            <li><a className={this.state.active === '1M' ? 'chart-choice active' : 'chart-choice'} onClick={this.render1MChart}>1M</a></li>
+            <li><a className={this.state.active === '3M' ? 'chart-choice active' : 'chart-choice'} onClick={this.render3MChart}>3M</a></li>
+            <li><a className={this.state.active === '1Y' ? 'chart-choice active' : 'chart-choice'} onClick={this.render1YChart}>1Y</a></li>
+            <li><a className={this.state.active === '5Y' ? 'chart-choice active' : 'chart-choice'} onClick={this.render5YChart}>5Y</a></li>
           </ul>
         </div>
       </div>

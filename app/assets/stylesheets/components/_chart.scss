@@ -1,5 +1,15 @@
 .chart-choice {
   cursor: pointer;
+  padding-bottom: 15px;
+}
+
+.chart-choice.active {
+  color: #21ce99;
+  border-bottom: 2px solid #21ce99;
+}
+
+.chart-choice:hover {
+  color: #21ce99;
 }
 
 .chart {

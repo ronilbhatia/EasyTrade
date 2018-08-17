@@ -1,13 +1,15 @@
 import React from 'react';
 import { LineChart, Line, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
 import StockRechart from './stock_rechart';
+import CustomTooltip from './custom_tooltip';
 
 class PortfolioChart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currData: this.props,
-      initialData: this.props
+      initialData: this.props,
+      active: '1D'
     };
     this.render1DChart = this.render1DChart.bind(this);
     this.render1WChart = this.render1WChart.bind(this);
@@ -51,7 +53,7 @@ class PortfolioChart extends React.Component {
   }
 
   render1DChart() {
-    this.setState({ currData: this.state.initialData });
+    this.setState({ currData: this.state.initialData, active: '1D' });
   }
 
   render1WChart() {
@@ -64,10 +66,12 @@ class PortfolioChart extends React.Component {
         balance,
         balanceFlux,
         balanceFluxPercentage,
+        openBalance,
         min,
         max,
         neg
-      }
+      },
+      active: '1W'
     });
   }
 
@@ -82,10 +86,12 @@ class PortfolioChart extends React.Component {
         balance,
         balanceFlux,
         balanceFluxPercentage,
+        openBalance,
         min,
         max,
         neg
-      }
+      },
+      active: '1M'
     });
   }
 
@@ -99,10 +105,12 @@ class PortfolioChart extends React.Component {
         balance,
         balanceFlux,
         balanceFluxPercentage,
+        openBalance,
         min,
         max,
         neg
-      }
+      },
+      active: '3M'
     });
   }
 
@@ -116,10 +124,12 @@ class PortfolioChart extends React.Component {
         balance,
         balanceFlux,
         balanceFluxPercentage,
+        openBalance,
         min,
         max,
         neg
-      }
+      },
+      active: '1Y'
     });
   }
 
@@ -133,20 +143,25 @@ class PortfolioChart extends React.Component {
         balance,
         balanceFlux,
         balanceFluxPercentage,
+        openBalance,
         min,
         max,
         neg
-      }
+      },
+      active: 'ALL'
     });
   }
 
   render() {
     let { currentUser } = this.props;
-    let { balance, balanceFlux, balanceFluxPercentage, data, min, max, neg } = this.state.currData;
+    let { balance, balanceFlux, balanceFluxPercentage, openBalance, data, min, max, neg } = this.state.currData;
+    balance = parseFloat(balance).formatMoney(2);
+    balanceFlux = Math.abs(parseFloat(balanceFlux)).formatMoney(2);
+    balanceFluxPercentage = parseFloat(balanceFluxPercentage).formatMoney(2);
     return (
       <div className="chart">
-        <h2>${parseFloat(balance).formatMoney(2)}</h2>
-        <h3>{neg}${Math.abs(parseFloat(balanceFlux)).formatMoney(2)} ({parseFloat(balanceFluxPercentage).formatMoney(2)}%)</h3>
+        <h2 id="portfolio-balance">${balance}</h2>
+        <h3 id="portfolio-balance-flux">{neg}${balanceFlux} ({balanceFluxPercentage}%)</h3>
         <div className="stock-chart">
           <LineChart width={710} height={195} data={data}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
@@ -154,16 +169,16 @@ class PortfolioChart extends React.Component {
               hide={true}
               domain={[min, max]}
               />
-            <Tooltip />
+            <Tooltip content={<CustomTooltip balance={balance} balanceFlux={balanceFlux} balanceFluxPercentage={balanceFluxPercentage} openBalance={openBalance} neg={neg}/>}/>
             <Line type="linear" dataKey="balance" stroke="#82ca9d" dot={false} strokeWidth={2} />
           </LineChart>
           <ul className="chart-range">
-            <li><a className='chart-choice' onClick={this.render1DChart}>1D</a></li>
-            <li><a className='chart-choice' onClick={this.render1WChart}>1W</a></li>
-            <li><a className='chart-choice' onClick={this.render1MChart}>1M</a></li>
-            <li><a className='chart-choice' onClick={this.render3MChart}>3M</a></li>
-            <li><a className='chart-choice' onClick={this.render1YChart}>1Y</a></li>
-            <li><a className='chart-choice' onClick={this.renderAllChart}>ALL</a></li>
+            <li><a className={this.state.active === '1D' ? 'chart-choice active' : 'chart-choice'} onClick={this.render1DChart}>1D</a></li>
+            <li><a className={this.state.active === '1W' ? 'chart-choice active' : 'chart-choice'} onClick={this.render1WChart}>1W</a></li>
+            <li><a className={this.state.active === '1M' ? 'chart-choice active' : 'chart-choice'} onClick={this.render1MChart}>1M</a></li>
+            <li><a className={this.state.active === '3M' ? 'chart-choice active' : 'chart-choice'} onClick={this.render3MChart}>3M</a></li>
+            <li><a className={this.state.active === '1Y' ? 'chart-choice active' : 'chart-choice'} onClick={this.render1YChart}>1Y</a></li>
+            <li><a className={this.state.active === 'ALL' ? 'chart-choice active' : 'chart-choice'} onClick={this.renderAllChart}>ALL</a></li>
           </ul>
         </div>
       </div>

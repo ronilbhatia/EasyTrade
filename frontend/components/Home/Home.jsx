@@ -51,6 +51,7 @@ class Home extends React.Component {
             <PortfolioChart
               currentUser={currentUser}
               balance={balance}
+              openBalance={openBalance}
               balanceData={balanceData}
               dailyData={dailyData}
               data={dailyData}

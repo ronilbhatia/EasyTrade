@@ -37,6 +37,7 @@ class StockChart extends React.Component {
       }
     });
     const prices = [];
+    let neg = "+";
     for (let i = 0; i < data.length; i++) {
       prices.push(parseFloat(data[i].price));
     }
@@ -48,32 +49,35 @@ class StockChart extends React.Component {
     let openPrice = intradayData[dateString + ' 09:35:00']['1. open'];
     openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
     let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
-    if (priceFlux < 0) {
-      priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
-    } else if (priceFlux.toString().indexOf('.') === -1) {
-      priceFlux = "+$" + priceFlux.toString() + ".00";
-    } else {
-      priceFlux = "+$" + priceFlux.toString().slice(1);
-    }
+    // if (priceFlux < 0) {
+    //   priceFlux = priceFlux.toString()[0] + "$" + priceFlux.toString().slice(1);
+    // } else if (priceFlux.toString().indexOf('.') === -1) {
+    //   priceFlux = "+$" + priceFlux.toString() + ".00";
+    // } else {
+    //   priceFlux = "+$" + priceFlux.toString().slice(1);
+    // }
     let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
+    if (priceFlux < 0) { neg = "-" ;}
     debugger
-    if (priceFluxPercentage.toString().indexOf('.') === -1) {
-      priceFluxPercentage += ".00";
-    } else if (priceFluxPercentage.toString().split('.')[1].length === 1) {
-      priceFluxPercentage += "0";
-    }
+    // if (priceFluxPercentage.toString().indexOf('.') === -1) {
+    //   priceFluxPercentage += ".00";
+    // } else if (priceFluxPercentage.toString().split('.')[1].length === 1) {
+    //   priceFluxPercentage += "0";
+    // }
     return (
       <div>
         {
           (Object.keys(stock).length > 9) ? (
             <StockRechart
               stock={stock}
+              openPrice={openPrice}
               currPrice={currPrice}
               priceFlux={priceFlux}
               priceFluxPercentage={priceFluxPercentage}
               data={data}
               min={min}
               max={max}
+              neg={neg}
               intradayData={intradayData}
               dailyData={dailyData}
             />

@@ -77,7 +77,6 @@ class Home extends React.Component {
         <Splash demoLogin={demoLogin} demoUser={demoUser}/>
       </div>
     );
-    debugger
     return (
       <div>
         {display}

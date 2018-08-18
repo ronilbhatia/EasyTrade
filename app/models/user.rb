@@ -232,7 +232,7 @@ class User < ApplicationRecord
 
       timeObject = Time.new(Time.now.year, Time.now.month, Time.now.day, time.split(':')[0].to_i - 3, time.split(':')[1])
       if timeObject > Time.now
-        data.push({ time: time, balance: nil })
+        data.push({ time: "#{time} ET", balance: nil })
         next
       end
       if transaction_index < sorted_transactions.length
@@ -269,7 +269,7 @@ class User < ApplicationRecord
         balance = open_balance + stock_value
         prev_balance = balance
       end
-      data.push({ time: time, balance: balance.round(2) }) unless stock_day_info.nil?
+      data.push({ time: "#{time} ET", balance: balance.round(2) }) unless stock_day_info.nil?
     end
 
     return data

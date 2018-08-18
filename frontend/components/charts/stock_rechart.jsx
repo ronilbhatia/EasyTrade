@@ -252,7 +252,8 @@ class StockRechart extends React.Component {
               />
             <Tooltip
               content={<CustomStockTooltip price={currPrice} priceFlux={priceFlux} priceFluxPercentage={priceFluxPercentage} openPrice={openPrice} neg={neg}/>}
-              offset={-35}
+              offset={-24}
+              position={{y: -15}}
             />
             <Line type="linear" dataKey="price" stroke="#82ca9d" dot={false} strokeWidth={2} />
           </LineChart>

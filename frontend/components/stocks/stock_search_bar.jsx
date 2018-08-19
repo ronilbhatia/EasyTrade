@@ -17,8 +17,7 @@ class StockSearchBar extends React.Component {
 
   renderStocks() {
     const { allStocks } = this.props;
-    debugger
-    let stocks
+    let stocks;
     if (allStocks && this.state.inputVal.length > 0) {
       stocks = allStocks.filter( (stock) => {
         return (stock.ticker.toLowerCase().includes(this.state.inputVal.toLowerCase()) || stock.name.toLowerCase().includes(this.state.inputVal.toLowerCase()));

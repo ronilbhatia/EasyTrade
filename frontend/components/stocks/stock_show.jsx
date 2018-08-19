@@ -4,6 +4,14 @@ import StockChart from '../charts/stock_chart';
 import StockAbout from './stock_about';
 import StockNews from './stock_news';
 import StockTransaction from './stock_transaction';
+import { css } from 'react-emotion';
+import { BeatLoader } from 'react-spinners';
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
 
 class StockShow extends React.Component {
   componentDidMount() {
@@ -33,7 +41,15 @@ class StockShow extends React.Component {
               <StockTransaction currentUser={currentUser} stock={stock} createTransaction={createTransaction}/>
             </section>
           ) : (
-            <h1>LOADING</h1>
+            <div className='stock-loading'>
+              <BeatLoader
+                className={override}
+                sizeUnit={"px"}
+                size={20}
+                color={'#21ce99'}
+                loading={true}
+              />
+            </div>
           )}
       </div>
     );

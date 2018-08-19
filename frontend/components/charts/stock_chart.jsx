@@ -1,6 +1,14 @@
 import React from 'react';
+import { css } from 'react-emotion';
 import { Line } from 'react-chartjs-2';
 import StockRechart from './stock_rechart';
+import { ClipLoader } from 'react-spinners';
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
 
 class StockChart extends React.Component {
 
@@ -71,7 +79,15 @@ class StockChart extends React.Component {
               dailyData={dailyData}
             />
           ) : (
-            <div>LOADING</div>
+            <div className='sweet-loading'>
+              <ClipLoader
+                className={override}
+                sizeUnit={"px"}
+                size={150}
+                color={'#123abc'}
+                loading={true}
+              />
+            </div>
           )
         }
       </div>

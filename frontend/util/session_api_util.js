@@ -20,3 +20,9 @@ export const logout = () => (
     method: 'DELETE',
   })
 );
+
+export const fetchUserInfo = user => (
+  $.ajax({
+    url: `/api/users/${user.id}/info`
+  })
+);

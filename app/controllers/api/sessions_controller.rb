@@ -17,4 +17,9 @@ class Api::SessionsController < ApplicationController
       render json: {}, status: 404
     end
   end
+
+  def info
+    @user = User.find(params[:id])
+    render 'api/users/info'
+  end
 end

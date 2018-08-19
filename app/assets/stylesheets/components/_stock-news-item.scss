@@ -1,9 +1,10 @@
 .stock-news-item {
   display: flex;
   width: 676px;
-  height: 194px;
+  height: 136px;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  padding: 29px 0;
   img {
     width: 198px;
     height: 136px;
@@ -14,20 +15,24 @@
     height: 100px;
   }
   h3 {
+    margin: 0;
     color: black;
-    font-size: 14px;
+    font-size: 30px;
     font-weight: 700;
     font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
   }
   h4 {
+    margin-bottom: 5px;
     color: black;
     font-size: 12px;
     font-weight: 600;
     font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
   }
   p {
+    margin: 0;
     color: black;
     font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
+    font-size: 14px;
   }
 }
 

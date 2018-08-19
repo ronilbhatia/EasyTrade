@@ -2,6 +2,7 @@
   "name": "easy-trade",
   "private": true,
   "dependencies": {
+    "animate.css": "^3.7.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-plugin-emotion": "^9.2.6",

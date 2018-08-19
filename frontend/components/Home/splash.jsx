@@ -7,16 +7,16 @@ const Splash = ({ demoLogin, demoUser }) => {
       <section className="pane1">
         <section className="pane1-text">
           <header>
-            <h1>Investing.</h1>
-            <h1>Now for the rest of us.</h1>
+            <h1 class="animated fadeInUp">Investing.</h1>
+            <h1 class="animated fadeInUp delay-1s">Now for the rest of us.</h1>
           </header>
           <div>
-            <p>EasyTrade lets you learn to invest in the stock</p>
-            <p>market for free.</p>
+            <p class="animated fadeInUp delay-2s">EasyTrade lets you learn to invest in the stock</p>
+            <p class="animated fadeInUp delay-2s">market for free.</p>
           </div>
-          <button className="signup-button" onClick={() => demoLogin(demoUser)}>Demo</button>
+          <button class="signup-button animated fadeInUp delay-3s" onClick={() => demoLogin(demoUser)}>Demo</button>
         </section>
-        <img className="pane1-img" src={window.images.pane1_img}/>
+        <img class="pane1-img animated fadeIn delay-2s" src={window.images.pane1_img}/>
       </section>
     </main>
   );

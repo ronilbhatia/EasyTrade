@@ -1,6 +1,6 @@
 import React from 'react';
 import StockNewsItem from '../stocks/stock_news_item';
-import { BeatLoader } from 'react-spinners';
+import { FadeLoader } from 'react-spinners';
 import { css } from 'react-emotion';
 
 const override = css`
@@ -31,11 +31,11 @@ class NewsIndex extends React.Component {
               }
             </ul>
           ) : (
-            <div className='stock-loading'>
-              <BeatLoader
+            <div className='news-loading'>
+              <FadeLoader
                 className={override}
                 sizeUnit={"px"}
-                size={20}
+                size={5}
                 color={'#21ce99'}
                 loading={true}
               />

@@ -66,23 +66,15 @@ class User < ApplicationRecord
   end
 
   def calculate_stocks
-    stocks = {}
+    stocks = Hash.new(0)
     return stocks if transactions.empty?
 
     self.transactions.each do |transaction|
       curr_stock = Stock.find(transaction.stock_id)
-      if stocks[curr_stock.ticker]
-        if transaction.order_type == 'buy'
-          stocks[curr_stock.ticker] += transaction.num_shares
-        else
-          stocks[curr_stock.ticker] -= transaction.num_shares
-        end
+      if transaction.order_type == 'buy'
+        stocks[curr_stock.ticker] += transaction.num_shares
       else
-        if transaction.order_type == 'buy'
-          stocks[curr_stock.ticker] = transaction.num_shares
-        else
-          stocks[curr_stock.ticker] = -transaction.num_shares
-        end
+        stocks[curr_stock.ticker] -= transaction.num_shares
       end
     end
 
@@ -122,15 +114,10 @@ class User < ApplicationRecord
   end
 
   def calculate_balance_data
-    net_deposits = self.deposits.to_a.reduce(0) do |acc, deposit|
-      acc += deposit.amount
-    end
+    net_deposits = self.deposits.to_a.reduce(0) { |acc, deposit| acc += deposit.amount }
     data = []
     return data if transactions.empty?
     sorted_transactions = transactions.sort_by { |transaction| transaction.transaction_date }.to_a
-    # (5.years.ago.to_datetime..sorted_transactions.first.transaction_date.to_datetime).each do |time|
-    #   data.push({ time: time, balance: net_deposits })
-    # end
 
     user_transactions = self.transactions
     unique_stocks = transactions.select(:stock_id).distinct.to_a
@@ -145,18 +132,16 @@ class User < ApplicationRecord
 
     sorted_transactions.each_with_index do |transaction, idx|
       curr_stock = Stock.find(transaction.stock_id)
-      if curr_stocks[curr_stock.ticker]
-        if transaction.order_type == 'buy'
-          curr_stocks[curr_stock.ticker] += transaction.num_shares
-          cash_balance -= transaction.num_shares * transaction.price
-        else
-          curr_stocks[curr_stock.ticker] -= transaction.num_shares
-          cash_balance += transaction.num_shares * transaction.price
-        end
+      transaction_amount = transaction.num_shares * transaction.price
+
+      if transaction.order_type == 'buy'
+        curr_stocks[curr_stock.ticker] += transaction.num_shares
+        cash_balance -= transaction_amount
       else
-        curr_stocks[curr_stock.ticker] = transaction.num_shares
-        cash_balance -= transaction.num_shares * transaction.price
+        curr_stocks[curr_stock.ticker] -= transaction.num_shares
+        cash_balance += transaction_amount
       end
+
       if idx == sorted_transactions.length - 1
         range = transaction.transaction_date.to_datetime..Time.now.to_datetime
       else
@@ -207,71 +192,92 @@ class User < ApplicationRecord
     open_balance = net_deposits
     curr_stocks = Hash.new(0)
     transaction_index = sorted_transactions.length
+
     sorted_transactions.each_with_index do |transaction, idx|
       curr_stock = Stock.find(transaction.stock_id)
+
       if transaction.transaction_date.year >= Time.now.year && transaction.transaction_date.month >= Time.now.month && transaction.transaction_date.day >= Time.now.day
         transaction_index = idx
         break
       end
-      if curr_stocks[curr_stock.ticker]
-        if transaction.order_type == 'buy'
-          curr_stocks[curr_stock.ticker] += transaction.num_shares
-          open_balance -= transaction.num_shares * transaction.price
-        else
-          curr_stocks[curr_stock.ticker] -= transaction.num_shares
-          open_balance += transaction.num_shares * transaction.price
-        end
-      else
-        curr_stocks[curr_stock.ticker] = transaction.num_shares
+
+      if transaction.order_type == 'buy'
+        curr_stocks[curr_stock.ticker] += transaction.num_shares
         open_balance -= transaction.num_shares * transaction.price
+      else
+        curr_stocks[curr_stock.ticker] -= transaction.num_shares
+        open_balance += transaction.num_shares * transaction.price
       end
     end
 
     prev_balance = open_balance
-    times.each do |time|
 
+    times.each do |time|
       timeObject = Time.new(Time.now.year, Time.now.month, Time.now.day, time.split(':')[0].to_i - 3, time.split(':')[1])
       if timeObject > Time.now
         data.push({ time: "#{time} ET", balance: nil })
         next
       end
+
       if transaction_index < sorted_transactions.length
         if timeObject > sorted_transactions[transaction_index].transaction_date
           transaction = sorted_transactions[transaction_index]
           curr_stock = Stock.find(transaction.stock_id)
-          if curr_stocks[curr_stock.ticker]
-            if transaction.order_type == 'buy'
-              curr_stocks[curr_stock.ticker] += transaction.num_shares
-              open_balance -= transaction.num_shares * transaction.price
-            else
-              curr_stocks[curr_stock.ticker] -= transaction.num_shares
-              open_balance += transaction.num_shares * transaction.price
-            end
-          else
-            curr_stocks[curr_stock.ticker] = transaction.num_shares
+
+          if transaction.order_type == 'buy'
+            curr_stocks[curr_stock.ticker] += transaction.num_shares
             open_balance -= transaction.num_shares * transaction.price
+          else
+            curr_stocks[curr_stock.ticker] -= transaction.num_shares
+            open_balance += transaction.num_shares * transaction.price
           end
+
           transaction_index += 1
         end
       end
+
       stock_value = 0
       stock_day_info = nil
+
+      def increment_time(time)
+        time_nums = time.split(':').map(&:to_i)
+        time_nums[-1] = (time_nums.last + 1) % 60
+        time_nums[0] += 1 if time_nums.last == 0
+        # debugger
+        hour = time_nums.first < 10 ? "0#{time_nums.first}" : time_nums.first.to_s
+        minute = time_nums.last < 10 ? "0#{time_nums.last}" : time_nums.last.to_s
+
+        "#{hour}:#{minute}"
+      end
+
       curr_stocks.each do |k, v|
-        stock_day_info = response[k]['chart'].find { |times| times['minute'] == time}
+        # debugger
+        search_time = time == '16:00' ? '15:59' : time
+        stock_day_info = response[k]['chart'].find { |times| times['minute'] == search_time}
         if stock_day_info && stock_day_info['marketOpen']
           stock_value += stock_day_info['marketOpen'] * v unless stock_day_info.nil?
         end
+
+        until stock_day_info && stock_day_info['marketOpen']
+          search_time = increment_time(search_time)
+          stock_day_info = response[k]['chart'].find { |times| times['minute'] == search_time}
+          stock_value += stock_day_info['marketOpen'] * v unless stock_day_info.nil? || !stock_day_info['marketOpen']
+          # break if time == '16:00'
+        end
       end
+
       balance = open_balance
+
       if stock_value == 0
         balance = prev_balance
       else
         balance = open_balance + stock_value
         prev_balance = balance
       end
+
       data.push({ time: "#{time} ET", balance: balance.round(2) }) unless stock_day_info.nil?
     end
 
-    return data
+    data
   end
 end

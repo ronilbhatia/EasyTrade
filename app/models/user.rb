@@ -239,7 +239,6 @@ class User < ApplicationRecord
 
       stock_value = 0
       stock_day_info = nil
-      debugger
       def increment_time(time)
         time_nums = time.split(':').map(&:to_i)
         time_nums[-1] = (time_nums.last + 1) % 60

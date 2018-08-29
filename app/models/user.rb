@@ -175,6 +175,7 @@ class User < ApplicationRecord
     net_deposits = self.deposits.to_a.reduce(0) do |acc, deposit|
       acc += deposit.amount
     end
+
     data = []
     return data if transactions.empty?
     sorted_transactions = transactions.sort_by { |transaction| transaction.transaction_date }.to_a
@@ -214,7 +215,7 @@ class User < ApplicationRecord
 
     times.each do |time|
       timeObject = Time.new(Time.now.year, Time.now.month, Time.now.day, time.split(':')[0].to_i - 3, time.split(':')[1])
-      if timeObject > Time.now
+      if timeObject > Time.now - 1800
         data.push({ time: "#{time} ET", balance: nil })
         next
       end
@@ -238,7 +239,7 @@ class User < ApplicationRecord
 
       stock_value = 0
       stock_day_info = nil
-
+      debugger
       def increment_time(time)
         time_nums = time.split(':').map(&:to_i)
         time_nums[-1] = (time_nums.last + 1) % 60

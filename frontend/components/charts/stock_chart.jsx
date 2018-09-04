@@ -56,8 +56,13 @@ class StockChart extends React.Component {
     let mostRecentTime = Object.keys(intradayData)[0];
     let currPrice = intradayData[mostRecentTime]['4. close'];
     currPrice = currPrice.split('').splice(0, currPrice.length - 2).join('');
-    let openPrice = intradayData[dateString + ' 09:35:00']['1. open'];
-    openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
+    let openPrice
+    if (intradayData[dateString + ' 09:35:00']) {
+      openPrice = intradayData[dateString + ' 09:35:00']['1. open'];
+      openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
+    } else {
+      openPrice = currPrice
+    }
     let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
     let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
     if (priceFlux < 0) { neg = "-" ;}

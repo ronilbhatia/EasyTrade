@@ -11,8 +11,10 @@ class Api::TransactionsController < ApplicationController
     @transaction = Transaction.new(transaction_params)
     @transaction.user_id = current_user.id
     @transaction.transaction_date = Time.now
+
     transaction_amount = @transaction.price * @transaction.num_shares
     user = User.find(@transaction.user_id)
+    
     if transaction_amount > user.calculate_buying_power
       render json: ['Not enough buying power'], status: 422
     else

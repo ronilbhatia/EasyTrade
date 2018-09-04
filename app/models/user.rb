@@ -171,6 +171,16 @@ class User < ApplicationRecord
     return data
   end
 
+  def increment_time(time)
+    time_nums = time.split(':').map(&:to_i)
+    time_nums[-1] = (time_nums.last + 1) % 60
+    time_nums[0] += 1 if time_nums.last == 0
+    hour = time_nums.first < 10 ? "0#{time_nums.first}" : time_nums.first.to_s
+    minute = time_nums.last < 10 ? "0#{time_nums.last}" : time_nums.last.to_s
+
+    "#{hour}:#{minute}"
+  end
+
   def calculate_daily_data
     net_deposits = self.deposits.to_a.reduce(0) do |acc, deposit|
       acc += deposit.amount
@@ -239,14 +249,8 @@ class User < ApplicationRecord
 
       stock_value = 0
       stock_day_info = nil
-      def increment_time(time)
-        time_nums = time.split(':').map(&:to_i)
-        time_nums[-1] = (time_nums.last + 1) % 60
-        time_nums[0] += 1 if time_nums.last == 0
-        hour = time_nums.first < 10 ? "0#{time_nums.first}" : time_nums.first.to_s
-        minute = time_nums.last < 10 ? "0#{time_nums.last}" : time_nums.last.to_s
-
-        "#{hour}:#{minute}"
+      if response.all? { |k, _| response[k]['chart'].empty? }
+        return []
       end
 
       curr_stocks.each do |k, v|

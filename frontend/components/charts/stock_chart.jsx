@@ -69,7 +69,7 @@ class StockChart extends React.Component {
     return (
       <div>
         {
-          (Object.keys(stock).length > 9) ? (
+          (Object.keys(stock).length > 7) ? (
             <StockRechart
               stock={stock}
               openPrice={openPrice}

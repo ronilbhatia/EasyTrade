@@ -4,7 +4,7 @@ class StockAbout extends React.Component {
 
   renderShortDescription() {
     let shortDescription = this.props.stock.shortDescription;
-    shortDescription = shortDescription.split(".").slice(0, 3).join(".");
+    // shortDescription = shortDescription.split(".").slice(0, 3).join(".");
     return (
       <p className="stock-short-description">
         {shortDescription}.
@@ -28,11 +28,11 @@ class StockAbout extends React.Component {
                 </li>
                 <li>
                   <h3>Employees</h3>
-                  <h4>{stock.employees}</h4>
+                  <h4>{110000}</h4>
                 </li>
                 <li>
                   <h3>Headquarters</h3>
-                  <h4>{stock.hqCity}, {stock.hqState}</h4>
+                  <h4>{'Cupertino'}, {'California'}</h4>
                 </li>
                 <li>
                   <h3>Founded</h3>

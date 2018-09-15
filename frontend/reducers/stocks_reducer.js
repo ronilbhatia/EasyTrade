@@ -19,11 +19,12 @@ const stocksReducer = (state = {}, action) => {
       nextState.allStocks = action.allStocks;
       return nextState;
     case RECEIVE_STOCK_INFO:
-        nextState[action.ticker].shortDescription = action.stockInfo.short_description;
-        nextState[action.ticker].ceo = action.stockInfo.ceo;
-        nextState[action.ticker].employees = action.stockInfo.employees;
-        nextState[action.ticker].hqCity = action.stockInfo.hq_address_city;
-        nextState[action.ticker].hqState = action.stockInfo.hq_state;
+        debugger
+        nextState[action.ticker].shortDescription = action.stockInfo.company.description;
+        nextState[action.ticker].ceo = action.stockInfo.company.CEO;
+        // nextState[action.ticker].employees = action.stockInfo.employees;
+        // nextState[action.ticker].hqCity = action.stockInfo.hq_address_city;
+        // nextState[action.ticker].hqState = action.stockInfo.hq_state;
       return nextState;
     case RECEIVE_STOCK_INTRADAY_DATA:
         nextState[action.ticker].intradayData = action.data;

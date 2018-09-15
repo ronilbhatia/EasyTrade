@@ -63,7 +63,7 @@ export const fetchStocks = () => dispatch => (
 
 export const fetchStockInfo = ticker => dispatch => (
   StockApiUtil.fetchStockInfo(ticker)
-    .then(stockInfo => dispatch(receiveStockInfo(ticker, stockInfo)))
+    .then(stockInfo => dispatch(receiveStockInfo(ticker, stockInfo[ticker])))
 );
 
 export const fetchStockIntradayData = ticker => dispatch => {
@@ -73,7 +73,6 @@ export const fetchStockIntradayData = ticker => dispatch => {
         debugger
         setTimeout(5000, dispatch(fetchStockIntradayData(ticker)));
       } else {
-        console.log(data);
         return dispatch(receiveStockIntradayData(ticker, data['Time Series (5min)']));
       }
     }, error => dispatch(fetchStockIntradayData(ticker)))
@@ -83,10 +82,8 @@ export const fetchStockDailyData = ticker => dispatch => (
   StockApiUtil.fetchStockDailyData(ticker)
     .then(data => {
       if (data.Information) {
-        debugger
         setTimeout(5000, dispatch(fetchStockDailyData(ticker)));
       } else {
-        console.log(data);
         return dispatch(receiveStockDailyData(ticker, data['Time Series (Daily)']));
       }
     }, error => dispatch(fetchStockDailyData(ticker)))

@@ -78,14 +78,12 @@ class User < ApplicationRecord
       end
     end
 
-    # url = 'https://www.alphavantage.co/query?function=BATCH_QUOTES_US&apikey=B46V4AYA6Y9N0447&symbols='
     url = 'https://api.iextrading.com/1.0/stock/market/batch?types=quote&range=1d&last=5&symbols='
     stocks.each { |k, _| url += "#{k},"}
     stocks = stocks.map { |stock| { symbol: stock[0], shares: stock[1]}}.sort_by { |stock| stock[:symbol] }
 
     #Credit to user245031 and lolmaus - Andrey Mikhaylov on Stack Overflow for the code to make API call in Ruby
     response = JSON.parse(open(url).read)
-    # response = response.sort_by { |k, _| k }
     stocks.each_with_index do |stock, idx|
       price = response[stock[:symbol]]['quote']['close'].to_f.round(2).to_s
       if !price.include?('.')

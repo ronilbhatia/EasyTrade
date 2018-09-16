@@ -19,33 +19,7 @@ class StockRechart extends React.Component {
     this.render5YChart = this.render5YChart.bind(this);
   }
 
-  calculateIntradayPriceData(data, times) {
-    let { intradayData } = this.state.initialData;
-    let neg = "+";
-    const prices = [];
-    for (let i = 0; i < data.length; i++) {
-      prices.push(parseFloat(data[i].price));
-    }
-    let max = Math.max(...prices);
-    let min = Math.min(...prices);
-    let currPrice = this.state.initialData.currPrice;
-    let openPrice = intradayData[times[0]]['1. open'];
-    openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
-    let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
-    let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
-    if (priceFlux < 0) { neg = "-" ;}
-    return {
-      max,
-      min,
-      neg,
-      currPrice,
-      openPrice,
-      priceFlux,
-      priceFluxPercentage
-    };
-  }
-
-  calculateDailyPriceData(data, times) {
+  calculateDailyPriceData(data, startIdx) {
     let { dailyData } = this.state.initialData;
     let neg = "+";
     const prices = [];
@@ -55,8 +29,7 @@ class StockRechart extends React.Component {
     let max = Math.max(...prices);
     let min = Math.min(...prices);
     let currPrice = this.state.initialData.currPrice;
-    let openPrice = dailyData[times[0]]['1. open'];
-    openPrice = openPrice.split('').splice(0, openPrice.length - 2).join('');
+    let openPrice = dailyData[startIdx].close;
     let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
     let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
     if (priceFlux < 0) { neg = "-" ;}
@@ -76,31 +49,15 @@ class StockRechart extends React.Component {
   }
 
   render1WChart() {
-    let { intradayData } = this.state.initialData;
+    let { dailyData } = this.state.initialData;
     let data = [];
-    let times = Object.keys(intradayData).reverse();
-    for(let i = 0; i < times.length; i++) {
-      let dateAndTime = times[i].split(' ');
-      let dateNums = dateAndTime[0].split('-');
-      let timeNums = dateAndTime[1].split(':');
-      let timeString = `${timeNums[0]}:${timeNums[1]}, ${dateNums[1]}/${dateNums[2]} ET`;
-      debugger;
-      if (i === 0) {
-        data.push({
-          time: timeString,
-          price: intradayData[times[i]]['4. close']
-        });
-      } else if (i % 2 === 0){
-        continue;
-      } else {
-        data.push({
-          time: timeString,
-          price: intradayData[times[i]]['4. close']
-        });
-      }
+    for(let i = dailyData.length - 5; i < dailyData.length; i++) {
+      data.push({
+        time: dailyData[i].date,
+        price: dailyData[i].close
+      });
     }
-    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateIntradayPriceData(data, times);
-
+    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, dailyData.length - 6);
     this.setState({
       currData: {
         data,
@@ -111,25 +68,22 @@ class StockRechart extends React.Component {
         min,
         max,
         neg,
-        intradayData
+        dailyData
       },
       active: '1W'
     });
-  }
-
+}
 
   render1MChart() {
     let { dailyData } = this.state.initialData;
     let data = [];
-    let times = Object.keys(dailyData);
-    times = times.slice(0, 22).reverse();
-    for(let i = 0; i < times.length; i++) {
+    for(let i = dailyData.length - 23; i < dailyData.length; i++) {
       data.push({
-        time: times[i],
-        price: dailyData[times[i]]['4. close']
+        time: dailyData[i].date,
+        price: dailyData[i].close
       });
     }
-    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, times);
+    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, dailyData.length - 24);
     this.setState({
       currData: {
         data,
@@ -149,15 +103,13 @@ class StockRechart extends React.Component {
   render3MChart() {
     let { dailyData } = this.state.initialData;
     let data = [];
-    let times = Object.keys(dailyData);
-    times = times.slice(0, 66).reverse();
-    for(let i = 0; i < times.length; i++) {
+    for(let i = dailyData.length - 66; i < dailyData.length; i++) {
       data.push({
-        time: times[i],
-        price: dailyData[times[i]]['4. close']
+        time: dailyData[i].date,
+        price: dailyData[i].close
       });
     }
-    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, times);
+    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, dailyData.length - 67);
     this.setState({
       currData: {
         data,
@@ -177,15 +129,13 @@ class StockRechart extends React.Component {
   render1YChart() {
     let { dailyData } = this.state.initialData;
     let data = [];
-    let times = Object.keys(dailyData);
-    times = times.slice(0, 251).reverse();
-    for(let i = 0; i < times.length; i++) {
+    for(let i = dailyData.length - 251; i < dailyData.length; i++) {
       data.push({
-        time: times[i],
-        price: dailyData[times[i]]['4. close']
+        time: dailyData[i].date,
+        price: dailyData[i].close
       });
     }
-    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, times);
+    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, dailyData.length - 252);
     this.setState({
       currData: {
         data,
@@ -205,17 +155,24 @@ class StockRechart extends React.Component {
   render5YChart() {
     let { dailyData } = this.state.initialData;
     let data = [];
-    let times = Object.keys(dailyData);
-    times = times.slice(0, 1260);
-    for(let i = 0; i < times.length; i+=5) {
+    let lastIdx;
+    for(let i = 0; i < dailyData.length; i+=5) {
       data.push({
-        time: times[i],
-        price: dailyData[times[i]]['4. close']
+        time: dailyData[i].date,
+        price: dailyData[i].close
+      });
+      lastIdx = i;
+    }
+
+    // Set last data as most recent data regardless
+    if (lastIdx !== dailyData.length - 1) {
+      data.push({
+        time: dailyData[dailyData.length - 1].date,
+        price: dailyData[dailyData.length - 1].close
       });
     }
-    data = data.reverse();
-    times = times.reverse();
-    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, times);
+
+    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, 0);
     this.setState({
       currData: {
         data,

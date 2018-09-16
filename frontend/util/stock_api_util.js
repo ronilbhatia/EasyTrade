@@ -13,13 +13,13 @@ export const fetchStocks = () => (
 export const fetchStockDailyData = ticker => (
   $.ajax({
     method: 'get',
-    url: `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ticker}&apikey=U9STF363FZMQNHM6&outputsize=full`
+    url: `https://api.iextrading.com/1.0/stock/${ticker}/chart/5y`
   })
 );
 
 export const fetchStockIntradayData = ticker => (
   $.ajax({
-    url: `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&outputsize=full&apikey=8HKZIEMV1YT01X2A&interval=5min`
+    url: `https://api.iextrading.com/1.0/stock/${ticker}/chart/1d`
   })
 );
 

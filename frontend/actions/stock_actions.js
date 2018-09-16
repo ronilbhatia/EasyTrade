@@ -66,27 +66,14 @@ export const fetchStockInfo = ticker => dispatch => (
     .then(stockInfo => dispatch(receiveStockInfo(ticker, stockInfo[ticker])))
 );
 
-export const fetchStockIntradayData = ticker => dispatch => {
+export const fetchStockIntradayData = ticker => dispatch => (
   StockApiUtil.fetchStockIntradayData(ticker)
-    .then(data => {
-      if (data.Information) {
-        debugger
-        setTimeout(5000, dispatch(fetchStockIntradayData(ticker)));
-      } else {
-        return dispatch(receiveStockIntradayData(ticker, data['Time Series (5min)']));
-      }
-    }, error => dispatch(fetchStockIntradayData(ticker)))
-};
+    .then(data => dispatch(receiveStockIntradayData(ticker, data)))
+);
 
 export const fetchStockDailyData = ticker => dispatch => (
   StockApiUtil.fetchStockDailyData(ticker)
-    .then(data => {
-      if (data.Information) {
-        setTimeout(5000, dispatch(fetchStockDailyData(ticker)));
-      } else {
-        return dispatch(receiveStockDailyData(ticker, data['Time Series (Daily)']));
-      }
-    }, error => dispatch(fetchStockDailyData(ticker)))
+    .then(data => dispatch(receiveStockDailyData(ticker, data)))
 );
 
 export const fetchStockNews = ticker => dispatch => (

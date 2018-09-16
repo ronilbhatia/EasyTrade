@@ -19,7 +19,6 @@ const stocksReducer = (state = {}, action) => {
       nextState.allStocks = action.allStocks;
       return nextState;
     case RECEIVE_STOCK_INFO:
-        debugger
         nextState[action.ticker].shortDescription = action.stockInfo.company.description;
         nextState[action.ticker].ceo = action.stockInfo.company.CEO;
         // nextState[action.ticker].employees = action.stockInfo.employees;

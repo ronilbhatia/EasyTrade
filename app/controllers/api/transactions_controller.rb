@@ -14,12 +14,12 @@ class Api::TransactionsController < ApplicationController
 
     transaction_amount = @transaction.price * @transaction.num_shares
     user = User.find(@transaction.user_id)
-    
-    if transaction_amount > user.calculate_buying_power
-      render json: ['Not enough buying power'], status: 422
+
+    if transaction_amount > user.calculate_buying_power && @transaction.order_type == 'buy'
+      render json: ['Not enough buying power'], status: 401
     else
       if @transaction.save
-        render 'api/users/show', status: 200
+        render json: ['success'], status: 200
       else
         render json: @transaction.errors.full_messages, status: 422
       end

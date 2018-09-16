@@ -48,12 +48,11 @@ class StockTransaction extends React.Component {
       order_type,
       price: currPrice
     };
+    debugger
     this.props.createTransaction(transaction);
-    window.location.reload();
   }
 
   render() {
-    debugger;
     const { stock, currentUser } = this.props;
     const intradayData = stock.intradayData;
     let mostRecentTime = Object.keys(intradayData)[0];

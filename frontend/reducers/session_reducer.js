@@ -15,7 +15,7 @@ const sessionReducer = (state = _nullSession, action) => {
     case RECEIVE_USER_INFO:
       let nextState = merge({}, state);
       nextState[action.info.id].buyingPower = action.info.buying_power;
-      nextState[action.info.id].balancee = action.info.balance;
+      nextState[action.info.id].balance = action.info.balance;
       nextState[action.info.id].stocks = action.info.stocks;
       nextState[action.info.id].balanceData = action.info.balance_data;
       nextState[action.info.id].dailyData = action.info.daily_data;

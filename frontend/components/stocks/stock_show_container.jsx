@@ -8,7 +8,7 @@ import {
   fetchStockDailyData,
   fetchStockNews
 } from '../../actions/stock_actions';
-import { createTransaction } from '../../util/transaction_api_util';
+import { createTransaction } from '../../actions/transaction_actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => ({
   fetchStockIntradayData: ticker => dispatch(fetchStockIntradayData(ticker)),
   fetchStockDailyData: ticker => dispatch(fetchStockDailyData(ticker)),
   fetchStockNews: ticker => dispatch(fetchStockNews(ticker)),
-  createTransaction: transaction => createTransaction(transaction),
+  createTransaction: transaction => dispatch(createTransaction(transaction)),
   logout: () => dispatch(logout())
 });
 

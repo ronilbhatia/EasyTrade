@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Root from './components/Root';
 import configureStore from './store/store';
 import { fetchStockInfo } from './util/stock_api_util';
+import { createTransaction } from './actions/transaction_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
@@ -22,5 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.getState = store.getState;
   window.dispatch = store.dispatch;
   window.fetchStockInfo = fetchStockInfo;
+  window.createTransaction = createTransaction;
   ReactDOM.render(<Root store={store}/>, root);
 });

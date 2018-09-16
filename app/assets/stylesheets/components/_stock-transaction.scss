@@ -50,8 +50,6 @@
     margin: 15px 22px 0 25px;
     padding-bottom: 20px;
     p {
-      // width: 58px;
-      // height: 12px;
       font-size: 12px;
       font-weight: 500;
       padding: 0 15px 0 0;
@@ -63,10 +61,32 @@
     border-bottom: 1px solid #eee;
   }
 
+  .transaction-errors {
+    display: flex;
+    font-size: 13px;
+    font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
+    font-weight: 500;
+    height: 20px;
+    width: 100%;
+    margin-left: 25px;
+    margin-top: 10px;
+    li {
+      display: flex;
+      align-items: center;
+    }
+    img {
+      height: 18px;
+      width: 18px;
+      margin-right: 10px;
+      vertical-align: baseline;
+      text-align: none;
+    }
+  }
+
   .transaction-submit {
     display: flex;
     justify-content: center;
-    margin-top: 70px;
+    margin-top: 40px;
     input {
       font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
       font-weight: 500;

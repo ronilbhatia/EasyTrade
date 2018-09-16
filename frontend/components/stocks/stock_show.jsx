@@ -27,7 +27,7 @@ class StockShow extends React.Component {
   }
 
   render() {
-    const { stock, currentUser, logout, createTransaction } = this.props;
+    const { stock, currentUser, logout, createTransaction, errors } = this.props;
     return (
       <div>
         <NavBar currentUser={currentUser} logout={logout}/>
@@ -38,7 +38,7 @@ class StockShow extends React.Component {
                 <StockAbout stock={stock} />
                 <StockNews news={stock.news} />
               </main>
-              <StockTransaction currentUser={currentUser} stock={stock} createTransaction={createTransaction}/>
+              <StockTransaction currentUser={currentUser} stock={stock} errors={errors} createTransaction={createTransaction}/>
             </section>
           ) : (
             <div className='stock-loading'>

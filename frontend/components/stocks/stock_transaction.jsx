@@ -53,7 +53,7 @@ class StockTransaction extends React.Component {
   }
 
   render() {
-    const { stock, currentUser } = this.props;
+    const { stock, currentUser, errors } = this.props;
     const intradayData = stock.intradayData;
     let mostRecentTime = Object.keys(intradayData)[0];
     let currPrice = intradayData[mostRecentTime]['4. close'];
@@ -76,6 +76,13 @@ class StockTransaction extends React.Component {
           <div className='transaction-cost'>
             <h4>Estimated Cost</h4>
             <p>${this.state.cost}</p>
+          </div>
+          <div className='transaction-errors'>
+            <ul>
+              {
+                errors.map((error, idx) => <li key={idx}><img src={window.images.exclamation_circle} />{error}</li>)
+              }
+            </ul>
           </div>
           <div className='transaction-submit'>
             <input type="submit" value={`SUBMIT ${this.state.order_type.toUpperCase()}`} />

@@ -13,7 +13,8 @@ import { createTransaction } from '../../actions/transaction_actions';
 const mapStateToProps = (state, ownProps) => {
   return {
     stock: state.entities.stocks[ownProps.match.params.ticker],
-    currentUser: state.entities.users[state.session.id]
+    currentUser: state.entities.users[state.session.id],
+    errors: state.errors.transaction
   };
 };
 

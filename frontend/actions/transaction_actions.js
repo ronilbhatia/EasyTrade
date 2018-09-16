@@ -18,6 +18,5 @@ export const createTransaction = formTransaction => dispatch => (
     .then(transaction => {
       dispatch(receiveTransaction(transaction));
       window.location.reload();
-    },
-          errors => dispatch(receiveErrors(errors.responseJSON)))
+    }, errors => dispatch(receiveErrors(errors.responseJSON)))
 );

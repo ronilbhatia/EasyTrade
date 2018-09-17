@@ -5,7 +5,15 @@ class StockTransaction extends React.Component {
     super(props);
     let { stock } = this.props
     const intradayData = stock.intradayData;
-    let currPrice = Math.round(intradayData[intradayData.length - 1].marketAverage * 100)/100;
+
+    // Grab most recent price available by iterating backwards through intradayData until value other than -1 is returned
+    let currPrice
+    for (let i = intradayData.length - 1; i > 0; i--) {
+      if (intradayData[i].marketAverage !== -1) {
+        currPrice = Math.round(intradayData[i].marketAverage * 100)/100;
+        break
+      }
+    }
     this.state = {
       stock_id: stock.id,
       num_shares: '',
@@ -54,14 +62,6 @@ class StockTransaction extends React.Component {
     const { stock, currentUser, errors } = this.props;
     const intradayData = stock.intradayData;
 
-    // Grab most recent price available by iterating backwards through intradayData until value other than -1 is returned
-    let currPrice
-    for (let i = intradayData.length - 1; i > 0; i--) {
-      if (intradayData[i].marketAverage !== -1) {
-        currPrice = Math.round(intradayData[i].marketAverage * 100)/100;
-        break
-      }
-    }
     return (
       <aside className="stock-transaction">
         <h3>
@@ -75,7 +75,7 @@ class StockTransaction extends React.Component {
           </div>
           <div className='transaction-price'>
             <h4>Market Price</h4>
-            <p>${currPrice}</p>
+            <p>${this.state.currPrice}</p>
           </div>
           <div className='transaction-cost'>
             <h4>Estimated Cost</h4>

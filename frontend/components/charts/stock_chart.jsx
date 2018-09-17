@@ -64,6 +64,15 @@ class StockChart extends React.Component {
     let neg = "+";
     if (priceFlux < 0) { neg = "-" ;}
 
+    // After key data points have been determined iterate through rest of times and add nil balance (there will only be remaining times if in middle of market hours)
+    for (var i = 0; i < times.length; i++) {
+      let hours = parseInt(times[i].split(":")[0])
+      let minutes = parseInt(times[i].split(":")[1])
+      let dayHalf = (hours > 12) ? "PM" : "AM"
+      let time = `${hours % 12}:${minutes} ${dayHalf}`
+      data.push({ time, price: null })
+    }
+
     return (
       <div>
         {

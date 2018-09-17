@@ -53,7 +53,15 @@ class StockTransaction extends React.Component {
   render() {
     const { stock, currentUser, errors } = this.props;
     const intradayData = stock.intradayData;
-    let currPrice = Math.round(intradayData[intradayData.length - 1].marketAverage * 100)/100;
+
+    // Grab most recent price available by iterating backwards through intradayData until value other than -1 is returned
+    let currPrice
+    for (let i = intradayData.length - 1; i > 0; i--) {
+      if (intradayData[i].marketAverage !== -1) {
+        currPrice = Math.round(intradayData[i].marketAverage * 100)/100;
+        break
+      }
+    }
     return (
       <aside className="stock-transaction">
         <h3>

@@ -85,7 +85,7 @@ class User < ApplicationRecord
     #Credit to user245031 and lolmaus - Andrey Mikhaylov on Stack Overflow for the code to make API call in Ruby
     response = JSON.parse(open(url).read)
     stocks.each_with_index do |stock, idx|
-      price = response[stock[:symbol]]['quote']['close'].to_f.round(2).to_s
+      price = response[stock[:symbol]]['quote']['latestPrice'].to_f.round(2).to_s
       if !price.include?('.')
         price += '.00'
       elsif price.split('.')[1].length == 1
@@ -110,9 +110,8 @@ class User < ApplicationRecord
     net_deposits = self.deposits.to_a.reduce(0) { |acc, deposit| acc += deposit.amount }
     data = []
     return data if transactions.empty?
-    sorted_transactions = transactions.sort_by { |transaction| transaction.transaction_date }.to_a
 
-    user_transactions = self.transactions
+    sorted_transactions = transactions.sort_by { |transaction| transaction.transaction_date }.to_a
     unique_stocks = transactions.select(:stock_id).distinct.to_a
     unique_stocks.map! { |transaction| Stock.find(transaction.stock_id) }
 
@@ -175,18 +174,22 @@ class User < ApplicationRecord
   end
 
   def calculate_daily_data
+    ## Get total amount user has ever deposited
     net_deposits = self.deposits.to_a.reduce(0) do |acc, deposit|
       acc += deposit.amount
     end
 
     data = []
     return data if transactions.empty?
+
+    # Grab transactions from earliest to most recent to iterate through in order
     sorted_transactions = transactions.sort_by { |transaction| transaction.transaction_date }.to_a
 
-    user_transactions = self.transactions
+    # Grab unique stocks from transactions to get user's portfolio
     unique_stocks = transactions.select(:stock_id).distinct.to_a
     unique_stocks.map! { |transaction| Stock.find(transaction.stock_id) }
 
+    # Dynamically generate API url based on stocks owned by user and make batch request to IEX
     url = "https://api.iextrading.com/1.0/stock/market/batch?types=quote,news,chart&range=1d&last=5&symbols="
     unique_stocks.each { |stock| url += "#{stock.ticker}, " }
     response = JSON.parse(open(url).read)
@@ -197,6 +200,7 @@ class User < ApplicationRecord
     curr_stocks = Hash.new(0)
     transaction_index = sorted_transactions.length
 
+    ## Iterate through all transactions previous to the current day to get closing balance of previous day
     sorted_transactions.each_with_index do |transaction, idx|
       curr_stock = Stock.find(transaction.stock_id)
 
@@ -215,13 +219,24 @@ class User < ApplicationRecord
     end
 
     prev_balance = open_balance
+    curr_bal_pushed = false
 
+    # iterate through times and add data points as necessary
     times.each do |time|
       timeObject = Time.new(Time.now.year, Time.now.month, Time.now.day, time.split(':')[0].to_i - 3, time.split(':')[1])
-      if timeObject > Time.now - 1800
-        data.push({ time: "#{time} ET", balance: nil })
-        next
+
+      ## if time we are iterating over is within 20 mins of current time, push in current balance the first tiem and nil every time after (IEX API has 15 minute delay)
+      if timeObject > Time.now - 1200
+        unless curr_bal_pushed
+          data.push({ time: "#{time} ET", balance: calculate_balance})
+          curr_bal_pushed = true
+          next
+        else
+          data.push({ time: "#{time} ET", balance: nil })
+          next
+        end
       end
+
 
       if transaction_index < sorted_transactions.length
         if timeObject > sorted_transactions[transaction_index].transaction_date

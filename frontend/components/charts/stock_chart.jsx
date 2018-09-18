@@ -46,6 +46,12 @@ class StockChart extends React.Component {
           price
         });
         times.shift();
+      } else if (intradayData[i].minute === '15:59') {
+        data.push({
+          time: "4:00PM EST",
+          price: prevPrice
+        })
+        times.shift();
       } else if (intradayData[i].marketAverage !== -1) {
         prevPrice = intradayData[i].marketAverage;
       }

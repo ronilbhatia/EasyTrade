@@ -191,7 +191,6 @@ class StockRechart extends React.Component {
 
   render() {
     let { currPrice, openPrice, priceFlux, priceFluxPercentage, data, min, max, neg } = this.state.currData;
-    debugger;
     currPrice = parseFloat(currPrice).formatMoney(2);
     priceFlux = Math.abs(parseFloat(priceFlux)).formatMoney(2);
     priceFluxPercentage = parseFloat(priceFluxPercentage).formatMoney(2);

@@ -223,7 +223,7 @@ class User < ApplicationRecord
 
     # iterate through times and add data points as necessary
     times.each do |time|
-      timeObject = Time.new(Time.now.year, Time.now.month, Time.now.day, time.split(':')[0].to_i - 3, time.split(':')[1])
+      timeObject = Time.new(Time.now.year, Time.now.month, Time.now.day, time.split(':')[0].to_i, time.split(':')[1])
 
       ## if time we are iterating over is within 20 mins of current time, push in current balance the first tiem and nil every time after (IEX API has 15 minute delay)
       if timeObject > Time.now - 1200

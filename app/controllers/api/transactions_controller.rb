@@ -14,9 +14,18 @@ class Api::TransactionsController < ApplicationController
 
     transaction_amount = @transaction.price * @transaction.num_shares
     user = User.find(@transaction.user_id)
+    shares_owned = current_user.transactions.where(stock_id: @transaction.stock_id).reduce(0) do |shares, transaction|
+      if transaction.order_type == 'buy'
+        shares + transaction.num_shares
+      else
+        shares - transaction.num_shares
+      end
+    end
 
     if transaction_amount > user.calculate_buying_power && @transaction.order_type == 'buy'
       render json: ['Not Enough Buying Power'], status: 401
+    elsif @transaction.num_shares > shares_owned && @transaction.order_type == 'sell'
+      render json: ['Not enough shares'], status: 401
     else
       if @transaction.save
         render json: ['success'], status: 200

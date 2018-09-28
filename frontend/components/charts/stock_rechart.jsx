@@ -61,7 +61,10 @@ class StockRechart extends React.Component {
     let startIdx = RANGES[range].length;
     if (startIdx > dailyData.length) startIdx = dailyData.length;
     let lastIdx;
+<<<<<<< HEAD
 
+=======
+>>>>>>> cadf79bcee7c0df081bff8c60fe2cdd5d87e9e1f
     for(let i = dailyData.length - startIdx; i < dailyData.length; i+=RANGES[range].increment) {
       if (i < 0) i = 0;
       data.push({

@@ -228,7 +228,7 @@ class User < ApplicationRecord
       ## if time we are iterating over is within 20 mins of current time, push in current balance the first tiem and nil every time after (IEX API has 15 minute delay)
       if timeObject > Time.now - 1200
         unless curr_bal_pushed
-          data.push({ time: "#{time} ET", balance: calculate_balance})
+          data.push({ time: "#{time} ET", balance: calculate_balance })
           curr_bal_pushed = true
           next
         else

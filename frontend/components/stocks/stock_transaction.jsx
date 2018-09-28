@@ -3,15 +3,15 @@ import React from 'react';
 class StockTransaction extends React.Component {
   constructor(props) {
     super(props);
-    let { stock } = this.props
+    let { stock } = this.props;
     const intradayData = stock.intradayData;
 
     // Grab most recent price available by iterating backwards through intradayData until value other than -1 is returned
-    let currPrice
+    let currPrice;
     for (let i = intradayData.length - 1; i > 0; i--) {
       if (intradayData[i].marketAverage !== -1) {
         currPrice = Math.round(intradayData[i].marketAverage * 100)/100;
-        break
+        break;
       }
     }
     this.state = {
@@ -54,7 +54,6 @@ class StockTransaction extends React.Component {
       order_type,
       price: currPrice
     };
-    debugger
     this.props.createTransaction(transaction);
   }
 

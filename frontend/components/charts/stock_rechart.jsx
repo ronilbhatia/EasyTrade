@@ -2,6 +2,14 @@ import React from 'react';
 import { LineChart, Line, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
 import CustomStockTooltip from './custom_stock_tooltip';
 
+const RANGES = {
+  '1W': { length: 5, increment: 1},
+  '1M': { length: 23, increment: 1},
+  '3M': { length: 66, increment: 1},
+  '1Y': { length: 251, increment: 1},
+  '5Y': { length: 1265, increment: 5},
+};
+
 class StockRechart extends React.Component {
   constructor(props) {
     super(props);
@@ -12,15 +20,11 @@ class StockRechart extends React.Component {
       active: '1D'
     };
     this.render1DChart = this.render1DChart.bind(this);
-    this.render1WChart = this.render1WChart.bind(this);
-    this.render1MChart = this.render1MChart.bind(this);
-    this.render3MChart = this.render3MChart.bind(this);
-    this.render1YChart = this.render1YChart.bind(this);
-    this.render5YChart = this.render5YChart.bind(this);
   }
 
   calculateDailyPriceData(data, startIdx) {
     let { dailyData } = this.state.initialData;
+    if (startIdx < 0) startIdx = 0;
     let neg = "+";
     const prices = [];
     for (let i = 0; i < data.length; i++) {
@@ -48,115 +52,14 @@ class StockRechart extends React.Component {
     this.setState({ currData: this.state.initialData, active: '1D' });
   }
 
-  render1WChart() {
+  renderChart(range) {
     let { dailyData } = this.state.initialData;
     let data = [];
-    for(let i = dailyData.length - 5; i < dailyData.length; i++) {
-      data.push({
-        time: dailyData[i].date,
-        price: dailyData[i].close
-      });
-    }
-    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, dailyData.length - 6);
-    this.setState({
-      currData: {
-        data,
-        currPrice,
-        openPrice,
-        priceFlux,
-        priceFluxPercentage,
-        min,
-        max,
-        neg,
-        dailyData
-      },
-      active: '1W'
-    });
-}
-
-  render1MChart() {
-    let { dailyData } = this.state.initialData;
-    let data = [];
-    for(let i = dailyData.length - 23; i < dailyData.length; i++) {
-      data.push({
-        time: dailyData[i].date,
-        price: dailyData[i].close
-      });
-    }
-    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, dailyData.length - 24);
-    this.setState({
-      currData: {
-        data,
-        currPrice,
-        openPrice,
-        priceFlux,
-        priceFluxPercentage,
-        min,
-        max,
-        neg,
-        dailyData
-      },
-      active: '1M'
-    });
-  }
-
-  render3MChart() {
-    let { dailyData } = this.state.initialData;
-    let data = [];
-    for(let i = dailyData.length - 66; i < dailyData.length; i++) {
-      data.push({
-        time: dailyData[i].date,
-        price: dailyData[i].close
-      });
-    }
-    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, dailyData.length - 67);
-    this.setState({
-      currData: {
-        data,
-        currPrice,
-        openPrice,
-        priceFlux,
-        priceFluxPercentage,
-        min,
-        max,
-        neg,
-        dailyData
-      },
-      active: '3M'
-    });
-  }
-
-  render1YChart() {
-    let { dailyData } = this.state.initialData;
-    let data = [];
-    for(let i = dailyData.length - 251; i < dailyData.length; i++) {
-      data.push({
-        time: dailyData[i].date,
-        price: dailyData[i].close
-      });
-    }
-    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, dailyData.length - 252);
-    this.setState({
-      currData: {
-        data,
-        currPrice,
-        openPrice,
-        priceFlux,
-        priceFluxPercentage,
-        min,
-        max,
-        neg,
-        dailyData
-      },
-      active: '1Y'
-    });
-  }
-
-  render5YChart() {
-    let { dailyData } = this.state.initialData;
-    let data = [];
+    let startIdx = RANGES[range].length;
+    if (startIdx > dailyData.length) startIdx = dailyData.length;
     let lastIdx;
-    for(let i = 0; i < dailyData.length; i+=5) {
+    for(let i = dailyData.length - startIdx; i < dailyData.length; i+=RANGES[range].increment) {
+      if (i < 0) i = 0;
       data.push({
         time: dailyData[i].date,
         price: dailyData[i].close
@@ -164,7 +67,7 @@ class StockRechart extends React.Component {
       lastIdx = i;
     }
 
-    // Set last data as most recent data regardless
+    // Set last date as most recent data regardless
     if (lastIdx !== dailyData.length - 1) {
       data.push({
         time: dailyData[dailyData.length - 1].date,
@@ -172,7 +75,7 @@ class StockRechart extends React.Component {
       });
     }
 
-    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, 0);
+    let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, dailyData.length - startIdx - 1);
     this.setState({
       currData: {
         data,
@@ -185,7 +88,7 @@ class StockRechart extends React.Component {
         neg,
         dailyData,
       },
-      active: '5Y'
+      active: range
     });
   }
 
@@ -194,6 +97,7 @@ class StockRechart extends React.Component {
     currPrice = parseFloat(currPrice).formatMoney(2);
     priceFlux = Math.abs(parseFloat(priceFlux)).formatMoney(2);
     priceFluxPercentage = parseFloat(priceFluxPercentage).formatMoney(2);
+
     return (
       <div className="chart">
         <h1>{this.props.stock.name}</h1>
@@ -215,11 +119,11 @@ class StockRechart extends React.Component {
           </LineChart>
           <ul className="chart-range">
             <li><a className={this.state.active === '1D' ? 'chart-choice active' : 'chart-choice'} onClick={this.render1DChart}>1D</a></li>
-            <li><a className={this.state.active === '1W' ? 'chart-choice active' : 'chart-choice'} onClick={this.render1WChart}>1W</a></li>
-            <li><a className={this.state.active === '1M' ? 'chart-choice active' : 'chart-choice'} onClick={this.render1MChart}>1M</a></li>
-            <li><a className={this.state.active === '3M' ? 'chart-choice active' : 'chart-choice'} onClick={this.render3MChart}>3M</a></li>
-            <li><a className={this.state.active === '1Y' ? 'chart-choice active' : 'chart-choice'} onClick={this.render1YChart}>1Y</a></li>
-            <li><a className={this.state.active === '5Y' ? 'chart-choice active' : 'chart-choice'} onClick={this.render5YChart}>5Y</a></li>
+            <li><a className={this.state.active === '1W' ? 'chart-choice active' : 'chart-choice'} onClick={() => this.renderChart('1W')}>1W</a></li>
+            <li><a className={this.state.active === '1M' ? 'chart-choice active' : 'chart-choice'} onClick={() => this.renderChart('1M')}>1M</a></li>
+            <li><a className={this.state.active === '3M' ? 'chart-choice active' : 'chart-choice'} onClick={() => this.renderChart('3M')}>3M</a></li>
+            <li><a className={this.state.active === '1Y' ? 'chart-choice active' : 'chart-choice'} onClick={() => this.renderChart('1Y')}>1Y</a></li>
+            <li><a className={this.state.active === '5Y' ? 'chart-choice active' : 'chart-choice'} onClick={() => this.renderChart('5Y')}>5Y</a></li>
           </ul>
         </div>
       </div>

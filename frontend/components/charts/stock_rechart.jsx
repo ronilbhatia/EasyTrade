@@ -24,20 +24,21 @@ class StockRechart extends React.Component {
 
   calculateDailyPriceData(data, startIdx) {
     let { dailyData } = this.state.initialData;
-    if (startIdx < 0) startIdx = 0;
     let neg = "+";
     const prices = [];
+
+    if (startIdx < 0) startIdx = 0;
     for (let i = 0; i < data.length; i++) {
       prices.push(parseFloat(data[i].price));
     }
 
     // calculate key price data points
-    let max = Math.max(...prices);
-    let min = Math.min(...prices);
-    let currPrice = this.state.initialData.currPrice;
-    let openPrice = dailyData[startIdx].close;
-    let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
-    let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
+    const max = Math.max(...prices);
+    const min = Math.min(...prices);
+    const currPrice = this.state.initialData.currPrice;
+    const openPrice = dailyData[startIdx].close;
+    const priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
+    const priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
     if (priceFlux < 0) { neg = "-" ;}
 
     return {
@@ -71,7 +72,7 @@ class StockRechart extends React.Component {
       lastIdx = i;
     }
 
-    // Set last date as most recent data regardless
+    // Set last date as most recent data point regardless
     if (lastIdx !== dailyData.length - 1) {
       data.push({
         time: dailyData[dailyData.length - 1].date,

@@ -4,6 +4,17 @@ EasyTrade, a Robinhood clone, is an investing application that allows users to p
 
 [Live Demo](https://easy-trade.herokuapp.com/#/)
 
+## Technologies
+* Backend: Rails/ActiveRecord/PostgreSQL
+* Frontend: React/Redux
+* [IEX API](https://iextrading.com)
+* [Alpha Vantage API](https://www.alphavantage.co/)
+* [Intrinio API](https://intrinio.com/)
+* [News API](https://newsapi.org/)
+* [Recharts](http://recharts.org/en-US/)
+* [CSS Animate](http://animate.css)
+* [Emotion](http://emotion.org/)
+
 ## Features
 * Secure frontend to backend user authentication using BCrypt
 * Real-time and historical data of all stocks traded on the NASDAQ and NYSE exchanges
@@ -13,11 +24,116 @@ EasyTrade, a Robinhood clone, is an investing application that allows users to p
 * Stocks are searchable by both their ticker symbol and Company name
 * Relevant news displayed for the general market on home page, and for specific stock on the stock's show page
 
-## Technologies
-* Backend: Rails/ActiveRecord/PostgreSQL
-* Frontend: React/Redux
-* [IEX API](https://iextrading.com)
-* [Alpha Vantage API](https://www.alphavantage.co/)
-* [Intrinio API](https://intrinio.com/)
-* [News API](https://newsapi.org/)
-* [Recharts](http://recharts.org/en-US/)
+### Dynamic Chart Rendering
+Charts are dynamic and interactive, allowing users to switch between ranges of **1D**, **1W**, **1M**, **3M**, **1Y**, and **5Y** for individual stocks or their overall portfolio (the **5Y** range is replaced by the **ALL** range for portfolio chart). Buttons for each range appear below the chart with click handlers installed, which serve to update the React component's state with the relevant chunk of data.
+
+```
+renderChart(range) {
+  let { dailyData } = this.state.initialData;
+  let data = [];
+  let startIdx = RANGES[range].length;
+  if (startIdx > dailyData.length) startIdx = dailyData.length;
+  let lastIdx;
+
+  for(let i = dailyData.length - startIdx; i < dailyData.length; i+=RANGES[range].increment) {
+    if (i < 0) i = 0;
+    data.push({
+      time: dailyData[i].date,
+      price: dailyData[i].close
+    });
+    lastIdx = i;
+  }
+
+  // Set last date as most recent data point regardless
+  if (lastIdx !== dailyData.length - 1) {
+    data.push({
+      time: dailyData[dailyData.length - 1].date,
+      price: dailyData[dailyData.length - 1].close
+    });
+  }
+
+  let { max, min, neg, currPrice, openPrice, priceFlux, priceFluxPercentage } = this.calculateDailyPriceData(data, dailyData.length - startIdx - 1);
+  this.setState({
+    currData: {
+      data,
+      currPrice,
+      openPrice,
+      priceFlux,
+      priceFluxPercentage,
+      min,
+      max,
+      neg,
+      dailyData,
+    },
+    active: range
+  });
+}
+```
+
+A helper function, `calculateDailyPriceData` is used to calculate key price points that the chart needs to render appropriately including the current price, open price, high(max), low(min), price flux, and price flux percentage.
+
+```
+calculateDailyPriceData(data, startIdx) {
+  let { dailyData } = this.state.initialData;
+  let neg = "+";
+  const prices = [];
+
+  if (startIdx < 0) startIdx = 0;
+  for (let i = 0; i < data.length; i++) {
+    prices.push(parseFloat(data[i].price));
+  }
+
+  // calculate key price data points
+  const max = Math.max(...prices);
+  const min = Math.min(...prices);
+  const currPrice = this.state.initialData.currPrice;
+  const openPrice = dailyData[startIdx].close;
+  const priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
+  const priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
+  if (priceFlux < 0) { neg = "-" ;}
+
+  return {
+    max,
+    min,
+    neg,
+    currPrice,
+    openPrice,
+    priceFlux,
+    priceFluxPercentage
+  };
+}
+```
+
+### Transaction Validation
+
+Users are only allowed to purchase shares of stock if they have adequate buying power. Additionally, they are only allowed to sell, at max, as many shares as they own. These checks are handled by the transactions controller on the back-end, and descriptive error messages will be rendered to the page if a user attempts to make an invalid transaction. The form will only submit and trigger a refresh of the page upon a valid transaction submitted by the user.
+
+```
+def create
+  @transaction = Transaction.new(transaction_params)
+  @transaction.user_id = current_user.id
+  @transaction.transaction_date = Time.now
+
+  transaction_amount = @transaction.price * @transaction.num_shares
+  user = User.find(@transaction.user_id)
+  shares_owned = current_user.transactions.where(stock_id: @transaction.stock_id).reduce(0) do |shares, transaction|
+    if transaction.order_type == 'buy'
+      shares + transaction.num_shares
+    else
+      shares - transaction.num_shares
+    end
+  end
+
+  if transaction_amount > user.calculate_buying_power && @transaction.order_type == 'buy'
+    render json: ['Not Enough Buying Power'], status: 401
+  elsif @transaction.num_shares > shares_owned && @transaction.order_type == 'sell'
+    render json: ['Not Enough Shares'], status: 401
+  else
+    if @transaction.save
+      render json: ['success'], status: 200
+    else
+      render json: @transaction.errors.full_messages, status: 422
+    end
+  end
+end
+```

@@ -17,7 +17,7 @@
     }
   }
 
-  .search-bar:focus, .search-bar:hover {
+  .search-bar:focus-within, .search-bar:hover {
     i, input::placeholder {
       color: black;
     }
@@ -34,9 +34,11 @@
     z-index: 999;
     font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
     width: 477px;
-    border-left: 1px solid #eee;
-    border-right: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+    margin-right: -5px;
+    // border-left: 1px solid #eee;
+    // border-right: 1px solid #eee;
+    // border-bottom: 1px solid #eee;
+    box-shadow: 3px 0px 2px #fafafa, -3px 0px 2px #fafafa, 0px 3px 2px #fafafa, 0px -3px 2px #fafafa;
     h4 {
       padding: 15px 20px;
       color: #ddd;

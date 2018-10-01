@@ -3,7 +3,6 @@ import StockRechart from '../charts/stock_rechart';
 import StockIndexItem from './stock_index_item';
 
 const StockIndex = ({ currentUser }) => {
-  debugger
   return (
     <div>
       {

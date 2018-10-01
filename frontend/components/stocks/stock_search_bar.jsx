@@ -49,7 +49,6 @@ class StockSearchBar extends React.Component {
 
   // toggleOff() {
   //   let ul = document.getElementsByClassName('search-res');
-  //   debugger;
   //   ul.addClass
   // }
 
@@ -60,12 +59,15 @@ class StockSearchBar extends React.Component {
 
   render() {
     return (
-      <div className='stock-search-bar'>
-        <input
-          type="text"
-          placeholder="Search"
-          onChange={this.handleInput.bind(this)}
-        />
+      <div className='stock-search'>
+        <div className='search-bar'>
+          <i class='fas fa-search'></i>
+          <input
+            type="text"
+            placeholder="Search"
+            onChange={this.handleInput.bind(this)}
+            />
+        </div>
         {this.renderStocks()}
       </div>
     );

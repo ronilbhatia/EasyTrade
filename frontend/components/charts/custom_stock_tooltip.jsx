@@ -6,13 +6,11 @@ class CustomStockTooltip extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    debugger
     let price = document.getElementById('stock-price');
     let priceFlux = document.getElementById('stock-price-flux');
     let neg = "+";
 
     if (this.props.active && nextProps.payload[0]) {
-      debugger
       let priceFluxCalc = parseFloat(nextProps.payload[0].value) - parseFloat(this.props.openPrice);
       let priceFluxPercentageCalc = parseFloat(priceFluxCalc * 100/parseFloat(this.props.openPrice));
       if (priceFluxCalc < 0) { neg = "-" ;}
@@ -34,7 +32,6 @@ class CustomStockTooltip extends React.Component {
     if (active) {
       const { payload } = this.props;
       if (payload && payload[0] && payload[0].payload) {
-        debugger
         return (
           <div className="custom-tooltip">
             {payload[0].payload.time}

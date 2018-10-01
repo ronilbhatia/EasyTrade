@@ -6,7 +6,6 @@ class CustomTooltip extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    debugger
     let balance = document.getElementById('portfolio-balance');
     let balanceFlux = document.getElementById('portfolio-balance-flux');
     let neg = "+";
@@ -33,7 +32,6 @@ class CustomTooltip extends React.Component {
     if (active) {
       const { payload } = this.props;
       if (payload && payload[0] && payload[0].payload) {
-        debugger
         return (
           <div className="custom-tooltip">
             {payload[0].payload.time}

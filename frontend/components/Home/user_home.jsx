@@ -13,7 +13,6 @@ class UserHome extends React.Component {
   }
 
   componentDidMount() {
-    debugger
     if (this.props) {
       let user = this.props.currentUser;
       this.props.fetchUserInfo(this.state.user);

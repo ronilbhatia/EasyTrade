@@ -3394,7 +3394,6 @@ def build_stock_objects(stock_string)
   tickers = grab_tickers(grab_stocks(stock_string))
   stocks = grab_stock_names(grab_stocks(stock_string))
   stock_objects = []
-  # debugger
 
   tickers.each_with_index do |ticker, idx|
     stock_objects.push({
@@ -3479,7 +3478,6 @@ Transaction.create({user_id: 1, stock_id: 5243, price: 68.12, num_shares: 4, ord
 # # Transaction.create({user_id: 1, stock_id: 25003, price: 68.12, num_shares: 4, order_type: 'sell', transaction_date: (200*rand).days.ago})
 #
 # # transactions = Transaction.all
-# # debugger
 # # transactions.each do |transaction|
 # #   if (transaction.order_type == 'buy')
 # #     transaction.created_at = ((rand*365) + 200).days.ago

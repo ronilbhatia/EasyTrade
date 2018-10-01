@@ -77,7 +77,6 @@ class PortfolioChart extends React.Component {
 
   render1MChart() {
     let { balanceData, balance } = this.state.initialData;
-    debugger
     let data = balanceData.slice(0)
     data = data.reverse().slice(0, 22).reverse();
     let { max, min, neg, openBalance, balanceFlux, balanceFluxPercentage } = this.calculateDailyPriceData(data, balance);
@@ -161,7 +160,6 @@ class PortfolioChart extends React.Component {
     balance = parseFloat(balance).formatMoney(2);
     balanceFlux = Math.abs(parseFloat(balanceFlux)).formatMoney(2);
     balanceFluxPercentage = parseFloat(balanceFluxPercentage).formatMoney(2);
-    debugger
     return (
       <div className="chart">
         <h2 id="portfolio-balance">${balance}</h2>

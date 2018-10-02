@@ -24,8 +24,40 @@ EasyTrade, a Robinhood clone, is an investing application that allows users to p
 * Stocks are searchable by both their ticker symbol and Company name
 * Relevant news displayed for the general market on home page, and for specific stock on the stock's show page
 
+### Fetching Stock Information
+When a stock show page is visited, a variety of API calls are made to fetch the necessary information to render the stock's price chart, information ('About' section) and relevant news articles. The following APIs are hit
+* Local back-end API to receive name of Company
+* IEX API - 3 separate API calls
+  * Stock information (CEO, employees, market cap, P/E ratio)
+  * Intraday Data
+  * Daily Data
+* News API
+
+A thunk action creator `fetchStock` is used to chain these async API calls and ensure that nothing on the page is loaded until all of this information is received on the front-end.
+
+```
+export const fetchStock = ticker => dispatch => (
+  StockApiUtil.fetchStock(ticker)
+    .then(stock => dispatch(receiveStock(stock)))
+    .then(() => dispatch(fetchStockInfo(ticker)))
+    .then(() => dispatch(fetchStockIntradayData(ticker)))
+    .then(() => dispatch(fetchStockDailyData(ticker)))
+    .then(() => dispatch(fetchStockNews(ticker)))
+);
+```
+
 ### Dynamic Chart Rendering
-Charts are dynamic and interactive, allowing users to switch between ranges of **1D**, **1W**, **1M**, **3M**, **1Y**, and **5Y** for individual stocks or their overall portfolio (the **5Y** range is replaced by the **ALL** range for portfolio chart). Buttons for each range appear below the chart with click handlers installed, which serve to update the React component's state with the relevant chunk of data.
+Charts are dynamic and interactive, allowing users to switch between ranges of **1D**, **1W**, **1M**, **3M**, **1Y**, and **5Y** for individual stocks or their overall portfolio (the **5Y** range is replaced by the **ALL** range for portfolio chart). Buttons for each range appear below the chart with click handlers installed, which serve to update the React component's state with the relevant chunk of data. The `renderChart` function takes in one of the aforementioned ranges as a string, using it to key into the `RANGES` hash to determine the appropriate portion of the dailyData to grab.
+
+```
+const RANGES = {
+  '1W': { length: 5, increment: 1},
+  '1M': { length: 23, increment: 1},
+  '3M': { length: 66, increment: 1},
+  '1Y': { length: 251, increment: 1},
+  '5Y': { length: 1265, increment: 5},
+};
+```
 
 ```
 renderChart(range) {

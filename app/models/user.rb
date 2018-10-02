@@ -49,6 +49,16 @@ class User < ApplicationRecord
     self.session_token
   end
 
+  def shares_owned(stock_id)
+    transactions.where(stock_id: stock_id).reduce(0) do |shares, transaction|
+      if transaction.order_type == 'buy'
+        shares + transaction.num_shares
+      else
+        shares - transaction.num_shares
+      end
+    end
+  end
+
   def calculate_buying_power
     buying_power = 0
     self.deposits.each { |deposit| buying_power += deposit.amount }

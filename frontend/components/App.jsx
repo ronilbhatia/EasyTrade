@@ -4,6 +4,7 @@ import LoginFormContainer from './session/login_form_container';
 import HomeContainer from './Home/Home_container';
 import StockIndex from './stocks/stock_index';
 import StockShowContainer from './stocks/stock_show_container';
+import UserProfileContainer from './users/user_profile_container';
 import { Route, Redirect, Switch, Link } from 'react-router-dom';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 
@@ -14,6 +15,7 @@ const App = () => (
       <AuthRoute exact path='/login' component={LoginFormContainer} />
       <ProtectedRoute exact path="/stocks" component={StockIndex}/>
       <ProtectedRoute exact path="/stocks/:ticker" component={StockShowContainer}/>
+      <ProtectedRoute exact path="/users/:id" component={UserProfileContainer} />
       <Route exact path='/' component={HomeContainer} />
       <Redirect to="/" />
     </Switch>

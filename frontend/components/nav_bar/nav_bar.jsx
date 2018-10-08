@@ -17,6 +17,7 @@ const NavBar = ({ currentUser, demoLogin, demoUser, logout }) => {
       <section className="site-navigation">
         <StockSearchBarContainer />
         <section className="loggedin-nav-links">
+          <img src={currentUser.imageUrl} />
           <NavLink to="/" className="loggedin-nav-link">Home</NavLink>
           <button onClick={logout} className="loggedin-nav-link">Log Out</button>
         </section>

@@ -1,4 +1,5 @@
 json.id @user.id
+json.image_url url_for(@user.photo)
 json.buying_power @user.calculate_buying_power
 json.balance @user.calculate_balance
 json.stocks @user.calculate_stocks

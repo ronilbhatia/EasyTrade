@@ -29,7 +29,7 @@ class StockSearchBar extends React.Component {
             stocks.map( (stock, idx) => {
               return (
                 <NavLink key={stock.id} to={`/stocks/${stock.ticker}`}>
-                  <li key={idx} className="search-res-item">
+                  <li key={stock.id} className="search-res-item">
                     <p className='search-ticker'>{stock.ticker}</p>
                     <p className='search-name'>{stock.name}</p>
                   </li>
@@ -61,7 +61,7 @@ class StockSearchBar extends React.Component {
     return (
       <div className='stock-search'>
         <div className='search-bar'>
-          <i class='fas fa-search'></i>
+          <i className='fas fa-search'></i>
           <input
             type="text"
             placeholder="Search"

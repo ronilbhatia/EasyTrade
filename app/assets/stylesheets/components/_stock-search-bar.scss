@@ -1,7 +1,7 @@
 .stock-search {
   border: 1px solid #eee;
   width: 477px;
-  height: 36px;
+  // height: 36px;
 
   .search-bar {
     display: flex;
@@ -25,20 +25,20 @@
   }
 
   .search-res {
-    display: none;
+    // display: none;
+    position: absolute;
+    visibility: hidden;
   }
 
   .search-bar:focus-within + .search-res, .search-res:focus-within, .search-res:focus, .search-res:active {
     display: block;
+    visibility: visible;
     background: white;
     z-index: 999;
     font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
     width: 477px;
     margin-right: -5px;
-    // border-left: 1px solid #eee;
-    // border-right: 1px solid #eee;
-    // border-bottom: 1px solid #eee;
-    box-shadow: 3px 0px 2px #fafafa, -3px 0px 2px #fafafa, 0px 3px 2px #fafafa, 0px 0px 0px;
+    box-shadow: 3px 2px 2px #fafafa, -3px 2px 2px #fafafa, 0px 3px 2px #fafafa, 0px 0px 2px #fafafa;
     h4 {
       padding: 15px 20px;
       color: #ddd;
@@ -70,5 +70,5 @@
 
 .stock-search:focus-within {
   border: none;
-  box-shadow: 3px 0px 2px #fafafa, -3px 0px 2px #fafafa, 0px 0px 0px, 0px -3px 2px #fafafa;
+  box-shadow: 3px -2px 2px #fafafa, -3px -2px 2px #fafafa, 0px 3px 2px #fafafa, 0px -3px 2px #fafafa;
 }

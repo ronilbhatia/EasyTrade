@@ -42,6 +42,6 @@ export const logout = () => dispatch => (
 );
 
 export const fetchUserInfo = user => dispatch => (
-  SessionApiUtil.fetchUserInfo()
+  SessionApiUtil.fetchUserInfo(user)
     .then(info => dispatch(receiveUserInfo(info)))
 );

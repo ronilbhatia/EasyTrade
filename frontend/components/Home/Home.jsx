@@ -5,10 +5,24 @@ import Splash from './splash';
 import NewsIndexContainer from './news_index_container';
 import PortfolioChart from '../charts/portfolio_chart';
 import StockIndex from '../stocks/stock_index';
+import { css } from 'react-emotion';
+import { BeatLoader } from 'react-spinners';
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.currentUser && nextProps.currentUser) {
+      this.props.fetchUserInfo(nextProps.currentUser);
+    }
   }
 
   render() {
@@ -19,7 +33,7 @@ class Home extends React.Component {
     };
     let balance, balanceData, dailyData, monthData, openBalance, balances, max, min, balanceFlux, balanceFluxPercentage;
     let neg = "+";
-    if (currentUser) {
+    if (currentUser && currentUser.hasOwnProperty('balanceData')) {
       balance = currentUser.balance;
       balanceData = currentUser.balanceData;
       let time = new Date;
@@ -46,31 +60,43 @@ class Home extends React.Component {
     }
 
     const display = currentUser ? (
-      <div>
-        <NavBar currentUser={currentUser} logout={logout}/>
-        <section className="user-home">
-          <main>
-            <PortfolioChart
-              currentUser={currentUser}
-              balance={balance}
-              openBalance={openBalance}
-              balanceData={balanceData}
-              dailyData={dailyData}
-              data={dailyData}
-              max={max}
-              min={min}
-              neg={neg}
-              balanceFlux={balanceFlux}
-              balanceFluxPercentage={balanceFluxPercentage}
-            />
-            <NewsIndexContainer />
-          </main>
-          <aside className="stock-dashboard">
-            <h4>Stocks</h4>
-            <StockIndex currentUser={currentUser} />
-          </aside>
-        </section>
-      </div>
+      currentUser.hasOwnProperty('balanceData') ? (
+        <div>
+          <NavBar currentUser={currentUser} logout={logout}/>
+          <section className="user-home">
+            <main>
+              <PortfolioChart
+                currentUser={currentUser}
+                balance={balance}
+                openBalance={openBalance}
+                balanceData={balanceData}
+                dailyData={dailyData}
+                data={dailyData}
+                max={max}
+                min={min}
+                neg={neg}
+                balanceFlux={balanceFlux}
+                balanceFluxPercentage={balanceFluxPercentage}
+              />
+              <NewsIndexContainer />
+            </main>
+            <aside className="stock-dashboard">
+              <h4>Stocks</h4>
+              <StockIndex currentUser={currentUser} />
+            </aside>
+          </section>
+        </div>
+      ) : (
+        <div className='stock-loading'>
+          <BeatLoader
+            className={override}
+            sizeUnit={"px"}
+            size={20}
+            color={'#21ce99'}
+            loading={true}
+          />
+        </div>
+      )
     ) : (
       <div>
         <NavBar currentUser={currentUser} demoLogin={demoLogin} demoUser={demoUser}/>

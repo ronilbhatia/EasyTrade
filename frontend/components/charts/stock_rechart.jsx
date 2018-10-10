@@ -99,6 +99,13 @@ class StockRechart extends React.Component {
 
   render() {
     let { currPrice, openPrice, priceFlux, priceFluxPercentage, data, min, max, neg } = this.state.currData;
+    // let color = neg === '+'
+    let color;
+    if (neg === '+') {
+      color = "#82ca9d";
+    } else {
+      color = "#f45531";
+    }
     currPrice = parseFloat(currPrice).formatMoney(2);
     priceFlux = Math.abs(parseFloat(priceFlux)).formatMoney(2);
     priceFluxPercentage = parseFloat(priceFluxPercentage).formatMoney(2);
@@ -120,7 +127,7 @@ class StockRechart extends React.Component {
               offset={-24}
               position={{y: -15}}
             />
-            <Line type="linear" dataKey="price" stroke="#82ca9d" dot={false} strokeWidth={2} />
+            <Line type="linear" dataKey="price" stroke={color} dot={false} strokeWidth={2} />
           </LineChart>
           <ul className="chart-range">
             <li><a className={this.state.active === '1D' ? 'chart-choice active' : 'chart-choice'} onClick={this.render1DChart}>1D</a></li>

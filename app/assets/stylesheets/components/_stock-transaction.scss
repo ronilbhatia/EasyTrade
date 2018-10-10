@@ -35,9 +35,15 @@
       height: 12px;
       padding: 10px;
       text-align: right;
-    }
-    input:focus {
+      background: $faint;
+      border: 1px solid $faint;
       outline: none;
+    }
+    input:hover, input:focus {
+      border: 1px solid $gray;
+      background: $white;
+      outline: none;
+      border-radius: 4px;
     }
   }
 

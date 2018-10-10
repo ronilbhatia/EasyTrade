@@ -68,7 +68,7 @@
   }
 }
 
-.stock-search:focus-within {
+.stock-search:focus-within, .stock-search:hover {
   border: none;
   box-shadow: 3px -2px 2px #fafafa, -3px -2px 2px #fafafa, 0px 3px 2px #fafafa, 0px -3px 2px #fafafa;
 }

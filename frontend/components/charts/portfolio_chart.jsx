@@ -157,6 +157,12 @@ class PortfolioChart extends React.Component {
   render() {
     let { currentUser } = this.props;
     let { balance, balanceFlux, balanceFluxPercentage, openBalance, data, min, max, neg } = this.state.currData;
+    let color = (neg === '+') ? "#82ca9d" : "#f45531";
+    if (neg === '-') {
+      document.getElementsByTagName('body')[0].className = 'negative';
+    } else {
+      document.getElementsByTagName('body')[0].className = '';
+    }
     balance = parseFloat(balance).formatMoney(2);
     balanceFlux = Math.abs(parseFloat(balanceFlux)).formatMoney(2);
     balanceFluxPercentage = parseFloat(balanceFluxPercentage).formatMoney(2);
@@ -176,7 +182,7 @@ class PortfolioChart extends React.Component {
               offset={-24}
               position={{y: -15}}
             />
-            <Line type="linear" dataKey="balance" stroke="#82ca9d" dot={false} strokeWidth={2} />
+          <Line type="linear" dataKey="balance" stroke={color} dot={false} strokeWidth={2} />
           </LineChart>
           <ul className="chart-range">
             <li><a className={this.state.active === '1D' ? 'chart-choice active' : 'chart-choice'} onClick={this.render1DChart}>1D</a></li>

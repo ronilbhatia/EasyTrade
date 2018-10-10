@@ -56,6 +56,11 @@ class Home extends React.Component {
         balanceFlux = Math.round((balance - openBalance) * 100)/100;
         balanceFluxPercentage = Math.round((balanceFlux/openBalance)*10000)/100;
         if (balanceFlux < 0) { neg = "-" ;}
+        // if (neg === '-') {
+        //   document.getElementsByTagName('body')[0].className = 'negative';
+        // } else {
+        //   document.getElementsByTagName('body')[0].className = '';
+        // }
       }
     }
 

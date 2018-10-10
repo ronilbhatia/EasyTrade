@@ -105,7 +105,7 @@ class StockRechart extends React.Component {
     } else {
       document.getElementsByTagName('body')[0].className = '';
     }
-    
+
     currPrice = parseFloat(currPrice).formatMoney(2);
     priceFlux = Math.abs(parseFloat(priceFlux)).formatMoney(2);
     priceFluxPercentage = parseFloat(priceFluxPercentage).formatMoney(2);

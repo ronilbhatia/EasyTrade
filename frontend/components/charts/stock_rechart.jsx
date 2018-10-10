@@ -99,13 +99,13 @@ class StockRechart extends React.Component {
 
   render() {
     let { currPrice, openPrice, priceFlux, priceFluxPercentage, data, min, max, neg } = this.state.currData;
-    // let color = neg === '+'
-    let color;
-    if (neg === '+') {
-      color = "#82ca9d";
+    let color = (neg === '+') ? "#82ca9d" : "#f45531";
+    if (neg === '-') {
+      document.getElementsByTagName('body')[0].className = 'negative';
     } else {
-      color = "#f45531";
+      document.getElementsByTagName('body')[0].className = '';
     }
+    
     currPrice = parseFloat(currPrice).formatMoney(2);
     priceFlux = Math.abs(parseFloat(priceFlux)).formatMoney(2);
     priceFluxPercentage = parseFloat(priceFluxPercentage).formatMoney(2);

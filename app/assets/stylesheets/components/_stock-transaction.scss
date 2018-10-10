@@ -13,11 +13,11 @@
       cursor: pointer;
     }
     .active {
-      color: #21ce99;
-      border-bottom: 2px solid #21ce99;
+      color: $green;
+      border-bottom: 2px solid $green;
     }
     a:hover {
-      color: #21ce99;
+      color: $green;
     }
     border-bottom: 1px solid #eee;
   }
@@ -37,7 +37,7 @@
       text-align: right;
     }
     input:focus {
-      outline:  inherit none;
+      outline: none;
     }
   }
 
@@ -91,12 +91,12 @@
       font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
       font-weight: 500;
       border-radius: 4px;
-      background: #21ce99;
+      background: $green;
       padding: 17px 80px;
       cursor: pointer;
     }
     input:hover {
-      background: #1ae9aa;
+      background: $light-green;
     }
     input:focus {
       outline: none;
@@ -112,5 +112,26 @@
     align-items: center;
     font-size: 12px;
     font-weight: 500;
+  }
+}
+
+body.negative .stock-transaction {
+  h3 {
+    .active {
+      color: $red;
+      border-bottom: 2px solid $red;
+    }
+    a:hover {
+      color: $red;
+    }
+  }
+
+  .transaction-submit {
+    input {
+      background: $red;
+    }
+    input:hover {
+      background: $light-red;
+    }
   }
 }

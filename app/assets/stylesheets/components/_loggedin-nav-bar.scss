@@ -31,7 +31,7 @@
 }
 
 .loggedin-nav-link:hover {
-  color: #21ce99;
+  color: $green;
 }
 
 .loggedin-nav-link:focus {
@@ -39,7 +39,7 @@
 }
 
 .svg-logo:hover {
-  fill: #21ce99;
+  fill: $green;
 }
 
 .site-navigation {
@@ -68,4 +68,12 @@
       height: 30px;
     }
   }
+}
+
+body.negative .loggedin-nav-link:hover {
+  color: $red;
+}
+
+body.negative .svg-logo:hover {
+  fill: $red;
 }

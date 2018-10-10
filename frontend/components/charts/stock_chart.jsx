@@ -69,7 +69,8 @@ class StockChart extends React.Component {
     let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
     let neg = "+";
     if (priceFlux < 0) { neg = "-" ;}
-
+    let color = (neg === '+') ? "#82ca9d" : "#f45531";
+    if (neg === '-') document.getElementsByTagName('body')[0].className = 'negative';
     // After key data points have been determined iterate through rest of times and add nil balance (there will only be remaining times if in middle of market hours)
     for (var i = 0; i < times.length; i++) {
       let hours = parseInt(times[i].split(":")[0])
@@ -95,6 +96,7 @@ class StockChart extends React.Component {
               neg={neg}
               intradayData={intradayData}
               dailyData={dailyData}
+              color={color}
             />
           ) : (
             <div className='sweet-loading'>

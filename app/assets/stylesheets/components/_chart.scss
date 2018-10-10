@@ -4,12 +4,12 @@
 }
 
 .chart-choice.active {
-  color: #21ce99;
-  border-bottom: 2px solid #21ce99;
+  color: $green;
+  border-bottom: 2px solid $green;
 }
 
 .chart-choice:hover {
-  color: #21ce99;
+  color: $green;
 }
 
 .chart {
@@ -32,4 +32,13 @@
     margin: 0 22px 0 0;
   }
   padding-bottom: 15px;
+}
+
+body.negative .chart-choice:hover {
+  color: $red;
+}
+
+body.negative .chart-choice.active {
+  color: $red;
+  border-bottom: 2px solid $red;
 }

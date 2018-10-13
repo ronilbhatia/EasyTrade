@@ -4,6 +4,7 @@ import StockChart from '../charts/stock_chart';
 import StockAbout from './stock_about';
 import StockNews from './stock_news';
 import StockTransaction from './stock_transaction';
+import Footer from '../footer/footer';
 import { css } from 'react-emotion';
 import { BeatLoader } from 'react-spinners';
 
@@ -16,11 +17,13 @@ const override = css`
 class StockShow extends React.Component {
   componentDidMount() {
     const ticker = this.props.match.params.ticker;
-    this.props.fetchStock(ticker);
+    if (!this.props.stock) {
+      this.props.fetchStock(ticker);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.match.params.ticker !== this.props.match.params.ticker) {
+    if (nextProps.match.params.ticker !== this.props.match.params.ticker && !nextProps.stock) {
       const ticker = nextProps.match.params.ticker;
       this.props.fetchStock(ticker);
     }

@@ -16,7 +16,6 @@
   padding: 0;
   margin: 0 5px;
   // width: 676px;
-  border-bottom: 1px solid #eee;
 }
 
 .stock-chart {
@@ -32,6 +31,12 @@
     margin: 0 22px 0 0;
   }
   padding-bottom: 15px;
+  margin-right: 35px;
+  border-bottom: 1px solid #eee;
+}
+
+.chart-range.stock {
+  margin-right: 55px;
 }
 
 body.negative .chart-choice:hover {

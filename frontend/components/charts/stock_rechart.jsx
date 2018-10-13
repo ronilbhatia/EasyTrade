@@ -129,7 +129,7 @@ class StockRechart extends React.Component {
             />
             <Line type="linear" dataKey="price" stroke={color} dot={false} strokeWidth={2} />
           </LineChart>
-          <ul className="chart-range">
+          <ul className="chart-range stock">
             <li><a className={this.state.active === '1D' ? 'chart-choice active' : 'chart-choice'} onClick={this.render1DChart}>1D</a></li>
             <li><a className={this.state.active === '1W' ? 'chart-choice active' : 'chart-choice'} onClick={() => this.renderChart('1W')}>1W</a></li>
             <li><a className={this.state.active === '1M' ? 'chart-choice active' : 'chart-choice'} onClick={() => this.renderChart('1M')}>1M</a></li>

@@ -1,0 +1,19 @@
+.footer {
+  width: 74%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 55px 0;
+  margin: 20px auto;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+
+  a {
+    padding: 0 35px;
+  }
+  img {
+    width: 35px;
+    height: auto;
+  }
+}

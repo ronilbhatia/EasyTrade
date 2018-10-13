@@ -5,6 +5,7 @@ import Splash from './splash';
 import NewsIndexContainer from './news_index_container';
 import PortfolioChart from '../charts/portfolio_chart';
 import StockIndex from '../stocks/stock_index';
+import Footer from '../footer/footer';
 import { css } from 'react-emotion';
 import { BeatLoader } from 'react-spinners';
 
@@ -90,6 +91,7 @@ class Home extends React.Component {
               <StockIndex currentUser={currentUser} />
             </aside>
           </section>
+          <Footer />
         </div>
       ) : (
         <div className='stock-loading'>
@@ -106,6 +108,7 @@ class Home extends React.Component {
       <div>
         <NavBar currentUser={currentUser} demoLogin={demoLogin} demoUser={demoUser}/>
         <Splash demoLogin={demoLogin} demoUser={demoUser}/>
+        <Footer />
       </div>
     );
     return (

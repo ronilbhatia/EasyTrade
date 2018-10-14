@@ -57,6 +57,37 @@ class StockTransaction extends React.Component {
     this.props.createTransaction(transaction);
   }
 
+  renderSellButton() {
+    const { currentUser, stock } = this.props
+    if (currentUser.stocks.find(el => el.symbol === stock.ticker && el.shares > 0)) {
+      return <a className={this.state.order_type === 'sell' ? 'active' : ''} onClick={() => this.updateType('sell')}>Sell {`${stock.ticker}`}</a>;
+    }
+    return null;
+  }
+
+  renderLimit() {
+    const { currentUser, stock } = this.props;
+    let shares = 0;
+    for (let i = 0; i < currentUser.stocks.length; i++) {
+      let currStock = currentUser.stocks[i];
+      debugger
+      if (currStock.symbol === stock.ticker) {
+        shares = currStock.shares;
+        break;
+      }
+    }
+    debugger
+    return this.state.order_type === 'buy' ? (
+      <div className="buying-power">
+        <h4>${currentUser.buyingPower.formatMoney()} Buying Power Available</h4>
+      </div>
+    ) : (
+        <div className="buying-power">
+          <h4>{shares} Shares Available</h4>
+        </div>
+    );
+  }
+
   render() {
     const { stock, currentUser, errors } = this.props;
     const intradayData = stock.intradayData;
@@ -65,7 +96,7 @@ class StockTransaction extends React.Component {
       <aside className="stock-transaction">
         <h3>
           <a className={this.state.order_type === 'buy' ? 'active' : ''} onClick={() => this.updateType('buy')}>Buy {`${stock.ticker}`}</a>
-          <a className={this.state.order_type === 'sell' ? 'active' : ''} onClick={() => this.updateType('sell')}>Sell {`${stock.ticker}`}</a>
+          {this.renderSellButton()}
         </h3>
         <form onSubmit={this.handleSubmit}>
           <div className='transaction-shares'>
@@ -74,11 +105,11 @@ class StockTransaction extends React.Component {
           </div>
           <div className='transaction-price'>
             <h4>Market Price</h4>
-            <p>${this.state.currPrice}</p>
+            <p>${this.state.currPrice.formatMoney()}</p>
           </div>
           <div className='transaction-cost'>
             <h4>Estimated Cost</h4>
-            <p>${this.state.cost}</p>
+            <p>${parseFloat(this.state.cost).formatMoney()}</p>
           </div>
           <div className='transaction-errors'>
             <ul>
@@ -91,9 +122,7 @@ class StockTransaction extends React.Component {
             <input type="submit" value={`SUBMIT ${this.state.order_type.toUpperCase()}`} />
           </div>
         </form>
-        <div className="buying-power">
-          <h4>${currentUser.buyingPower} Buying Power Available</h4>
-        </div>
+        {this.renderLimit()}
       </aside>
     );
   }

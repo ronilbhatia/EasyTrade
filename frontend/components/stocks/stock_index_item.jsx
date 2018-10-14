@@ -10,7 +10,7 @@ const StockIndexItem = ({ stock }) => {
           <p>{stock.shares} shares</p>
         </div>
         <div>
-          <h6>${stock.price}</h6>
+          <h6>${parseFloat(stock.price).formatMoney()}</h6>
         </div>
       </li>
     </Link>

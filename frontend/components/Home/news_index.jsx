@@ -27,7 +27,7 @@ class NewsIndex extends React.Component {
           news.hasOwnProperty('0') ? (
             <ul>
               {
-                news.map((newsItem, idx) => <StockNewsItem newsItem={newsItem} key={idx} />)
+                news.filter(el => el.urlToImage).map((newsItem, idx) => <StockNewsItem newsItem={newsItem} key={idx} />)
               }
             </ul>
           ) : (

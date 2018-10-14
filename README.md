@@ -8,8 +8,6 @@ EasyTrade, a Robinhood clone, is an investing application that allows users to p
 * Backend: Rails/ActiveRecord/PostgreSQL
 * Frontend: React/Redux
 * [IEX API](https://iextrading.com)
-* [Alpha Vantage API](https://www.alphavantage.co/)
-* [Intrinio API](https://intrinio.com/)
 * [News API](https://newsapi.org/)
 * [Recharts](http://recharts.org/en-US/)
 * [CSS Animate](http://animate.css)
@@ -23,6 +21,10 @@ EasyTrade, a Robinhood clone, is an investing application that allows users to p
 * Real-time update of portfolio and remaining buying-power after execution of stock transaction
 * Stocks are searchable by both their ticker symbol and Company name
 * Relevant news displayed for the general market on home page, and for specific stock on the stock's show page
+
+### Dashboard & Portfolio
+Once a user logs in, they are immediately redirected to their dashboard, which shows a chart displaying their portfolio balance over time, a list of stocks owned along with the current share price of the stock, and real-time news.
+
 
 ### Fetching Stock Information
 When a stock show page is visited, a variety of API calls are made to fetch the necessary information to render the stock's price chart, information ('About' section) and relevant news articles. The following APIs are hit

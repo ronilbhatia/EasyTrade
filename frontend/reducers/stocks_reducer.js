@@ -21,6 +21,17 @@ const stocksReducer = (state = {}, action) => {
     case RECEIVE_STOCK_INFO:
         nextState[action.ticker].shortDescription = action.stockInfo.company.description;
         nextState[action.ticker].ceo = action.stockInfo.company.CEO;
+        nextState[action.ticker].industry = action.stockInfo.company.industry;
+        nextState[action.ticker].exchange = action.stockInfo.company.exchange;
+        nextState[action.ticker].marketCap = action.stockInfo.quote.marketCap;
+        nextState[action.ticker].sector = action.stockInfo.quote.sector;
+        nextState[action.ticker].peRatio = action.stockInfo.quote.peRatio;
+        nextState[action.ticker].averageVolume = action.stockInfo.quote.avgTotalVolume;
+        nextState[action.ticker].openPrice = action.stockInfo.quote.open;
+        nextState[action.ticker].high = action.stockInfo.quote.high;
+        nextState[action.ticker].low = action.stockInfo.quote.low;
+        nextState[action.ticker].yearHigh = action.stockInfo.quote.week52High;
+        nextState[action.ticker].yearLow = action.stockInfo.quote.week52Low;
         // nextState[action.ticker].employees = action.stockInfo.employees;
         // nextState[action.ticker].hqCity = action.stockInfo.hq_address_city;
         // nextState[action.ticker].hqState = action.stockInfo.hq_state;

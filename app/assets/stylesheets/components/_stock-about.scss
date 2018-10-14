@@ -2,13 +2,27 @@
   margin-top: 45px;
 }
 
-.stock-show .stock-about h2 {
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
   margin-left: 5px;
+  padding-bottom: 10px;
+  margin-right: 55px;
+
+  h3 {
+    margin-top: 5px;
+    color: $green;
+  }
+  h3:hover {
+    color: $light-green;
+    cursor: pointer;
+  }
+}
+.stock-show .stock-about h2 {
   font-size: 24px;
   font-weight: 700;
-  padding-bottom: 15px;
-  margin-right: 55px;
-  border-bottom: 1px solid #eee;
 }
 
 .stock-short-description {
@@ -34,5 +48,29 @@
       font-weight: 400;
       font-size: 13px;
     }
+    .ceo {
+      color: $green;
+    }
   }
+}
+
+body.negative {
+  .header {
+    h3 {
+      color: $red;
+    }
+
+    h3:hover {
+      color: $light-red;
+      cursor: pointer;
+    }
+  }
+
+  .ceo {
+    color: $red;
+  }
+}
+
+ul.stock-facts.hidden {
+  display: none;
 }

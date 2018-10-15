@@ -26,7 +26,8 @@ EasyTrade, a Robinhood clone, is an investing application that allows users to p
 Once a user logs in, they are immediately redirected to their dashboard, which shows a chart displaying their portfolio balance over time, a list of their holdings, and real-time news.
 <br />
 <br />
-![Alt Text](https://media.giphy.com/media/lcjzJGzKxh5t3023Z4/giphy.gif)
+<!-- ![Alt Text](https://media.giphy.com/media/lcjzJGzKxh5t3023Z4/giphy.gif) -->
+<img src="https://media.giphy.com/media/lcjzJGzKxh5t3023Z4/giphy.gif" width=800px />
 <br />
 <br />
 

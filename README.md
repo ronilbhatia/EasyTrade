@@ -2,7 +2,7 @@
 
 EasyTrade, a Robinhood clone, is an investing application that allows users to purchase and sell shares of stock in publicly-traded companies
 
-[Live Demo](https://easy-trade.herokuapp.com/#/)
+[Live Demo](https://easy-trade.us/#/)
 
 ## Technologies
 * Backend: Rails/ActiveRecord/PostgreSQL
@@ -23,7 +23,12 @@ EasyTrade, a Robinhood clone, is an investing application that allows users to p
 * Relevant news displayed for the general market on home page, and for specific stock on the stock's show page
 
 ### Dashboard & Portfolio
-Once a user logs in, they are immediately redirected to their dashboard, which shows a chart displaying their portfolio balance over time, a list of stocks owned along with the current share price of the stock, and real-time news.
+Once a user logs in, they are immediately redirected to their dashboard, which shows a chart displaying their portfolio balance over time, a list of their holdings, and real-time news.
+<br />
+<br />
+<iframe src="https://giphy.com/embed/lcjzJGzKxh5t3023Z4" width="480" height="300" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/lcjzJGzKxh5t3023Z4">via GIPHY</a></p>
+<br />
+<br />
 
 
 ### Fetching Stock Information

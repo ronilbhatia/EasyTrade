@@ -47,7 +47,7 @@ When a stock show page is visited, a variety of API calls are made to fetch the 
 
 A thunk action creator `fetchStock` is used to chain these async API calls and ensure that nothing on the page is loaded until all of this information is received on the front-end.
 
-```
+```js
 export const fetchStock = ticker => dispatch => (
   StockApiUtil.fetchStock(ticker)
     .then(stock => dispatch(receiveStock(stock)))
@@ -61,7 +61,7 @@ export const fetchStock = ticker => dispatch => (
 #### Dynamic Chart Rendering
 Charts are dynamic and interactive, allowing users to switch between ranges of **1D**, **1W**, **1M**, **3M**, **1Y**, and **5Y** for individual stocks or their overall portfolio (the **5Y** range is replaced by the **ALL** range for portfolio chart). Buttons for each range appear below the chart with click handlers installed, which serve to update the React component's state with the relevant chunk of data. The `renderChart` function takes in one of the aforementioned ranges as a string, using it to key into the `RANGES` hash to determine the appropriate portion of the dailyData to grab.
 
-```
+```js
 const RANGES = {
   '1W': { length: 5, increment: 1},
   '1M': { length: 23, increment: 1},
@@ -71,7 +71,7 @@ const RANGES = {
 };
 ```
 
-```
+```js
 renderChart(range) {
   let { dailyData } = this.state.initialData;
   let data = [];
@@ -116,7 +116,7 @@ renderChart(range) {
 
 A helper function, `calculateDailyPriceData` is used to calculate key price points that the chart needs to render appropriately including the current price, open price, high(max), low(min), price flux, and price flux percentage.
 
-```
+```js
 calculateDailyPriceData(data, startIdx) {
   let { dailyData } = this.state.initialData;
   let neg = "+";
@@ -150,9 +150,11 @@ calculateDailyPriceData(data, startIdx) {
 
 ### Transaction Validation
 
+<img src="./app/assets/images/transaction_validation.gif" width=800px/>
+
 Users are only allowed to purchase shares of stock if they have adequate buying power. Additionally, they are only allowed to sell, at max, as many shares as they own. These checks are handled by the transactions controller on the back-end, and descriptive error messages will be rendered to the page if a user attempts to make an invalid transaction. The form will only submit and trigger a refresh of the page upon a valid transaction submitted by the user.
 
-```
+```rb
 def create
   @transaction = Transaction.new(transaction_params)
   @transaction.user_id = current_user.id

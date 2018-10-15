@@ -26,13 +26,17 @@ EasyTrade, a Robinhood clone, is an investing application that allows users to p
 Once a user logs in, they are immediately redirected to their dashboard, which shows a chart displaying their portfolio balance over time, a list of their holdings, and real-time news.
 <br />
 <br />
-<!-- ![Alt Text](https://media.giphy.com/media/lcjzJGzKxh5t3023Z4/giphy.gif) -->
 <img src="https://media.giphy.com/media/lcjzJGzKxh5t3023Z4/giphy.gif" width=800px />
 <br />
 <br />
 
 
-### Fetching Stock Information
+### Stock Show Page
+The stock show page contains current and historical price information about the stock, general company information, relevant news, and allows users to purchase and sell shares of the stock at the most recent market price. Colored elements of the page will be rendered in green if the chart being displayed shows a positive price fluctuation, and in red when the price fluctuation is negative.
+
+<img src="https://media.giphy.com/media/4a3G9vIqugeuknm3YS/giphy.gif" width=800px />
+
+#### Fetching Stock Information
 When a stock show page is visited, a variety of API calls are made to fetch the necessary information to render the stock's price chart, information ('About' section) and relevant news articles. The following APIs are hit
 * Local back-end API to receive name of Company
 * IEX API - 3 separate API calls
@@ -54,7 +58,7 @@ export const fetchStock = ticker => dispatch => (
 );
 ```
 
-### Dynamic Chart Rendering
+#### Dynamic Chart Rendering
 Charts are dynamic and interactive, allowing users to switch between ranges of **1D**, **1W**, **1M**, **3M**, **1Y**, and **5Y** for individual stocks or their overall portfolio (the **5Y** range is replaced by the **ALL** range for portfolio chart). Buttons for each range appear below the chart with click handlers installed, which serve to update the React component's state with the relevant chunk of data. The `renderChart` function takes in one of the aforementioned ranges as a string, using it to key into the `RANGES` hash to determine the appropriate portion of the dailyData to grab.
 
 ```

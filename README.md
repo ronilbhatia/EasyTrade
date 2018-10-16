@@ -28,16 +28,14 @@ EasyTrade, a Robinhood clone, is an investing application that allows users to p
 Once a user logs in, they are immediately redirected to their dashboard, which shows a chart displaying their portfolio balance over time, a list of their holdings, and real-time news.
 <br />
 <br />
-<img src="https://media.giphy.com/media/lcjzJGzKxh5t3023Z4/giphy.gif" align="center" />
+<img src="./app/assets/images/dashboard.gif" align="center" />
 <br />
 <br />
 
-<a name="stock-show">
 ### Stock Show Page
-</a>
 The stock show page contains current and historical price information about the stock, general company information, relevant news, and allows users to purchase and sell shares of the stock at the most recent market price. Colored elements of the page will be rendered in green if the chart being displayed shows a positive price fluctuation, and in red when the price fluctuation is negative.
 
-<img src="https://media.giphy.com/media/4a3G9vIqugeuknm3YS/giphy.gif" align="center" />
+<img src="./app/assets/images/stock-show.gif" align="center" />
 
 #### Fetching Stock Information
 When a stock show page is visited, a variety of API calls are made to fetch the necessary information to render the stock's price chart, information ('About' section) and relevant news articles. The following APIs are hit
@@ -153,7 +151,7 @@ calculateDailyPriceData(data, startIdx) {
 
 ### Transaction Validation
 
-<img src="./app/assets/images/transaction_validation.gif" align="center" />
+<img src="./app/assets/images/transaction-handling.gif" align="center" />
 
 Users are only allowed to purchase shares of stock if they have adequate buying power. Additionally, they are only allowed to sell, at max, as many shares as they own. These checks are handled by the transactions controller on the back-end, and descriptive error messages will be rendered to the page if a user attempts to make an invalid transaction. The form will only submit and trigger a refresh of the page upon a valid transaction submitted by the user.
 

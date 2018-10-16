@@ -10,6 +10,21 @@ const RANGES = {
   '5Y': { length: 1265, increment: 5},
 };
 
+const MONTHS = {
+  1: "JAN",
+  2: "FEB",
+  3: "MAR",
+  4: "APR",
+  5: "MAY",
+  6: "JUN",
+  7: "JUL",
+  8: "AUG",
+  9: "SEP",
+  10: "OCT",
+  11: "NOV",
+  12: "DEC"
+};
+
 class StockRechart extends React.Component {
   constructor(props) {
     super(props);
@@ -56,6 +71,11 @@ class StockRechart extends React.Component {
     this.setState({ currData: this.state.initialData, active: '1D' });
   }
 
+  formatDate(date) {
+    let [year, month, day] = date.split("-");
+    return `${MONTHS[parseInt(month)]} ${day}, ${year}`;
+  }
+
   renderChart(range) {
     let { dailyData } = this.state.initialData;
     let data = [];
@@ -65,8 +85,9 @@ class StockRechart extends React.Component {
 
     for(let i = dailyData.length - startIdx; i < dailyData.length; i+=RANGES[range].increment) {
       if (i < 0) i = 0;
+      let time = this.formatDate(dailyData[i].date);
       data.push({
-        time: dailyData[i].date,
+        time,
         price: dailyData[i].close
       });
       lastIdx = i;
@@ -74,8 +95,9 @@ class StockRechart extends React.Component {
 
     // Set last date as most recent data point regardless
     if (lastIdx !== dailyData.length - 1) {
+      let time = this.formatDate(dailyData[dailyData.length-1].date);
       data.push({
-        time: dailyData[dailyData.length - 1].date,
+        time,
         price: dailyData[dailyData.length - 1].close
       });
     }
@@ -124,8 +146,9 @@ class StockRechart extends React.Component {
               />
             <Tooltip
               content={<CustomStockTooltip price={currPrice} priceFlux={priceFlux} priceFluxPercentage={priceFluxPercentage} openPrice={openPrice} neg={neg}/>}
-              offset={-24}
-              position={{y: -15}}
+              offset={-40}
+              position={{y: -20}}
+              isAnimationActive={false}
             />
             <Line type="linear" dataKey="price" stroke={color} dot={false} strokeWidth={2} />
           </LineChart>

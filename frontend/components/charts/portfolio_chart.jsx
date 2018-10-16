@@ -179,8 +179,9 @@ class PortfolioChart extends React.Component {
               />
             <Tooltip
               content={<CustomTooltip balance={balance} balanceFlux={balanceFlux} balanceFluxPercentage={balanceFluxPercentage} openBalance={openBalance} neg={neg}/>}
-              offset={-24}
-              position={{y: -15}}
+              offset={-40}
+              position={{y: -20}}
+              isAnimationActive={false}
             />
           <Line type="linear" dataKey="balance" stroke={color} dot={false} strokeWidth={2} />
           </LineChart>

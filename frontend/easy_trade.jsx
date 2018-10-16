@@ -9,7 +9,7 @@ import { createTransaction } from './actions/transaction_actions';
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
   let store;
-    if (window.currentUser1) {
+  if (window.currentUser1) {
     const preloadedState = {
       entities: {
         users: { [window.currentUser1.id]: window.currentUser1 }

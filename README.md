@@ -4,6 +4,8 @@ EasyTrade, a Robinhood clone, is an investing application that allows users to p
 
 [Live Demo](https://easy-trade.us/#/)
 
+<a href="stock-show">Stock Show</a>
+
 ## Technologies
 * Backend: Rails/ActiveRecord/PostgreSQL
 * Frontend: React/Redux
@@ -15,11 +17,11 @@ EasyTrade, a Robinhood clone, is an investing application that allows users to p
 
 ## Features
 * Secure frontend to backend user authentication using BCrypt
-* Real-time and historical data of all stocks traded on the NASDAQ and NYSE exchanges
-* Interactive charts to display stock price fluctuation over time as well as user's portfolio balance fluctuation overtime
+* Real-time and historical price data of all stocks traded on the NASDAQ and NYSE exchanges
+* Interactive charts displaying stock price fluctuation over time as well as user's portfolio balance fluctuation overtime
+* Dashboard displaying share ownership and current market price of all stocks that make up a user's portfolio
 * Ability to simulate real stock-market trades by buying and selling shares at the most recent market price
-* Real-time update of portfolio and remaining buying-power after execution of stock transaction
-* Stocks are searchable by both their ticker symbol and Company name
+* Ability to search stocks by both their ticker symbol and Company name
 * Relevant news displayed for the general market on home page, and for specific stock on the stock's show page
 
 ### Dashboard & Portfolio
@@ -30,8 +32,9 @@ Once a user logs in, they are immediately redirected to their dashboard, which s
 <br />
 <br />
 
-
+<a name="stock-show">
 ### Stock Show Page
+</a>
 The stock show page contains current and historical price information about the stock, general company information, relevant news, and allows users to purchase and sell shares of the stock at the most recent market price. Colored elements of the page will be rendered in green if the chart being displayed shows a positive price fluctuation, and in red when the price fluctuation is negative.
 
 <img src="https://media.giphy.com/media/4a3G9vIqugeuknm3YS/giphy.gif" align="center" />
@@ -45,7 +48,7 @@ When a stock show page is visited, a variety of API calls are made to fetch the 
   * Daily Data
 * News API
 
-A thunk action creator `fetchStock` is used to chain these async API calls and ensure that nothing on the page is loaded until all of this information is received on the front-end.
+A thunk `fetchStock` is used to chain these async API calls and ensure that nothing on the page is loaded until all of this information is received on the front-end.
 
 ```js
 export const fetchStock = ticker => dispatch => (

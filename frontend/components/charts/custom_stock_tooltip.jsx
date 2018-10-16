@@ -28,7 +28,7 @@ class CustomStockTooltip extends React.Component {
 
   render() {
     const { active } = this.props;
-
+    debugger
     if (active) {
       const { payload } = this.props;
       if (payload && payload[0] && payload[0].payload) {

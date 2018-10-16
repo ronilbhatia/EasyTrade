@@ -41,14 +41,15 @@ class StockChart extends React.Component {
           price = intradayData[i].marketAverage;
           prevPrice = price;
         }
+        let time = (intradayData[i].label.includes(":")) ? `${intradayData[i].label} ET` : `${intradayData[i].label.split(" ")[0]}:00 ${intradayData[i].label.split(" ")[1]} ET`
         data.push({
-          time: `${intradayData[i].label} ET`,
+          time,
           price
         });
         times.shift();
       } else if (intradayData[i].minute === '15:59') {
         data.push({
-          time: "4:00PM EST",
+          time: "4:00 PM ET",
           price: prevPrice
         })
         times.shift();

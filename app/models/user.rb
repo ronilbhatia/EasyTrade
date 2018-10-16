@@ -26,6 +26,21 @@ class User < ApplicationRecord
 
   attr_reader :password
 
+  MONTHS = {
+    1 => :JAN,
+    2 => :FEB,
+    3 => :MAR,
+    4 => :APR,
+    5 => :MAY,
+    6 => :JUN,
+    7 => :JUL,
+    8 => :AUG,
+    9 => :SEP,
+    10 => :OCT,
+    11 => :NOV,
+    12 => :DEC
+  }
+
   def self.find_by_credentials(username, password)
     @user = User.find_by(username: username)
     return nil unless @user
@@ -166,7 +181,7 @@ class User < ApplicationRecord
           stock_day_info = response[k]['chart'].find { |days| days['date'] == date_string}
           stock_value += stock_day_info['close'] * v unless stock_day_info.nil?
         end
-        formattedTime = "#{time.month}/#{time.day}/#{time.year}"
+        formattedTime = "#{MONTHS[time.month.to_i]} #{time.day}, #{time.year}"
         balance = cash_balance + stock_value
         data.push({ time: formattedTime, balance: balance.round(2) }) unless stock_day_info.nil?
       end
@@ -235,12 +250,17 @@ class User < ApplicationRecord
 
     # iterate through times and add data points as necessary
     times.each do |time|
-      timeObject = Time.new(Time.now.year, Time.now.month, Time.now.day, time.split(':')[0].to_i + 4, time.split(':')[1], 0, "+00:00")
+      hour = time.split(':')[0].to_i
+      minute = time.split(':')[1].to_i
+      minute_string = time.split(':')[1]
+      timeObject = Time.new(Time.now.year, Time.now.month, Time.now.day, hour + 4, minute, 0, "+00:00")
 
       ## if time we are iterating over is within 20 mins of current time, push in current balance the first time and nil every time after (IEX API has 15 minute delay)
       if timeObject > Time.now.getgm - 1200
+        label = hour > 12 ? "#{hour - 12}:#{minute} PM ET" : "#{time} AM ET"
+        label = "#{time} PM ET" if hour == 12
         unless curr_bal_pushed
-          data.push({ time: "#{time} ET", balance: calculate_balance })
+          data.push({ time: label, balance: calculate_balance })
           curr_bal_pushed = true
           next
         else
@@ -296,7 +316,9 @@ class User < ApplicationRecord
         prev_balance = balance
       end
 
-      data.push({ time: "#{time} ET", balance: balance.round(2) }) unless stock_day_info.nil?
+      label = hour >= 12 ? "#{hour - 12}:#{minute_string} PM ET" : "#{time} AM ET"
+      label = "#{time} PM ET" if hour == 12
+      data.push({ time: label, balance: balance.round(2) }) unless stock_day_info.nil?
     end
 
     data

@@ -33,7 +33,16 @@ class StockChart extends React.Component {
     let data = [];
     for (let i = 0; i < intradayData.length; i++) {
       let price;
+
       if (intradayData[i].minute === times[0]) {
+        if (!intradayData[i].label) {
+          data.push({
+            time: `${intradayData[i].minute} AM ET`,
+            price: null
+          })
+          times.shift();
+          continue;
+        }
         // check if there is price data, if not take most recent price
         if (intradayData[i].marketAverage === -1) {
           price = prevPrice;

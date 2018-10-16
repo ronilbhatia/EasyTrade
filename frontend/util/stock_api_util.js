@@ -51,7 +51,7 @@ export const fetchStockNews = ticker => (
 
 export const fetchStockInfo = ticker => (
   $.ajax({
-    url: `https://api.iextrading.com/1.0/stock/market/batch?symbols=${ticker}&types=quote,company`
+    url: `https://api.iextrading.com/1.0/stock/market/batch?symbols=${ticker}&types=quote,company,info`
   })
 );
 

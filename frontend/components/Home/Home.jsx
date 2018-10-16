@@ -20,6 +20,12 @@ class Home extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    if (this.props.currentUser) {
+      this.props.fetchUserInfo(this.props.currentUser);
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (!this.props.currentUser && nextProps.currentUser) {
       this.props.fetchUserInfo(nextProps.currentUser);

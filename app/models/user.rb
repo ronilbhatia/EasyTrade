@@ -95,9 +95,10 @@ class User < ApplicationRecord
   def calculate_stocks
     stocks = Hash.new(0)
     return stocks if transactions.empty?
+    transactions_with_stocks = self.transactions.includes(:stock)
 
-    self.transactions.each do |transaction|
-      curr_stock = Stock.find(transaction.stock_id)
+    transactions_with_stocks.each do |transaction|
+      curr_stock = transaction.stock
       if transaction.order_type == 'buy'
         stocks[curr_stock.ticker] += transaction.num_shares
       else
@@ -138,9 +139,9 @@ class User < ApplicationRecord
     data = []
     return data if transactions.empty?
 
-    sorted_transactions = transactions.sort_by { |transaction| transaction.transaction_date }.to_a
-    unique_stocks = transactions.select(:stock_id).distinct.to_a
-    unique_stocks.map! { |transaction| Stock.find(transaction.stock_id) }
+    sorted_transactions = transactions.includes(:stock).sort_by { |transaction| transaction.transaction_date }.to_a
+    unique_stocks = transactions.includes(:stock).select(:stock_id).distinct.to_a
+    unique_stocks.map! { |transaction| transaction.stock }
 
     range = ((Time.now - sorted_transactions.first.transaction_date.to_time)/(60*60*24*365)).ceil
     url = "https://api.iextrading.com/1.0/stock/market/batch?types=quote,news,chart&range=#{range}y&last=5&symbols="
@@ -150,7 +151,7 @@ class User < ApplicationRecord
     curr_stocks = Hash.new(0)
 
     sorted_transactions.each_with_index do |transaction, idx|
-      curr_stock = Stock.find(transaction.stock_id)
+      curr_stock = transaction.stock
       transaction_amount = transaction.num_shares * transaction.price
 
       if transaction.order_type == 'buy'
@@ -210,7 +211,7 @@ class User < ApplicationRecord
     return data if transactions.empty?
 
     # Grab transactions from earliest to most recent to iterate through in order
-    sorted_transactions = transactions.sort_by { |transaction| transaction.transaction_date }.to_a
+    sorted_transactions = transactions.includes(:stock).sort_by { |transaction| transaction.transaction_date }.to_a
 
     # Grab unique stocks from transactions to get user's portfolio
     unique_stocks = transactions.select(:stock_id).distinct.to_a
@@ -229,7 +230,7 @@ class User < ApplicationRecord
 
     ## Iterate through all transactions previous to the current day to get closing balance of previous day
     sorted_transactions.each_with_index do |transaction, idx|
-      curr_stock = Stock.find(transaction.stock_id)
+      curr_stock = transaction.stock
 
       if transaction.transaction_date.year >= Time.now.year && transaction.transaction_date.month >= Time.now.month && transaction.transaction_date.day >= Time.now.day
         transaction_index = idx
@@ -273,7 +274,7 @@ class User < ApplicationRecord
       if transaction_index < sorted_transactions.length
         if timeObject > sorted_transactions[transaction_index].transaction_date
           transaction = sorted_transactions[transaction_index]
-          curr_stock = Stock.find(transaction.stock_id)
+          curr_stock = transaction.stock
 
           if transaction.order_type == 'buy'
             curr_stocks[curr_stock.ticker] += transaction.num_shares

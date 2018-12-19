@@ -214,8 +214,8 @@ class User < ApplicationRecord
     sorted_transactions = transactions.includes(:stock).sort_by { |transaction| transaction.transaction_date }.to_a
 
     # Grab unique stocks from transactions to get user's portfolio
-    unique_stocks = transactions.select(:stock_id).distinct.to_a
-    unique_stocks.map! { |transaction| Stock.find(transaction.stock_id) }
+    unique_stocks = transactions.includes(:stock).select(:stock_id).distinct.to_a
+    unique_stocks.map! { |transaction| transaction.stock }
 
     # Dynamically generate API url based on stocks owned by user and make batch request to IEX
     url = "https://api.iextrading.com/1.0/stock/market/batch?types=quote,news,chart&range=1d&last=5&symbols="

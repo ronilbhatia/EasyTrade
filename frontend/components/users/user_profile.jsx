@@ -39,14 +39,10 @@ class UserProfile extends React.Component {
       data: formData,
       contentType: false,
       processData: false
-    }).then(
-      response => console.log(response),
-      response => console.log(response)
-    );
+    })
   }
 
   render() {
-    console.log(this.state);
     const preview = this.state.photoUrl ? <img src={this.state.photoUrl} /> : null;
     return (
       <form onSubmit={this.handleSubmit}>

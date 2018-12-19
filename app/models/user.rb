@@ -216,7 +216,6 @@ class User < ApplicationRecord
     # Grab unique stocks from transactions to get user's portfolio
     unique_stocks = transactions.includes(:stock).select(:stock_id).distinct.to_a
     unique_stocks.map! { |transaction| transaction.stock }
-
     # Dynamically generate API url based on stocks owned by user and make batch request to IEX
     url = "https://api.iextrading.com/1.0/stock/market/batch?types=quote,news,chart&range=1d&last=5&symbols="
     unique_stocks.each { |stock| url += "#{stock.ticker}, " }
@@ -257,7 +256,7 @@ class User < ApplicationRecord
       timeObject = Time.new(Time.now.year, Time.now.month, Time.now.day, hour + 4, minute, 0, "+00:00")
 
       ## if time we are iterating over is within 20 mins of current time, push in current balance the first time and nil every time after (IEX API has 15 minute delay)
-      if timeObject > Time.now.getgm - 1200
+      if timeObject > Time.now.getgm - 4800
         label = hour > 12 ? "#{hour - 12}:#{minute} PM ET" : "#{time} AM ET"
         label = "#{time} PM ET" if hour == 12
         unless curr_bal_pushed

@@ -60,8 +60,16 @@ export const fetchStockInfo = ticker => (
 //   tickers.forEach(ticker => {
 //     url += ticker;
 //   });
-//
-//   return $.ajax({
-//     url
-//   });
-// };
+
+export const search = (queryString, queryField) => (
+  return $.ajax({
+    method: 'GET',
+    url: '/api/search'
+    data: {
+      query_string,
+      query_field
+    }
+  });
+);
+
+params[:queryString]

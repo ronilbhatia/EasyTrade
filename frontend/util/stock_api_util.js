@@ -35,41 +35,8 @@ export const fetchStockNews = ticker => (
   })
 );
 
-// export const fetchStockInfo = ticker => {
-//   var https = require("https");
-//   var username = "0cb46201c7bd30b4ff564cf83515645a";
-//   var password = "9a54e4beac615020bfe83040e18ced20";
-//   var auth = "Basic " + new Buffer(username + ':' + password).toString('base64');
-//
-//   return $.ajax({
-//     url: `https://api.intrinio.com/companies?ticker=${ticker}`,
-//     headers: {
-//       "Authorization": auth
-//     }
-//   });
-// };
-
 export const fetchStockInfo = ticker => (
   $.ajax({
     url: `https://api.iextrading.com/1.0/stock/market/batch?symbols=${ticker}&types=quote,company,info`
   })
 );
-
-// export const fetchUserStocks = tickers => {
-//   let url = 'https://www.alphavantage.co/query?function=BATCH_QUOTES_US&apikey=B46V4AYA6Y9N0447&symbols='
-//   tickers.forEach(ticker => {
-//     url += ticker;
-//   });
-
-export const search = (queryString, queryField) => (
-  return $.ajax({
-    method: 'GET',
-    url: '/api/search'
-    data: {
-      query_string,
-      query_field
-    }
-  });
-);
-
-params[:queryString]

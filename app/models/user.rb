@@ -108,7 +108,7 @@ class User < ApplicationRecord
 
     url = 'https://api.iextrading.com/1.0/stock/market/batch?types=quote&range=1d&last=5&symbols='
     stocks.each { |k, _| url += "#{k},"}
-    stocks = stocks.map { |stock| { symbol: stock[0], shares: stock[1]}}.sort_by { |stock| stock[:symbol] }
+    stocks = stocks.map { |stock| {symbol: stock[0], shares: stock[1]} }.sort_by { |stock| stock[:symbol] }
 
     #Credit to user245031 and lolmaus - Andrey Mikhaylov on Stack Overflow for the code to make API call in Ruby
     response = JSON.parse(open(url).read)
@@ -214,8 +214,8 @@ class User < ApplicationRecord
     sorted_transactions = transactions.includes(:stock).sort_by { |transaction| transaction.transaction_date }.to_a
 
     # Grab unique stocks from transactions to get user's portfolio
-    unique_stocks = transactions.includes(:stock).select(:stock_id).distinct.to_a
-    unique_stocks.map! { |transaction| transaction.stock }
+    unique_stocks = sorted_transactions.map { |transaction| transaction.stock }
+
     # Dynamically generate API url based on stocks owned by user and make batch request to IEX
     url = "https://api.iextrading.com/1.0/stock/market/batch?types=quote,news,chart&range=1d&last=5&symbols="
     unique_stocks.each { |stock| url += "#{stock.ticker}, " }
@@ -253,11 +253,11 @@ class User < ApplicationRecord
       hour = time.split(':')[0].to_i
       minute = time.split(':')[1].to_i
       minute_string = time.split(':')[1]
-      timeObject = Time.new(Time.now.year, Time.now.month, Time.now.day, hour + 4, minute, 0, "+00:00")
+      timeObject = Time.new(Time.now.year, Time.now.month, Time.now.day, hour + 5, minute, 0, "+00:00")
 
       ## if time we are iterating over is within 20 mins of current time, push in current balance the first time and nil every time after (IEX API has 15 minute delay)
-      if timeObject > Time.now.getgm - 4800
-        label = hour > 12 ? "#{hour - 12}:#{minute} PM ET" : "#{time} AM ET"
+      if timeObject > Time.now.getgm - 1200 || response.all? { |k, _| response[k]['chart'].last['minute'] < time}
+        label = hour > 12 ? "#{hour - 12}:#{minute_string} PM ET" : "#{time} AM ET"
         label = "#{time} PM ET" if hour == 12
         unless curr_bal_pushed
           data.push({ time: label, balance: calculate_balance })
@@ -291,6 +291,10 @@ class User < ApplicationRecord
       stock_day_info = nil
       if response.all? { |k, _| response[k]['chart'].empty? }
         return []
+      end
+
+      if response.all? { |k, _| response[k]['chart'].last['minute'] < time}
+        return data
       end
 
       curr_stocks.each do |k, v|

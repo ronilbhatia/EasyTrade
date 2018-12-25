@@ -255,20 +255,22 @@ class User < ApplicationRecord
       minute_string = time.split(':')[1]
       timeObject = Time.new(Time.now.year, Time.now.month, Time.now.day, hour + 5, minute, 0, "+00:00")
 
-      ## if time we are iterating over is within 20 mins of current time, push in current balance the first time and nil every time after (IEX API has 15 minute delay)
-      if timeObject > Time.now.getgm - 1200 || response.all? { |k, _| response[k]['chart'].last['minute'] < time}
-        label = hour > 12 ? "#{hour - 12}:#{minute_string} PM ET" : "#{time} AM ET"
-        label = "#{time} PM ET" if hour == 12
-        unless curr_bal_pushed
-          data.push({ time: label, balance: calculate_balance })
-          curr_bal_pushed = true
-          next
-        else
-          data.push({ time: "#{time} ET", balance: nil })
-          next
+      # if time we are iterating over is within 20 mins of current time, push in current balance the first time and nil every time after (IEX API has 15 minute delay)
+      # unless it's on the weekend
+      unless timeObject.on_weekend?
+        if timeObject > Time.now.getgm - 1200 || response.all? { |k, _| response[k]['chart'].last['minute'] < time}
+          label = hour > 12 ? "#{hour - 12}:#{minute_string} PM ET" : "#{time} AM ET"
+          label = "#{time} PM ET" if hour == 12
+          unless curr_bal_pushed
+            data.push({ time: label, balance: calculate_balance })
+            curr_bal_pushed = true
+            next
+          else
+            data.push({ time: "#{time} ET", balance: nil })
+            next
+          end
         end
       end
-
 
       if transaction_index < sorted_transactions.length
         if timeObject > sorted_transactions[transaction_index].transaction_date

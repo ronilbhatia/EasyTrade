@@ -18,6 +18,13 @@ const override = css`
 class Home extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      footerOverflow: true
+    };
+
+    this.handleScroll = this.handleScroll.bind(this);
+    this.handleLoad = this.handleLoad.bind(this);
+    window.addEventListener('scroll', this.handleScroll);
   }
 
   componentDidMount() {
@@ -30,6 +37,18 @@ class Home extends React.Component {
     if (!this.props.currentUser && nextProps.currentUser) {
       this.props.fetchUserInfo(nextProps.currentUser);
     }
+  }
+
+  handleScroll(e) {
+    if (window.scrollY >= 3200 && !this.state.footerOverflow) {
+      this.setState({ footerOverflow: true });
+    } else if (window.scrollY <= 3200 && this.state.footerOverflow) {
+      this.setState({ footerOverflow: false });
+    }
+  }
+
+  handleLoad() {
+    this.setState({ footerOverflow: false });
   }
 
   render() {
@@ -63,11 +82,6 @@ class Home extends React.Component {
         balanceFlux = Math.round((balance - openBalance) * 100)/100;
         balanceFluxPercentage = Math.round((balanceFlux/openBalance)*10000)/100;
         if (balanceFlux < 0) { neg = "-" ;}
-        // if (neg === '-') {
-        //   document.getElementsByTagName('body')[0].className = 'negative';
-        // } else {
-        //   document.getElementsByTagName('body')[0].className = '';
-        // }
       }
     }
 
@@ -75,8 +89,8 @@ class Home extends React.Component {
       currentUser.hasOwnProperty('balanceData') ? (
         <div>
           <NavBar currentUser={currentUser} logout={logout}/>
-          <section className="user-home">
-            <main>
+          <section className="user-home" onScroll={this.handleScroll}>
+            <main onScroll={this.handleScroll}>
               <PortfolioChart
                 currentUser={currentUser}
                 balance={balance}
@@ -90,11 +104,13 @@ class Home extends React.Component {
                 balanceFlux={balanceFlux}
                 balanceFluxPercentage={balanceFluxPercentage}
               />
-              <NewsIndexContainer />
+              <NewsIndexContainer handleLoad={this.handleLoad}/>
             </main>
-            <aside className="stock-dashboard">
-              <h4>Stocks</h4>
-              <StockIndex currentUser={currentUser} />
+            <aside className="stock-dashboard-container">
+              <div className={this.state.footerOverflow ? "stock-dashboard overflow" : "stock-dashboard"}>
+                <h4>Stocks</h4>
+                <StockIndex currentUser={currentUser} />
+              </div>
             </aside>
           </section>
           <Footer />

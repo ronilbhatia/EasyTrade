@@ -27,7 +27,6 @@ class StockAbout extends React.Component {
   toggleShow() {
     let extraList = document.getElementsByClassName('stock-facts')[2];
     let button = document.getElementsByClassName('show-toggle')[0];
-    debugger
     if (extraList.classList[1]) {
       extraList.classList = "stock-facts";
       button.textContent = "Show Less";

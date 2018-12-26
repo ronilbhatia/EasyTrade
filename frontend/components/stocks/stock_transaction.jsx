@@ -7,7 +7,7 @@ class StockTransaction extends React.Component {
     const intradayData = stock.intradayData;
 
     // Grab most recent price available by iterating backwards through intradayData until value other than -1 is returned
-    let currPrice;
+    let currPrice = this.props.stock.openPrice;
     for (let i = intradayData.length - 1; i > 0; i--) {
       if (intradayData[i].marketAverage !== -1) {
         currPrice = Math.round(intradayData[i].marketAverage * 100)/100;
@@ -70,13 +70,11 @@ class StockTransaction extends React.Component {
     let shares = 0;
     for (let i = 0; i < currentUser.stocks.length; i++) {
       let currStock = currentUser.stocks[i];
-      debugger
       if (currStock.symbol === stock.ticker) {
         shares = currStock.shares;
         break;
       }
     }
-    debugger
     return this.state.order_type === 'buy' ? (
       <div className="buying-power">
         <h4>${currentUser.buyingPower.formatMoney()} Buying Power Available</h4>

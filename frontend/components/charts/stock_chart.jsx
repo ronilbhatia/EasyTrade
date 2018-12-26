@@ -22,7 +22,7 @@ class StockChart extends React.Component {
     let prevPrice, openPrice = dailyData[dailyData.length - 1].close;
 
     // if market is closed then dailyData will have today's information, therefore previous day's close will actually be second to last item in it
-    if (dailyData[dailyData.length-1].date.split("-").join("") === intradayData[intradayData.length-1].date) {
+    if (intradayData.length === 0 || dailyData[dailyData.length-1].date.split("-").join("") === intradayData[intradayData.length-1].date) {
       openPrice = dailyData[dailyData.length - 2].close;
     }
 

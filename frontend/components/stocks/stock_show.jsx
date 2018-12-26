@@ -30,7 +30,6 @@ class StockShow extends React.Component {
   }
 
   render() {
-    debugger
     const { stock, currentUser, logout, createTransaction, errors } = this.props;
     return (
       <div>

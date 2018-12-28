@@ -16,8 +16,12 @@ class NewsIndex extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchNews()
+    if (this.props.news.length === 0) {
+      this.props.fetchNews()
       .then(this.props.handleLoad);
+    } else {
+      this.props.handleLoad();
+    }
   }
   render() {
     const { news } = this.props;

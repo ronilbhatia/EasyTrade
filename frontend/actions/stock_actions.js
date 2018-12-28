@@ -50,10 +50,16 @@ const receiveUserStocks = stocks => ({
 export const fetchStock = ticker => dispatch => (
   StockApiUtil.fetchStock(ticker)
     .then(stock => dispatch(receiveStock(stock)))
-    .then(() => dispatch(fetchStockInfo(ticker)))
-    .then(() => dispatch(fetchStockIntradayData(ticker)))
-    .then(() => dispatch(fetchStockDailyData(ticker)))
-    .then(() => dispatch(fetchStockNews(ticker)))
+    .then(() => Promise.all([
+      dispatch(fetchStockInfo(ticker)),
+      dispatch(fetchStockIntradayData(ticker)),
+      dispatch(fetchStockDailyData(ticker)),
+      dispatch(fetchStockNews(ticker))
+    ]))
+    // .then(() => dispatch(fetchStockInfo(ticker)))
+    // .then(() => dispatch(fetchStockIntradayData(ticker)))
+    // .then(() => dispatch(fetchStockDailyData(ticker)))
+    // .then(() => dispatch(fetchStockNews(ticker)))
 );
 
 export const fetchStocks = () => dispatch => (

@@ -15,7 +15,9 @@ class StockSearchBar extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchStocks();
+    if (!this.props.allStocks) {
+      this.props.fetchStocks();
+    }
   }
 
   renderStocks() {
@@ -27,16 +29,16 @@ class StockSearchBar extends React.Component {
       }).slice(0, 6);
       return (
         <ul className={this.state.hidden ? "search-res hide" : "search-res"}>
-          <h4>Stocks</h4>
+          <h4 key="header">Stocks</h4>
           {
             stocks.map( (stock, idx) => {
               return (
-                <NavLink key={stock.id} to={`/stocks/${stock.ticker}`}>
-                  <li key={stock.id} className="search-res-item" onClick={this.addHiddenClass}>
+                <li key={stock.id} className="search-res-item" onClick={this.addHiddenClass}>
+                  <NavLink key={stock.id} to={`/stocks/${stock.ticker}`}>
                     <p className='search-ticker'>{stock.ticker}</p>
                     <p className='search-name'>{stock.name}</p>
-                  </li>
-                </NavLink>
+                  </NavLink>
+                </li>
               );
             })
           }

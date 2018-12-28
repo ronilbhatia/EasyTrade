@@ -4,7 +4,6 @@ class StockAbout extends React.Component {
 
   renderShortDescription() {
     let shortDescription = this.props.stock.shortDescription;
-    // shortDescription = shortDescription.split(".").slice(0, 3).join(".");
     return (
       <p className="stock-short-description">
         {shortDescription}

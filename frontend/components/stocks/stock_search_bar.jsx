@@ -33,12 +33,12 @@ class StockSearchBar extends React.Component {
           {
             stocks.map( (stock, idx) => {
               return (
-                <li key={stock.id} className="search-res-item" onClick={this.addHiddenClass}>
-                  <NavLink key={stock.id} to={`/stocks/${stock.ticker}`}>
+                <NavLink key={stock.id} to={`/stocks/${stock.ticker}`}>
+                  <li key={stock.id} className="search-res-item" onClick={this.addHiddenClass}>
                     <p className='search-ticker'>{stock.ticker}</p>
                     <p className='search-name'>{stock.name}</p>
-                  </NavLink>
-                </li>
+                  </li>
+                </NavLink>
               );
             })
           }
@@ -51,11 +51,6 @@ class StockSearchBar extends React.Component {
     }
 
   }
-
-  // toggleOff() {
-  //   let ul = document.getElementsByClassName('search-res');
-  //   ul.addClass
-  // }
 
   handleInput(e) {
     const inputVal = e.target.value;

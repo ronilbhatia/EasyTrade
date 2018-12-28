@@ -1,3 +1,9 @@
+/*
+This file is no longer in use. Originally I tried to make my charts
+using Chart.js but I later realized that it didn't have the functionality
+I wanted and switched to recharts
+*/
+
 import React from 'react';
 import {Bar, Line} from 'react-chartjs-2';
 

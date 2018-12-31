@@ -35,14 +35,17 @@ class StockShow extends React.Component {
       <div>
         <NavBar currentUser={currentUser} logout={logout}/>
           {stock && stock.hasOwnProperty('shortDescription') && stock.hasOwnProperty('intradayData') && stock.hasOwnProperty('dailyData') && stock.hasOwnProperty('news') ? (
-            <section className="stock-show">
-              <main>
-                <StockChart stock={stock} />
-                <StockAbout stock={stock} />
-                <StockNews news={stock.news} />
-              </main>
-              <StockTransaction currentUser={currentUser} stock={stock} errors={errors} createTransaction={createTransaction}/>
-            </section>
+            <div>
+              <section className="stock-show">
+                <main>
+                  <StockChart stock={stock} />
+                  <StockAbout stock={stock} />
+                  <StockNews news={stock.news} />
+                </main>
+                <StockTransaction currentUser={currentUser} stock={stock} errors={errors} createTransaction={createTransaction}/>
+              </section>
+              <Footer />
+            </div>
           ) : (
             <div className='stock-loading'>
               <BeatLoader

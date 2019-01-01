@@ -222,14 +222,28 @@ class User < ApplicationRecord
     unique_stocks.each { |stock| url += "#{stock.ticker}, " }
     response = JSON.parse(open(url).read)
 
-    # Return nothing if it is a holiday and there is no data this day
-    return [] if response.all? { |k, _| response[k]['chart'].empty? }
 
     times = ['09:30', '09:35', '09:40', '09:45', '09:50', '09:55', '10:00', '10:05', '10:10', '10:15', '10:20', '10:25', '10:30', '10:35', '10:40', '10:45', '10:50', '10:55', '11:00', '11:05', '11:10', '11:15', '11:20', '11:25', '11:30', '11:35', '11:40', '11:45', '11:50', '11:55', '12:00', '12:05', '12:10', '12:15', '12:20', '12:25', '12:30', '12:35', '12:40', '12:45', '12:50', '12:55', '13:00', '13:05', '13:10', '13:15', '13:20', '13:25', '13:30', '13:35', '13:40', '13:45', '13:50', '13:55', '14:00', '14:05', '14:10', '14:15', '14:20', '14:25', '14:30', '14:35', '14:40', '14:45', '14:50', '14:55', '15:00', '15:05', '15:10', '15:15:', '15:20', '15:25', '15:30', '15:35', '15:40', '15:45', '15:50', '15:55', '16:00']
-
     open_balance = net_deposits
+    balance = calculate_balance
     curr_stocks = Hash.new(0)
     transaction_index = sorted_transactions.length
+
+    # Return nothing if it is a holiday and there is no data this day
+    if response.all? { |k, _| response[k]['chart'].empty? }
+
+      times.each do |time|
+        hour = time.split(':')[0].to_i
+        minute_string = time.split(':')[1]
+        label = hour > 12 ? "#{hour - 12}:#{minute_string} PM ET" : "#{time} AM ET"
+        label = "#{time} PM ET" if hour == 12
+
+        data.push({ time: label, balance: balance })
+      end
+
+      return data
+    end
+
 
     ## Iterate through all transactions previous to the current day to get closing balance of previous day
     sorted_transactions.each_with_index do |transaction, idx|
@@ -266,11 +280,11 @@ class User < ApplicationRecord
           label = hour > 12 ? "#{hour - 12}:#{minute_string} PM ET" : "#{time} AM ET"
           label = "#{time} PM ET" if hour == 12
           unless curr_bal_pushed
-            data.push({ time: label, balance: calculate_balance })
+            data.push({ time: label, balance: balance })
             curr_bal_pushed = true
             next
           else
-            data.push({ time: "#{time} ET", balance: nil })
+            data.push({ time: label, balance: nil })
             next
           end
         end

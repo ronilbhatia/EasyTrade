@@ -82,12 +82,25 @@ class StockChart extends React.Component {
     let color = (neg === '+') ? "#82ca9d" : "#f45531";
     if (neg === '-') document.getElementsByTagName('body')[0].className = 'negative';
     // After key data points have been determined iterate through rest of times and add nil balance (there will only be remaining times if in middle of market hours)
-    for (var i = 0; i < times.length; i++) {
-      let hours = parseInt(times[i].split(":")[0])
-      let minutes = parseInt(times[i].split(":")[1])
-      let dayHalf = (hours > 12) ? "PM" : "AM"
-      let time = `${hours % 12}:${minutes} ${dayHalf}`
-      data.push({ time, price: null })
+    for (let i = 0; i < times.length; i++) {
+      let hours = parseInt(times[i].split(":")[0]);
+      let minutes = parseInt(times[i].split(":")[1]);
+      let dayHalf = (hours > 12) ? "PM" : "AM";
+      let time = `${hours % 12}:${minutes} ${dayHalf}`;
+      data.push({ time, price: null });
+    }
+
+    if (intradayData.length === 0) {
+      data = [];
+      times.forEach(t => {
+        let hours = parseInt(t.split(":")[0]);
+        let minutes = parseInt(t.split(":")[1]);
+        let dayHalf = (hours > 12) ? "PM" : "AM";
+        let time = `${hours % 12}:${minutes} ${dayHalf}`;
+        let closePrice = dailyData[dailyData.length - 1].close;
+        currPrice = closePrice;
+        data.push({ time, price: closePrice });
+      });
     }
 
     return (

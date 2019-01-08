@@ -81,6 +81,7 @@ class StockChart extends React.Component {
     if (priceFlux < 0) { neg = "-" ;}
     let color = (neg === '+') ? "#82ca9d" : "#f45531";
     if (neg === '-') document.getElementsByTagName('body')[0].className = 'negative';
+    
     // After key data points have been determined iterate through rest of times and add nil balance (there will only be remaining times if in middle of market hours)
     for (let i = 0; i < times.length; i++) {
       let hours = parseInt(times[i].split(":")[0]);

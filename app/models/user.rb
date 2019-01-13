@@ -145,9 +145,14 @@ class User < ApplicationRecord
     unique_stocks.map! { |transaction| transaction.stock }
 
     range = ((Time.now - sorted_transactions.first.transaction_date.to_time)/(60*60*24*365)).ceil
+    # API can't handle a range greater than 5
+    range = 5 if range > 5
+    
+    # Construct url and make API call
     url = "https://api.iextrading.com/1.0/stock/market/batch?types=quote,news,chart&range=#{range}y&last=5&symbols="
     unique_stocks.each { |stock| url += "#{stock.ticker}, " }
     response = JSON.parse(open(url).read)
+
     cash_balance = net_deposits
     curr_stocks = Hash.new(0)
 
@@ -189,7 +194,7 @@ class User < ApplicationRecord
       end
     end
 
-    return data
+    data
   end
 
   def increment_time(time)

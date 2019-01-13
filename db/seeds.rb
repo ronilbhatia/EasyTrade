@@ -17,6 +17,7 @@ ActiveRecord::Base.transaction do
   # Create demo user
   demo_user = User.new({ email: 'user@user.com', username: 'user', password: 'testing' })
   demo_user.save!
+  demo_user.photo.attach(io: File.open("#{Rails.root}/app/assets/images/ronil.jpg"), filename: 'ronil')
 
   # Build exchanges
   nasdaq = Exchange.create({ name: 'NASDAQ'})
@@ -113,69 +114,3 @@ ActiveRecord::Base.transaction do
     {user_id: demo_user.id, stock_id: stz.id, price: 152.50, num_shares: 20, order_type: 'buy', transaction_date: Time.zone.local(2017, 2, 9, 16, 0, 0)}
   ])
 end
-
-################## OLD ##################
-
-# With stocks starting from 0
-# Transaction.create({user_id: 1, stock_id: 6, price: 180.10, num_shares: 10, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
-# Transaction.create({user_id: 1, stock_id: 2017, price: 95.14, num_shares: 15, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
-# Transaction.create({user_id: 1, stock_id: 6234, price: 20.43, num_shares: 30, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
-# Transaction.create({user_id: 1, stock_id: 2102, price: 180.22, num_shares: 7, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
-# Transaction.create({user_id: 1, stock_id: 384, price: 30.20, num_shares: 6, order_type: 'buy', transaction_date: (500 + (365*rand)).days.ago})
-# Transaction.create({user_id: 1, stock_id: 1077, price: 5.10, num_shares: 200, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
-# Transaction.create({user_id: 1, stock_id: 1076, price: 143.45, num_shares: 5, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
-# Transaction.create({user_id: 1, stock_id: 175, price: 1540.42, num_shares: 3, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
-# Transaction.create({user_id: 1, stock_id: 5243, price: 73.68, num_shares: 20, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
-# Transaction.create({user_id: 1, stock_id: 6, price: 195.42, num_shares: 2, order_type: 'sell', transaction_date: (200*rand).days.ago})
-# Transaction.create({user_id: 1, stock_id: 2017, price: 106.67, num_shares: 5, order_type: 'sell', transaction_date: (200*rand).days.ago})
-# Transaction.create({user_id: 1, stock_id: 6234, price: 32.43, num_shares: 10, order_type: 'sell', transaction_date: (200*rand).days.ago})
-# Transaction.create({user_id: 1, stock_id: 2102, price: 345.22, num_shares: 2, order_type: 'sell', transaction_date: (200*rand).days.ago})
-# Transaction.create({user_id: 1, stock_id: 384, price: 155.12, num_shares: 1, order_type: 'sell', transaction_date: (200*rand).days.ago})
-# Transaction.create({user_id: 1, stock_id: 1077, price: 2.10, num_shares: 50, order_type: 'sell', transaction_date: (200*rand).days.ago})
-# Transaction.create({user_id: 1, stock_id: 1076, price: 174.12, num_shares: 1, order_type: 'sell', transaction_date: (200*rand).days.ago})
-# Transaction.create({user_id: 1, stock_id: 5243, price: 68.12, num_shares: 4, order_type: 'sell', transaction_date: (200*rand).days.ago})
-
-# With Local stock ids
-# # Transaction.create({user_id: 1, stock_id: 19766, price: 208.10, num_shares: 10, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
-# # Transaction.create({user_id: 1, stock_id: 21777, price: 109.67, num_shares: 15, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
-# # Transaction.create({user_id: 1, stock_id: 25994, price: 32.43, num_shares: 30, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
-# # Transaction.create({user_id: 1, stock_id: 21862, price: 345.22, num_shares: 7, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
-# # Transaction.create({user_id: 1, stock_id: 20144, price: 155.12, num_shares: 6, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
-# # Transaction.create({user_id: 1, stock_id: 20837, price: 2.10, num_shares: 200, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
-# # Transaction.create({user_id: 1, stock_id: 20836, price: 174.12, num_shares: 5, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
-# # Transaction.create({user_id: 1, stock_id: 19935, price: 1836.72, num_shares: 3, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
-# # Transaction.create({user_id: 1, stock_id: 25003, price: 68.12, num_shares: 20, order_type: 'buy', transaction_date: (200 + (365*rand)).days.ago})
-# # Transaction.create({user_id: 1, stock_id: 19766, price: 208.10, num_shares: 2, order_type: 'sell', transaction_date: (200*rand).days.ago})
-# # Transaction.create({user_id: 1, stock_id: 21777, price: 109.67, num_shares: 5, order_type: 'sell', transaction_date: (200*rand).days.ago})
-# # Transaction.create({user_id: 1, stock_id: 25994, price: 32.43, num_shares: 10, order_type: 'sell', transaction_date: (200*rand).days.ago})
-# # Transaction.create({user_id: 1, stock_id: 21862, price: 345.22, num_shares: 2, order_type: 'sell', transaction_date: (200*rand).days.ago})
-# # Transaction.create({user_id: 1, stock_id: 20144, price: 155.12, num_shares: 1, order_type: 'sell', transaction_date: (200*rand).days.ago})
-# # Transaction.create({user_id: 1, stock_id: 20837, price: 2.10, num_shares: 50, order_type: 'sell', transaction_date: (200*rand).days.ago})
-# # Transaction.create({user_id: 1, stock_id: 20836, price: 174.12, num_shares: 1, order_type: 'sell', transaction_date: (200*rand).days.ago})
-# # Transaction.create({user_id: 1, stock_id: 25003, price: 68.12, num_shares: 4, order_type: 'sell', transaction_date: (200*rand).days.ago})
-#
-# # transactions = Transaction.all
-# # transactions.each do |transaction|
-# #   if (transaction.order_type == 'buy')
-# #     transaction.created_at = ((rand*365) + 200).days.ago
-# #   else
-# #     transaction.created_at = (rand*200).days.ago
-# #   end
-# # end
-# # Transaction.create({user_id: 1, stock_id: 13251, price: 208.10, num_shares: 10, order_type: 'buy', transaction_date: Time.new(2018, 1, 17)})
-# # Transaction.create({user_id: 1, stock_id: 15262, price: 109.67, num_shares: 15, order_type: 'buy', transaction_date: Time.new(2018, 1, 19)})
-# # Transaction.create({user_id: 1, stock_id: 19479, price: 32.43, num_shares: 30, order_type: 'buy', transaction_date: Time.new(2018, 2, 12)})
-# # Transaction.create({user_id: 1, stock_id: 15347, price: 345.22, num_shares: 7, order_type: 'buy', transaction_date: Time.new(2018, 2, 23)})
-# # Transaction.create({user_id: 1, stock_id: 13629, price: 155.12, num_shares: 6, order_type: 'buy', transaction_date: Time.new(2018, 2, 25)})
-# # Transaction.create({user_id: 1, stock_id: 14322, price: 2.10, num_shares: 200, order_type: 'buy', transaction_date: Time.new(2018, 3, 15)})
-# # Transaction.create({user_id: 1, stock_id: 14321, price: 174.12, num_shares: 5, order_type: 'buy', transaction_date: Time.new(2018, 4, 18)})
-# # Transaction.create({user_id: 1, stock_id: 13420, price: 1836.72, num_shares: 3, order_type: 'buy', transaction_date: Time.new(2018, 4, 20)})
-# # Transaction.create({user_id: 1, stock_id: 18488, price: 68.12, num_shares: 20, order_type: 'buy', transaction_date: Time.new(2018, 5, 1)})
-# # Transaction.create({user_id: 1, stock_id: 13251, price: 208.10, num_shares: 2, order_type: 'sell', transaction_date: Time.new(2018, 3, 1)})
-# # Transaction.create({user_id: 1, stock_id: 15262, price: 109.67, num_shares: 5, order_type: 'sell', transaction_date: Time.new(2018, 3, 5)})
-# # Transaction.create({user_id: 1, stock_id: 15347, price: 32.43, num_shares: 10, order_type: 'sell', transaction_date: Time.new(2018, 4, 12)})
-# # Transaction.create({user_id: 1, stock_id: 19479, price: 345.22, num_shares: 2, order_type: 'sell', transaction_date: Time.new(2018, 5, 15)})
-# # Transaction.create({user_id: 1, stock_id: 13629, price: 155.12, num_shares: 1, order_type: 'sell', transaction_date: Time.new(2018, 6, 7)})
-# # Transaction.create({user_id: 1, stock_id: 14322, price: 2.10, num_shares: 50, order_type: 'sell', transaction_date: Time.new(2018, 6, 15)})
-# # Transaction.create({user_id: 1, stock_id: 14321, price: 174.12, num_shares: 1, order_type: 'sell', transaction_date: Time.new(2018, 7, 1)})
-# # Transaction.create({user_id: 1, stock_id: 18488, price: 68.12, num_shares: 4, order_type: 'sell', transaction_date: Time.new(2018, 8, 3)})

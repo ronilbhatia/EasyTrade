@@ -136,8 +136,13 @@ class PortfolioChart extends React.Component {
   }
 
   renderAllChart() {
-    let { balanceData, balance } = this.state.initialData;
-    let data = balanceData.slice(0);
+    let { balance } = this.state.initialData;
+    let { portfolioData } = this.props.currentUser
+    if (!portfolioData) {
+      alert("This is a heavy request and the data is currently being fetched in the background. Please view some of the other charts in the meantime and try again in 5-10 seconds.");
+      return
+    };
+    let data = portfolioData.slice(0);
     let { max, min, neg, openBalance, balanceFlux, balanceFluxPercentage } = this.calculateDailyPriceData(data, balance);
     this.setState({
       currData: {

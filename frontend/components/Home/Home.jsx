@@ -29,7 +29,10 @@ class Home extends React.Component {
 
   componentDidMount() {
     if (this.props.currentUser) {
-      this.props.fetchUserInfo(this.props.currentUser);
+      Promise.all([
+        this.props.fetchUserInfo(this.props.currentUser),        
+        this.props.fetchUserPortfolio(this.props.currentUser),        
+      ])    
     }
   }
 
@@ -83,6 +86,12 @@ class Home extends React.Component {
       }
     }
 
+    
+    let portfolioData = undefined
+    if (currentUser && currentUser.hasOwnProperty('portfolioData')) {
+      portfolioData = currentUser.portfolioData;
+    }
+
     const display = currentUser ? (
       currentUser.hasOwnProperty('balanceData') ? (
         <div>
@@ -93,6 +102,7 @@ class Home extends React.Component {
                 currentUser={currentUser}
                 balance={balance}
                 openBalance={openBalance}
+                portfolioData={portfolioData}
                 balanceData={balanceData}
                 dailyData={dailyData}
                 data={dailyData}

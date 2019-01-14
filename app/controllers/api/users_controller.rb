@@ -29,6 +29,10 @@ class Api::UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def portfolio
+    @user = User.find(params[:id])
+  end
+
   private
 
   def user_params

@@ -26,3 +26,9 @@ export const fetchUserInfo = user => (
     url: `/api/users/${user.id}/info`
   })
 );
+
+export const fetchUserPortfolio = user => (
+  $.ajax({
+    url: `/api/users/${user.id}/portfolio`
+  })
+);

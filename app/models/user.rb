@@ -131,7 +131,7 @@ class User < ApplicationRecord
     balance.round(2)
   end
 
-  def calculate_balance_data
+  def calculate_balance_data(range = nil)
     net_deposits = self.deposits.to_a.reduce(0) { |acc, deposit| acc += deposit.amount }
     data = []
     return data if transactions.empty?
@@ -140,7 +140,7 @@ class User < ApplicationRecord
     unique_stocks = transactions.includes(:stock).select(:stock_id).distinct.to_a
     unique_stocks.map! { |transaction| transaction.stock }
 
-    range = ((Time.now - sorted_transactions.first.transaction_date.to_time)/(60*60*24*365)).ceil
+    range = ((Time.now - sorted_transactions.first.transaction_date.to_time)/(60*60*24*365)).ceil unless range
     # API can't handle a range greater than 5
     range = 5 if range > 5
     

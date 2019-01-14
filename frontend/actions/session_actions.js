@@ -4,6 +4,7 @@ export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 export const RECEIVE_USER_INFO = 'RECEIVE_USER_INFO';
+export const RECEIVE_USER_PORTFOLIO = 'RECEIVE_USER_PORTFOLIO';
 
 const receiveCurrentUser = user => ({
   type: RECEIVE_CURRENT_USER,
@@ -23,6 +24,11 @@ const receiveUserInfo = info => ({
   type: RECEIVE_USER_INFO,
   info
 });
+
+const receiveUserPortfolio = data => ({
+  type: RECEIVE_USER_PORTFOLIO,
+  data
+})
 
 export const signup = (user) => dispatch => (
   SessionApiUtil.signup(user)
@@ -45,3 +51,8 @@ export const fetchUserInfo = user => dispatch => (
   SessionApiUtil.fetchUserInfo(user)
     .then(info => dispatch(receiveUserInfo(info)))
 );
+
+export const fetchUserPortfolio = user => dispatch => (
+  SessionApiUtil.fetchUserPortfolio(user)
+    .then(data => dispatch(receiveUserPortfolio(data)))
+)

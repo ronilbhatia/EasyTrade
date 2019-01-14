@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     resources :users, only: [:create, :show, :update]
-    get '/users/:id/info', to: 'sessions#info'
+    get '/users/:id/info', to: 'users#info'
+    get '/users/:id/portfolio', to: 'users#portfolio'
     resource :session, only: [:create, :destroy]
     resources :stocks, only: [:index]
     get '/stocks/:ticker', to: 'stocks#show'

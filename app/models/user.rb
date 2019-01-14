@@ -196,7 +196,6 @@ class User < ApplicationRecord
 
         data.push({ time: formattedTime, balance: last_balance.round(2) }) if stock_day_info.nil? && idx == transactions.length - 1 && jdx == range.to_a.length - 1
       end
-      p range.to_a
     end
 
     data

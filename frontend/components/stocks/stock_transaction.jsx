@@ -10,7 +10,7 @@ class StockTransaction extends React.Component {
     let currPrice = this.props.stock.openPrice;
     for (let i = intradayData.length - 1; i > 0; i--) {
       if (intradayData[i].marketAverage !== -1) {
-        currPrice = Math.round(intradayData[i].marketAverage * 100)/100;
+        currPrice = Math.round(intradayData[i].marketAverage * 100) / 100;
         break;
       }
     }
@@ -34,9 +34,9 @@ class StockTransaction extends React.Component {
   updateCost(num_shares) {
     if (num_shares === '') {
       num_shares = '0';
-      this.setState({ cost: '0.00'});
+      this.setState({ cost: '0.00' });
     } else {
-      let cost = Math.round((parseFloat(num_shares) * parseFloat(this.state.currPrice)) * 100)/100;
+      let cost = Math.round((parseFloat(num_shares) * parseFloat(this.state.currPrice)) * 100) / 100;
       this.setState({ cost });
     }
   }
@@ -83,7 +83,7 @@ class StockTransaction extends React.Component {
         <div className="buying-power">
           <h4>{shares} Shares Available</h4>
         </div>
-    );
+      );
   }
 
   render() {
@@ -91,38 +91,36 @@ class StockTransaction extends React.Component {
     const intradayData = stock.intradayData;
 
     return (
-      <aside className="stock-transaction-container">
-        <div className="stock-transaction">
-          <h3>
-            <a className={this.state.order_type === 'buy' ? 'active' : ''} onClick={() => this.updateType('buy')}>Buy {`${stock.ticker}`}</a>
-            {this.renderSellButton()}
-          </h3>
-          <form onSubmit={this.handleSubmit}>
-            <div className='transaction-shares'>
-              <h4>Shares</h4>
-              <input type='text' placeholder='0' value={this.state.num_shares} onChange={this.update}/>
-            </div>
-            <div className='transaction-price'>
-              <h4>Market Price</h4>
-              <p>${this.state.currPrice.formatMoney()}</p>
-            </div>
-            <div className='transaction-cost'>
-              <h4>Estimated Cost</h4>
-              <p>${parseFloat(this.state.cost).formatMoney()}</p>
-            </div>
-            <div className='transaction-errors'>
-              <ul>
-                {
-                  errors.map((error, idx) => <li key={idx}><img src={window.images.exclamation_circle} />{error}</li>)
-                }
-              </ul>
-            </div>
-            <div className='transaction-submit'>
-              <input type="submit" value={`SUBMIT ${this.state.order_type.toUpperCase()}`} />
-            </div>
-          </form>
-          {this.renderLimit()}
-        </div>
+      <aside className="stock-transaction">
+        <h3>
+          <a className={this.state.order_type === 'buy' ? 'active' : ''} onClick={() => this.updateType('buy')}>Buy {`${stock.ticker}`}</a>
+          {this.renderSellButton()}
+        </h3>
+        <form onSubmit={this.handleSubmit}>
+          <div className='transaction-shares'>
+            <h4>Shares</h4>
+            <input type='text' placeholder='0' value={this.state.num_shares} onChange={this.update} />
+          </div>
+          <div className='transaction-price'>
+            <h4>Market Price</h4>
+            <p>${this.state.currPrice.formatMoney()}</p>
+          </div>
+          <div className='transaction-cost'>
+            <h4>Estimated Cost</h4>
+            <p>${parseFloat(this.state.cost).formatMoney()}</p>
+          </div>
+          <div className='transaction-errors'>
+            <ul>
+              {
+                errors.map((error, idx) => <li key={idx}><img src={window.images.exclamation_circle} />{error}</li>)
+              }
+            </ul>
+          </div>
+          <div className='transaction-submit'>
+            <input type="submit" value={`SUBMIT ${this.state.order_type.toUpperCase()}`} />
+          </div>
+        </form>
+        {this.renderLimit()}
       </aside>
     );
   }

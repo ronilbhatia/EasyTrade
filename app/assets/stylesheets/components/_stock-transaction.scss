@@ -1,167 +1,144 @@
-.stock-transaction-container {
-  width: 700px;
-  margin-left: 20px;
+.stock-transaction {
+  width: 600px;
+  margin-left: 10px;
+  border: 1px solid #eee;
+  box-shadow: 3px 0px 2px #fafafa, -3px 0px 2px #fafafa, 0px 3px 2px #fafafa, 0px -3px 2px #fafafa;
   height: 402px;
-  position: relative;
-
-  .stock-transaction {
-    position: fixed;
+  position: sticky;
+  h3 {
     width: 282px;
-    border: 1px solid #eee;
-    // box-shadow: 3px 0px 2px #fafafa, -3px 0px 2px #fafafa, 0px 3px 2px #fafafa, 0px -3px 2px #fafafa;
-    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.01), 0 3px 24px rgba(48, 51, 51, 0.09);
-    right: 150px;
-    margin-right: 54px;
-    margin-left: 20px;
-    h3 {
-      width: 282px;
-      font-size: 16px;
-      padding: 15px 18px;
-
-      a {
-        padding: 15px 5px;
-        cursor: pointer;
-      }
-
-      .active {
-        color: $green;
-        border-bottom: 2px solid $green;
-      }
-
-      a:hover {
-        color: $green;
-      }
-      border-bottom: 1px solid #eee;
+    font-size: 16px;
+    padding: 15px 18px;
+    a {
+      padding: 15px 5px;
+      cursor: pointer;
     }
-
-    h4 {
-      font-weight: 500;
-      font-size: 13px;
+    .active {
+      color: $green;
+      border-bottom: 2px solid $green;
     }
-
-    .transaction-shares {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 30px 5px 25px;
-
-      input {
-        width: 58px;
-        height: 12px;
-        padding: 10px;
-        text-align: right;
-        background: $faint;
-        border: 1px solid $faint;
-        outline: none;
-      }
-
-      input:hover, input:focus {
-        border: 1px solid $gray;
-        background: $white;
-        outline: none;
-        border-radius: 4px;
-      }
+    a:hover {
+      color: $green;
     }
-
-    .transaction-price, .transaction-cost {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 15px 22px 0 25px;
-      padding-bottom: 20px;
-
-      p {
-        font-size: 12px;
-        font-weight: 500;
-        padding: 0 15px 0 0;
-        margin: 0;
-      }
+    border-bottom: 1px solid #eee;
+  }
+  h4 {
+    font-weight: 500;
+    font-size: 13px;
+  }
+  .transaction-shares {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px 5px 25px;
+    input {
+      width: 58px;
+      height: 12px;
+      padding: 10px;
+      text-align: right;
+      background: $faint;
+      border: 1px solid $faint;
+      outline: none;
     }
-
-    .transaction-price {
-      border-bottom: 1px solid #eee;
+    input:hover, input:focus {
+      border: 1px solid $gray;
+      background: $white;
+      outline: none;
+      border-radius: 4px;
     }
+  }
 
-    .transaction-errors {
-      display: flex;
-      font-size: 13px;
-      font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
-      font-weight: 500;
-      height: 20px;
-      width: 100%;
-      margin-left: 25px;
-      margin-top: 10px;
 
-      li {
-        display: flex;
-        align-items: center;
-      }
 
-      img {
-        height: 18px;
-        width: 18px;
-        margin-right: 10px;
-        vertical-align: baseline;
-        text-align: none;
-      }
-    }
-
-    .transaction-submit {
-      display: flex;
-      justify-content: center;
-      margin-top: 40px;
-
-      input {
-        font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
-        font-weight: 500;
-        border-radius: 4px;
-        background: $green;
-        padding: 17px 80px;
-        cursor: pointer;
-      }
-
-      input:hover {
-        background: $light-green;
-      }
-
-      input:focus {
-        outline: none;
-      }
-      padding-bottom: 22px;
-      border-bottom: 1px solid #eee;
-    }
-
-    .buying-power {
-      margin: 15px 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+  .transaction-price, .transaction-cost {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 22px 0 25px;
+    padding-bottom: 20px;
+    p {
       font-size: 12px;
       font-weight: 500;
+      padding: 0 15px 0 0;
+      margin: 0;
     }
   }
 
-  body.negative .stock-transaction {
-    h3 {
-      .active {
-        color: $red;
-        border-bottom: 2px solid $red;
-      }
+  .transaction-price {
+    border-bottom: 1px solid #eee;
+  }
 
-      a:hover {
-        color: $red;
-      }
+  .transaction-errors {
+    display: flex;
+    font-size: 13px;
+    font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
+    font-weight: 500;
+    height: 20px;
+    width: 100%;
+    margin-left: 25px;
+    margin-top: 10px;
+    li {
+      display: flex;
+      align-items: center;
     }
-
-    .transaction-submit {
-      input {
-        background: $red;
-      }
-
-      input:hover {
-        background: $light-red;
-      }
+    img {
+      height: 18px;
+      width: 18px;
+      margin-right: 10px;
+      vertical-align: baseline;
+      text-align: none;
     }
   }
 
+  .transaction-submit {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    input {
+      font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
+      font-weight: 500;
+      border-radius: 4px;
+      background: $green;
+      padding: 17px 80px;
+      cursor: pointer;
+    }
+    input:hover {
+      background: $light-green;
+    }
+    input:focus {
+      outline: none;
+    }
+    padding-bottom: 22px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .buying-power {
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+
+body.negative .stock-transaction {
+  h3 {
+    .active {
+      color: $red;
+      border-bottom: 2px solid $red;
+    }
+    a:hover {
+      color: $red;
+    }
+  }
+
+  .transaction-submit {
+    input {
+      background: $red;
+    }
+    input:hover {
+      background: $light-red;
+    }
+  }
 }

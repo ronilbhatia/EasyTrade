@@ -53,11 +53,7 @@ ActiveRecord::Base.transaction do
 
   nasdaq_stock_string = File.read("#{Rails.root}/db/nasdaq.csv")
 
-  stocks = build_stock_objects(nasdaq_stock_string, nasdaq.id)
-
-  stocks.each do |stock|
-    Stock.create(stock)
-  end
+  nasdaq_stocks = build_stock_objects(nasdaq_stock_string, nasdaq.id)
 
   nyse_stocks = File.readlines("#{Rails.root}/db/nyse.csv")[1..-1]
 
@@ -73,9 +69,8 @@ ActiveRecord::Base.transaction do
     }
   end
 
-  nyse_stocks.each do |stock|
-    Stock.create(stock)
-  end
+  all_stocks = nasdaq_stocks + nyse_stocks
+  Stock.create(all_stocks)
 
   # Deposit money into demo user account
   Deposit.create({user_id: demo_user.id, amount: 50000})

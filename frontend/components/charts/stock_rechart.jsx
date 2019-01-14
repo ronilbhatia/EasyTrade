@@ -139,7 +139,7 @@ class StockRechart extends React.Component {
         <h3 id="stock-price-flux">{neg}${priceFlux} ({priceFluxPercentage}%)</h3>
         <div className="stock-chart">
           <LineChart width={710} height={195} data={data}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+            margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
             <YAxis
               hide={true}
               domain={[min, max]}

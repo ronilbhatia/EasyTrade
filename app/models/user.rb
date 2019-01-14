@@ -78,15 +78,11 @@ class User < ApplicationRecord
 
   def calculate_buying_power
     buying_power = 0
-    self.deposits.each { |deposit| buying_power += deposit.amount }
+    deposits.each { |deposit| buying_power += deposit.amount }
 
-    self.transactions.each do |transaction|
+    transactions.each do |transaction|
       transaction_amount = transaction.price * transaction.num_shares
-      if transaction.order_type == 'buy'
-        buying_power -= transaction_amount
-      else
-        buying_power += transaction_amount
-      end
+      transaction.order_type == 'buy' ? buying_power -= transaction_amount : buying_power += transaction_amount
     end
 
     buying_power.round(2)
@@ -95,7 +91,7 @@ class User < ApplicationRecord
   def calculate_stocks
     stocks = Hash.new(0)
     return stocks if transactions.empty?
-    transactions_with_stocks = self.transactions.includes(:stock)
+    transactions_with_stocks = transactions.includes(:stock)
 
     transactions_with_stocks.each do |transaction|
       curr_stock = transaction.stock
@@ -155,6 +151,7 @@ class User < ApplicationRecord
 
     cash_balance = net_deposits
     curr_stocks = Hash.new(0)
+    last_balance = cash_balance
 
     sorted_transactions.each_with_index do |transaction, idx|
       curr_stock = transaction.stock
@@ -177,7 +174,9 @@ class User < ApplicationRecord
         next if transaction_datetime.year == next_transaction_datetime.year && transaction_datetime.month == next_transaction_datetime.month && transaction_datetime.day == next_transaction_datetime.day
       end
       stock_value = 0
-      range.each do |time|
+      # debugger if range.to_a.length == 1
+      
+      range.each_with_index do |time, jdx|
         stock_value = 0
         year = time.year.to_s
         month = time.month < 10 ? '0' + time.month.to_s : time.month.to_s
@@ -189,9 +188,15 @@ class User < ApplicationRecord
           stock_value += stock_day_info['close'] * v unless stock_day_info.nil?
         end
         formattedTime = "#{MONTHS[time.month.to_i]} #{time.day}, #{time.year}"
-        balance = cash_balance + stock_value
-        data.push({ time: formattedTime, balance: balance.round(2) }) unless stock_day_info.nil?
+        unless stock_day_info.nil?
+          balance = cash_balance + stock_value
+          last_balance = balance
+          data.push({ time: formattedTime, balance: balance.round(2) }) 
+        end
+
+        data.push({ time: formattedTime, balance: last_balance.round(2) }) if stock_day_info.nil? && idx == transactions.length - 1 && jdx == range.to_a.length - 1
       end
+      p range.to_a
     end
 
     data

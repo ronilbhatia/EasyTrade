@@ -2,7 +2,7 @@ class Api::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      @user.photo.attach(io: File.open('/Users/ronilbhatia/Documents/Pictures/Me/IMG_2015.jpg'), filename: 'ronil.jpg')
+      @user.photo.attach(io: File.open("#{Rails.root}/app/assets/images/ronil.jpg"), filename: 'ronil.jpg')
       sleep(1)
       Deposit.create({user_id: @user.id, amount: 50000})
       login!(@user)

@@ -62,7 +62,7 @@ The stock show page contains current and historical price information about the 
 
 #### Fetching Stock Information
 When a stock show page is visited, a variety of API calls are made to fetch the necessary information to render the stock's price chart, information ('About' section) and relevant news articles. The following APIs are hit
-* Local back-end API to receive name of Company
+* Back-end Rails API to receive name of Company
 * IEX API - 3 separate API calls
   * Stock information (CEO, employees, market cap, P/E ratio)
   * Intraday Data

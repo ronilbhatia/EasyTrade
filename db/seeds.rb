@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require_relative 'portfolio_snapshots'
+
 ActiveRecord::Base.transaction do 
   User.destroy_all
   Stock.destroy_all
@@ -23,6 +25,7 @@ ActiveRecord::Base.transaction do
   nasdaq = Exchange.create({ name: 'NASDAQ'})
   nyse = Exchange.create({ name: 'NYSE' })
 
+  # Grab all stocks on NASDAQ and NYSE exchanges and add to DB
   def grab_stocks(stock_str)
     stock_str.split("\n")
   end
@@ -108,4 +111,11 @@ ActiveRecord::Base.transaction do
     {user_id: demo_user.id, stock_id: lulu.id, price: 51.91, num_shares: 50, order_type: 'buy', transaction_date: Time.zone.local(2015, 10, 12, 16, 0, 0)},
     {user_id: demo_user.id, stock_id: stz.id, price: 152.50, num_shares: 20, order_type: 'buy', transaction_date: Time.zone.local(2017, 2, 9, 16, 0, 0)}
   ])
+
+  # Create Portfolio Snapshots (data lives in sibling file 'portfolio_snapshots.rb')
+  SNAPSHOTS.each do |snapshot|
+    date = Date.parse(snapshot[:time])
+    balance = snapshot[:balance]
+    PortfolioSnapshot.create({ date: date, balance: balance, user_id: demo_user.id })
+  end
 end

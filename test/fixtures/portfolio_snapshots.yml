@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: portfolio_snapshots
+#
+#  id         :bigint(8)        not null, primary key
+#  user_id    :integer          not null
+#  date       :date             not null
+#  balance    :float            not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  date: 2019-01-19
+  balance: 1.5
+
+two:
+  user_id: 1
+  date: 2019-01-19
+  balance: 1.5

@@ -2,14 +2,15 @@
 #
 # Table name: transactions
 #
-#  id         :bigint(8)        not null, primary key
-#  user_id    :integer          not null
-#  stock_id   :integer          not null
-#  price      :float            not null
-#  num_shares :integer          not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  order_type :string           not null
+#  id               :bigint(8)        not null, primary key
+#  user_id          :integer          not null
+#  stock_id         :integer          not null
+#  price            :float            not null
+#  num_shares       :integer          not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  order_type       :string           not null
+#  transaction_date :datetime
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

@@ -19,6 +19,7 @@ class User < ApplicationRecord
 
   has_many :transactions
   has_many :deposits
+  has_many :portfolio_snapshots
 
   has_one_attached :photo
 
@@ -131,6 +132,22 @@ class User < ApplicationRecord
     balance.round(2)
   end
 
+
+  def grab_portfolio_data
+    portfolio_snapshots.map do |snapshot|
+      { time: format_date(snapshot[:date]), balance: snapshot[:balance] }
+    end
+  end
+
+  def format_date(date)
+    year = date.year.to_s
+    month = date.month < 10 ? '0' + date.month.to_s : date.month.to_s
+    day = date.day < 10 ? '0' + date.day.to_s : date.day.to_s
+    formattedTime = "#{MONTHS[date.month.to_i]} #{date.day}, #{date.year}"
+
+    formattedTime
+  end
+
   def calculate_balance_data(range = nil)
     net_deposits = self.deposits.to_a.reduce(0) { |acc, deposit| acc += deposit.amount }
     data = []
@@ -176,25 +193,26 @@ class User < ApplicationRecord
       stock_value = 0
       # debugger if range.to_a.length == 1
       
-      range.each_with_index do |time, jdx|
+      range.each_with_index do |date, jdx|
         stock_value = 0
-        year = time.year.to_s
-        month = time.month < 10 ? '0' + time.month.to_s : time.month.to_s
-        day = time.day < 10 ? '0' + time.day.to_s : time.day.to_s
+        year = date.year.to_s
+        month = date.month < 10 ? '0' + date.month.to_s : date.month.to_s
+        day = date.day < 10 ? '0' + date.day.to_s : date.day.to_s
         date_string = "#{year}-#{month}-#{day}"
+        formattedDate = "#{MONTHS[date.month.to_i]} #{date.day}, #{date.year}"
+
         stock_day_info = nil
         curr_stocks.each do |k, v|
           stock_day_info = response[k]['chart'].find { |days| days['date'] == date_string}
           stock_value += stock_day_info['close'] * v unless stock_day_info.nil?
         end
-        formattedTime = "#{MONTHS[time.month.to_i]} #{time.day}, #{time.year}"
         unless stock_day_info.nil?
           balance = cash_balance + stock_value
           last_balance = balance
-          data.push({ time: formattedTime, balance: balance.round(2) }) 
+          data.push({ time: formattedDate, balance: balance.round(2) }) 
         end
 
-        data.push({ time: formattedTime, balance: last_balance.round(2) }) if stock_day_info.nil? && idx == transactions.length - 1 && jdx == range.to_a.length - 1
+        data.push({ time: formattedDate, balance: last_balance.round(2) }) if stock_day_info.nil? && idx == transactions.length - 1 && jdx == range.to_a.length - 1
       end
     end
 

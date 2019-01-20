@@ -132,7 +132,6 @@ class User < ApplicationRecord
     balance.round(2)
   end
 
-
   def grab_portfolio_data
     portfolio_snapshots.map do |snapshot|
       { time: format_date(snapshot[:date]), balance: snapshot[:balance] }

@@ -30,6 +30,31 @@ Once a user logs in, they are immediately redirected to their dashboard, which s
 <br />
 <br />
 
+#### Portfolio Snapshots (**New Feature**)
+In order to render charts that display a user's portfolio balance over time, daily, a 'snapshot' of the user's portfolio is taken. Through a simple association between the `User` and `PortfolioSnapshot` models, all of the user's historical portfolio data is fetched. Daily, at 22:00 UTC, the following rake task is run to scrape portfolio snapshots for every user.
+
+```rb
+task :add_portfolio_snapshots_for_day => :environment do
+  puts "Adding day's portfolio snapshots..."
+
+  # Grab today's date, skip if day is on weekend (markets are closed). Using 'next'
+  # because you can't return in rake tasks
+  date = Date.today
+  next if date.on_weekend?
+  
+  # Grab all users
+  users = User.all
+
+  # Add day's snapshot for each user
+  users.each do |user| 
+    balance = user.calculate_balance
+    PortfolioSnapshot.create({ date: date, balance: balance, user_id: user.id })
+  end
+  
+  puts "done."
+end
+```
+
 ### Stock Show Page
 The stock show page contains current and historical price information about the stock, general company information, relevant news, and allows users to purchase and sell shares of the stock at the most recent market price. Colored elements of the page will be rendered in green if the chart being displayed shows a positive price fluctuation, and in red when the price fluctuation is negative.
 

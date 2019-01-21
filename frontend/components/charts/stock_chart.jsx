@@ -85,9 +85,10 @@ class StockChart extends React.Component {
     // After key data points have been determined iterate through rest of times and add nil balance (there will only be remaining times if in middle of market hours)
     for (let i = 0; i < times.length; i++) {
       let hours = parseInt(times[i].split(":")[0]);
-      let minutes = parseInt(times[i].split(":")[1]);
+      let minutes = times[i].split(":")[1];
       let dayHalf = (hours > 12) ? "PM" : "AM";
-      let time = `${hours % 12}:${minutes} ${dayHalf}`;
+      if (hours > 12) hours -= 12;
+      let time = `${hours}:${minutes} ${dayHalf} ET`;
       data.push({ time, price: null });
     }
 
@@ -95,9 +96,10 @@ class StockChart extends React.Component {
       data = [];
       times.forEach(t => {
         let hours = parseInt(t.split(":")[0]);
-        let minutes = parseInt(t.split(":")[1]);
-        let dayHalf = (hours > 12) ? "PM" : "AM";
-        let time = `${hours % 12}:${minutes} ${dayHalf}`;
+        let minutes = t.split(":")[1];
+        let dayHalf = (hours >= 12) ? "PM" : "AM";
+        if (hours > 12) hours -= 12; 
+        let time = `${hours}:${minutes} ${dayHalf} ET`;
         let closePrice = dailyData[dailyData.length - 1].close;
         currPrice = closePrice;
         data.push({ time, price: closePrice });

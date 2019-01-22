@@ -10,6 +10,8 @@ class CustomTooltip extends React.Component {
     let balanceFlux = document.getElementById('portfolio-balance-flux');
     let neg = "+";
 
+    if (!nextProps.payload || nextProps.payload.length === 0) return;
+
     if (this.props.active && nextProps.payload[0]) {
       let balanceFluxCalc = parseFloat(nextProps.payload[0].value - this.props.openBalance);
       let balanceFluxPercentageCalc = parseFloat(balanceFluxCalc * 100/this.props.openBalance);

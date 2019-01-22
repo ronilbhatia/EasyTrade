@@ -91,7 +91,7 @@ class User < ApplicationRecord
 
   def calculate_stocks
     stocks = Hash.new(0)
-    return stocks if transactions.empty?
+    return [] if transactions.empty?
     transactions_with_stocks = transactions.includes(:stock)
 
     transactions_with_stocks.each do |transaction|
@@ -102,7 +102,6 @@ class User < ApplicationRecord
         stocks[curr_stock.ticker] -= transaction.num_shares
       end
     end
-
     url = 'https://api.iextrading.com/1.0/stock/market/batch?types=quote&range=1d&last=5&symbols='
     stocks.each { |k, _| url += "#{k},"}
     stocks = stocks.map { |stock| {symbol: stock[0], shares: stock[1]} }.sort_by { |stock| stock[:symbol] }

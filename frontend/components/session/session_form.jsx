@@ -10,12 +10,43 @@ class SessionForm extends React.Component {
       email: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDemoLogin = this.handleDemoLogin.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
     this.props.processForm(user);
+  }
+
+  handleDemoLogin(e) {
+    e.preventDefault();
+    const username = 'user'.split('');
+    const password = 'password'.split('');
+   
+    const passwordTyperGenerator = () => {
+      const passwordTyper = setInterval(() => {
+        if (password.length === 0) {
+          console.log(passwordTyper);
+          clearInterval(passwordTyper);
+          console.log(this.state);
+          this.props.demoLogin(this.state);
+        } else {
+          this.setState({ password: this.state.password + password.shift() });
+        }
+      }, 80)
+    };
+    
+    const usernameTyper = setInterval(() => {
+      if (username.length === 0) {
+        console.log(usernameTyper);
+        clearInterval(usernameTyper);
+        console.log(usernameTyper);
+        passwordTyperGenerator();
+      } else {
+        this.setState({ username: this.state.username + username.shift() });
+      }
+    }, 120)
   }
 
   update(field) {
@@ -74,7 +105,7 @@ class SessionForm extends React.Component {
             </ul>
             <div className="session-buttons">
               <input className="signup-button" type="submit" value={buttonTxt} />
-              <button type="button" className="signup-button demo" onClick={() => demoLogin({username: 'user', password: 'testing'})}>Demo</button>
+              <button type="button" className="signup-button demo" onClick={this.handleDemoLogin}>Demo</button>
             </div>
           </form>
         </div>

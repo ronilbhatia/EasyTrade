@@ -58,7 +58,7 @@ class Home extends React.Component {
     const { currentUser, logout, demoLogin, fetchNews } = this.props;
     const demoUser = {
       username: 'user',
-      password: 'testing'
+      password: 'password'
     };
     let balance, balanceData, dailyData, monthData, openBalance, balances, max, min, balanceFlux, balanceFluxPercentage;
     let neg = "+";

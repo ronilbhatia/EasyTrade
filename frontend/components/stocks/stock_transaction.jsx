@@ -19,7 +19,8 @@ class StockTransaction extends React.Component {
       num_shares: '',
       order_type: 'buy',
       cost: '0.00',
-      currPrice
+      currPrice,
+      submitted: ''
     };
     this.update = this.update.bind(this);
     this.updateType = this.updateType.bind(this);
@@ -47,6 +48,8 @@ class StockTransaction extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.setState({ submitted: true });
+
     let { stock_id, num_shares, order_type, currPrice } = this.state;
     let transaction = {
       stock_id,
@@ -54,6 +57,7 @@ class StockTransaction extends React.Component {
       order_type,
       price: currPrice
     };
+    debugger
     this.props.createTransaction(transaction);
   }
 
@@ -117,7 +121,11 @@ class StockTransaction extends React.Component {
             </ul>
           </div>
           <div className='transaction-submit'>
-            <input type="submit" value={`SUBMIT ${this.state.order_type.toUpperCase()}`} />
+            <input 
+              type="submit" 
+              value={`SUBMIT ${this.state.order_type.toUpperCase()}`} 
+              disabled={this.state.submitted}
+            />
           </div>
         </form>
         {this.renderLimit()}

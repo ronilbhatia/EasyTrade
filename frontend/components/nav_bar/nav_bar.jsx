@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import StockSearchBarContainer from '../stocks/stock_search_bar_container';
 
-const NavBar = ({ currentUser, demoLogin, demoUser, logout }) => {
+const NavBar = ({ currentUser, demoLogin, logout }) => {
   const display = currentUser ? (
 
     <nav className="loggedin-nav-bar">
@@ -26,7 +26,7 @@ const NavBar = ({ currentUser, demoLogin, demoUser, logout }) => {
     <nav className="nav-bar">
       <img src={window.images.logo} />
       <section className="nav-links">
-        <button onClick={() => demoLogin(demoUser)} className="nav-link">Demo</button>
+        <button onClick={demoLogin} className="nav-link">Demo</button>
         <NavLink to="/login" className="nav-link">Log In</NavLink>
         <NavLink to="/signup" className="nav-link">Sign Up</NavLink>
       </section>

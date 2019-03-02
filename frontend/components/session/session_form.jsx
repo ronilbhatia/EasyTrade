@@ -13,40 +13,56 @@ class SessionForm extends React.Component {
     this.handleDemoLogin = this.handleDemoLogin.bind(this);
   }
 
+  componentDidMount() {
+    // this.props.location.state only exists if demo login was triggered from
+    // sign up or splash page
+    if (this.props.location.state) {
+      this.handleDemoLogin();
+    }
+  }
+  
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
     this.props.processForm(user);
   }
 
-  handleDemoLogin(e) {
-    e.preventDefault();
+  handleDemoLogin() {
+    if (this.props.formType === 'signup') {
+      this.props.history.push({
+        pathname: '/login',
+        state: { isDemo: true }
+      });
+      return
+    }
+
     const username = 'user'.split('');
-    const password = 'password'.split('');
-   
-    const passwordTyperGenerator = () => {
-      const passwordTyper = setInterval(() => {
+    this.handleDemoUsername(username);
+  }
+
+  handleDemoUsername(username) {
+    setTimeout(() => {
+      this.setState({ username: this.state.username + username.shift() }, () => {
+        if (username.length === 0) {
+          const password = 'password'.split('');
+          this.handleDemoPassword(password)
+        } else {
+          this.handleDemoUsername(username);
+        }
+      })
+    }, 150)
+  }
+
+  handleDemoPassword(password) {
+    setTimeout(() => {
+      this.setState({ password: this.state.password + password.shift() }, () => {
         if (password.length === 0) {
-          console.log(passwordTyper);
-          clearInterval(passwordTyper);
-          console.log(this.state);
           this.props.demoLogin(this.state);
         } else {
-          this.setState({ password: this.state.password + password.shift() });
+          this.handleDemoPassword(password);
         }
-      }, 80)
-    };
-    
-    const usernameTyper = setInterval(() => {
-      if (username.length === 0) {
-        console.log(usernameTyper);
-        clearInterval(usernameTyper);
-        console.log(usernameTyper);
-        passwordTyperGenerator();
-      } else {
-        this.setState({ username: this.state.username + username.shift() });
-      }
-    }, 120)
+      })
+    }, 150)
   }
 
   update(field) {

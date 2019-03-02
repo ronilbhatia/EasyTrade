@@ -24,15 +24,14 @@ class Home extends React.Component {
 
     this.handleScroll = this.handleScroll.bind(this);
     this.handleLoad = this.handleLoad.bind(this);
+    this.handleDemoLogin = this.handleDemoLogin.bind(this)
+    
     window.addEventListener('scroll', this.handleScroll);
   }
 
   componentDidMount() {
     if (this.props.currentUser) {
-      Promise.all([
-        this.props.fetchUserInfo(this.props.currentUser),        
-        this.props.fetchUserPortfolio(this.props.currentUser),        
-      ])    
+      this.props.fetchUserInfo(this.props.currentUser);      
     }
   }
 
@@ -54,12 +53,16 @@ class Home extends React.Component {
     this.setState({ footerOverflow: false });
   }
 
+  handleDemoLogin() {
+    this.props.history.push({
+      pathname: '/login',
+      state: { isDemo: true }
+    });
+  }
+
   render() {
-    const { currentUser, logout, demoLogin, fetchNews } = this.props;
-    const demoUser = {
-      username: 'user',
-      password: 'password'
-    };
+    const { currentUser, logout, fetchNews } = this.props;
+    
     let balance, balanceData, dailyData, monthData, openBalance, balances, max, min, balanceFlux, balanceFluxPercentage;
     let neg = "+";
     if (currentUser && currentUser.hasOwnProperty('balanceData')) {
@@ -136,8 +139,8 @@ class Home extends React.Component {
       )
     ) : (
       <div>
-        <NavBar currentUser={currentUser} demoLogin={demoLogin} demoUser={demoUser}/>
-        <Splash demoLogin={demoLogin} demoUser={demoUser}/>
+        <NavBar currentUser={currentUser} demoLogin={this.handleDemoLogin} />
+        <Splash demoLogin={this.handleDemoLogin} />
         <Footer />
       </div>
     );

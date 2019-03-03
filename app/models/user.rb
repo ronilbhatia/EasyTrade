@@ -189,7 +189,6 @@ class User < ApplicationRecord
         next if transaction_datetime.year == next_transaction_datetime.year && transaction_datetime.month == next_transaction_datetime.month && transaction_datetime.day == next_transaction_datetime.day
       end
       stock_value = 0
-      # debugger if range.to_a.length == 1
       
       range.each_with_index do |date, jdx|
         stock_value = 0

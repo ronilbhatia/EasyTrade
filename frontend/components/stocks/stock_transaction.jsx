@@ -57,7 +57,6 @@ class StockTransaction extends React.Component {
       order_type,
       price: currPrice
     };
-    debugger
     this.props.createTransaction(transaction);
   }
 

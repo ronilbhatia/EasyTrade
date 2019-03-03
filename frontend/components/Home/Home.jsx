@@ -35,9 +35,9 @@ class Home extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.currentUser && nextProps.currentUser) {
-      this.props.fetchUserInfo(nextProps.currentUser);
+  componentDidUpdate(prevProps) {
+    if (!prevProps.currentUser && this.props.currentUser) {
+      prevProps.fetchUserInfo(this.props.currentUser);
     }
   }
 

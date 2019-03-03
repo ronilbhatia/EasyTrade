@@ -22,9 +22,9 @@ class StockShow extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.match.params.ticker !== this.props.match.params.ticker) {
-      const ticker = nextProps.match.params.ticker;
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.ticker !== prevProps.match.params.ticker) {
+      const ticker = this.props.match.params.ticker;
       this.props.fetchStock(ticker);
     }
   }

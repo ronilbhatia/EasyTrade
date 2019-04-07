@@ -13,10 +13,13 @@ const receiveErrors = errors => ({
   errors
 });
 
-export const createTransaction = formTransaction => dispatch => (
-  TransactionApiUtil.createTransaction(formTransaction)
+export const createTransaction = formTransaction => dispatch => {
+  return TransactionApiUtil.createTransaction(formTransaction)
     .then(transaction => {
       dispatch(receiveTransaction(transaction));
       window.location.reload();
-    }, errors => dispatch(receiveErrors(errors.responseJSON)))
-);
+    }).fail(errors => {
+      dispatch(receiveErrors(errors.responseJSON));
+      return Promise.reject();
+    })
+};

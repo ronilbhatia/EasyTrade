@@ -57,7 +57,9 @@ class StockTransaction extends React.Component {
       order_type,
       price: currPrice
     };
-    this.props.createTransaction(transaction);
+
+    this.props.createTransaction(transaction)
+      .fail(() => this.setState({ submitted: '' }));
   }
 
   renderSellButton() {
@@ -120,9 +122,9 @@ class StockTransaction extends React.Component {
             </ul>
           </div>
           <div className='transaction-submit'>
-            <input 
-              type="submit" 
-              value={`SUBMIT ${this.state.order_type.toUpperCase()}`} 
+            <input
+              type="submit"
+              value={`SUBMIT ${this.state.order_type.toUpperCase()}`}
               disabled={this.state.submitted}
             />
           </div>

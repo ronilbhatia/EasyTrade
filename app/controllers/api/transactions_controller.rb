@@ -17,6 +17,8 @@ class Api::TransactionsController < ApplicationController
 
     if transaction_amount > current_user.calculate_buying_power && @transaction.order_type == 'buy'
       render json: ['Not Enough Buying Power'], status: 401
+    elsif @transaction.num_shares.zero?
+      render json: ['Shares must be greater than 0'], status: 422
     elsif @transaction.num_shares > shares_owned && @transaction.order_type == 'sell'
       render json: ['Not Enough Shares'], status: 401
     else

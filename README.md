@@ -62,24 +62,29 @@ The stock show page contains current and historical price information about the 
 
 #### Fetching Stock Information
 When a stock show page is visited, a variety of API calls are made to fetch the necessary information to render the stock's price chart, information ('About' section) and relevant news articles. The following APIs are hit
-* Back-end Rails API to receive name of Company
-* IEX API - 3 separate API calls
-  * Stock information (CEO, employees, market cap, P/E ratio)
-  * Intraday Data
-  * Daily Data
+* IEX API - 4 separate API calls
+  * Stock information 1 - basic info (symbol, company name, CEO, industry, etc.)
+  * Stock information 2 - stats (employees, market cap, P/E ratio, etc.)
+  * Intraday Price Data
+  * Daily (Historical) Price Data
 * News API
 
-A thunk `fetchStock` is used to chain these async API calls and ensure that nothing on the page is loaded until all of this information is received on the front-end.
+A thunk `fetchStock` is used to perform all of these async API calls and ensure that nothing on the page is loaded until all of this information is received on the front-end. The `fetchStock` API Util fetches basic information about the stock, and adds its ticker to state - this is done first, and then a series of external API calls are made to fetch all additional information. As these calls do not rely upon each other, `Promise.all` is used to perform all fetches at the same time, only resolving once all fetches have completed.
 
 ```js
-export const fetchStock = ticker => dispatch => (
+export const fetchStock = ticker => dispatch => {
+  const performFetches = () => Promise.all([
+    dispatch(fetchStockInfo(ticker)),
+    dispatch(fetchStockInfo2(ticker)),
+    dispatch(fetchStockIntradayData(ticker)),
+    dispatch(fetchStockDailyData(ticker)),
+    dispatch(fetchStockNews(ticker))
+  ]);
+
   StockApiUtil.fetchStock(ticker)
     .then(stock => dispatch(receiveStock(stock)))
-    .then(() => dispatch(fetchStockInfo(ticker)))
-    .then(() => dispatch(fetchStockIntradayData(ticker)))
-    .then(() => dispatch(fetchStockDailyData(ticker)))
-    .then(() => dispatch(fetchStockNews(ticker)))
-);
+    .then(performFetches);
+};
 ```
 
 #### Dynamic Chart Rendering

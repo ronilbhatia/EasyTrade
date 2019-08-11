@@ -162,7 +162,9 @@ class User < ApplicationRecord
     # Construct url and make API call
     url = "https://cloud.iexapis.com/stable/stock/market/batch?types=quote,chart&token=pk_fb8f7b4b957c4ca2acee83cb23cd44ac&range=#{range}y&last=5&symbols="
     unique_stocks.each { |stock| url += "#{stock.ticker}, " }
+    debugger
     response = JSON.parse(open(url).read)
+    debugger
 
     cash_balance = net_deposits
     curr_stocks = Hash.new(0)

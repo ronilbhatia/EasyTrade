@@ -9,6 +9,8 @@ class Api::TransactionsController < ApplicationController
 
   def create
     @transaction = Transaction.new(transaction_params)
+    @stock = Stock.find_by(ticker: params[:transaction][:ticker])
+    @transaction.stock_id = @stock.id
     @transaction.user_id = current_user.id
     @transaction.transaction_date = Time.now
 
@@ -48,6 +50,6 @@ class Api::TransactionsController < ApplicationController
   private
 
   def transaction_params
-    params.require(:transaction).permit(:stock_id, :price, :num_shares, :order_type)
+    params.require(:transaction).permit(:price, :num_shares, :order_type)
   end
 end

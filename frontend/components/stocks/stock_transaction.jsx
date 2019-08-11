@@ -9,13 +9,13 @@ class StockTransaction extends React.Component {
     // Grab most recent price available by iterating backwards through intradayData until value other than -1 is returned
     let currPrice = this.props.stock.openPrice;
     for (let i = intradayData.length - 1; i > 0; i--) {
-      if (intradayData[i].marketAverage !== -1) {
-        currPrice = Math.round(intradayData[i].marketAverage * 100) / 100;
+      if (intradayData[i].average !== -1) {
+        currPrice = Math.round(intradayData[i].average * 100) / 100;
         break;
       }
     }
     this.state = {
-      stock_id: stock.id,
+      ticker: stock.ticker,
       num_shares: '',
       order_type: 'buy',
       cost: '0.00',
@@ -50,9 +50,9 @@ class StockTransaction extends React.Component {
     e.preventDefault();
     this.setState({ submitted: true });
 
-    let { stock_id, num_shares, order_type, currPrice } = this.state;
+    let { ticker, num_shares, order_type, currPrice } = this.state;
     let transaction = {
-      stock_id,
+      ticker,
       num_shares: parseInt(num_shares),
       order_type,
       price: currPrice

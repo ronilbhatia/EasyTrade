@@ -102,7 +102,7 @@ class User < ApplicationRecord
         stocks[curr_stock.ticker] -= transaction.num_shares
       end
     end
-    url = 'https://api.iextrading.com/1.0/stock/market/batch?types=quote&range=1d&last=5&symbols='
+    url = 'https://cloud.iexapis.com/stable/stock/market/batch?types=quote&token=pk_fb8f7b4b957c4ca2acee83cb23cd44ac&symbols='
     stocks.each { |k, _| url += "#{k},"}
     stocks = stocks.map { |stock| {symbol: stock[0], shares: stock[1]} }.sort_by { |stock| stock[:symbol] }
 
@@ -120,11 +120,6 @@ class User < ApplicationRecord
 
     stocks
   end
-
-  def calculate_stocks
-    
-  end
-
   
   def calculate_balance
     stocks = calculate_stocks
@@ -136,9 +131,6 @@ class User < ApplicationRecord
     balance.round(2)
   end
   
-  def calculate_balance
-    
-  end
   def grab_portfolio_data
     portfolio_snapshots.map do |snapshot|
       { time: format_date(snapshot[:date]), balance: snapshot[:balance] }
@@ -168,7 +160,7 @@ class User < ApplicationRecord
     range = 5 if range > 5
     
     # Construct url and make API call
-    url = "https://api.iextrading.com/1.0/stock/market/batch?types=quote,news,chart&range=#{range}y&last=5&symbols="
+    url = "https://cloud.iexapis.com/stable/stock/market/batch?types=quote,chart&token=pk_fb8f7b4b957c4ca2acee83cb23cd44ac&range=#{range}y&last=5&symbols="
     unique_stocks.each { |stock| url += "#{stock.ticker}, " }
     response = JSON.parse(open(url).read)
 
@@ -247,14 +239,14 @@ class User < ApplicationRecord
     sorted_transactions = transactions.includes(:stock).sort_by { |transaction| transaction.transaction_date }.to_a
 
     # Grab unique stocks from transactions to get user's portfolio
-    unique_stocks = sorted_transactions.map { |transaction| transaction.stock }
+    unique_stocks = transactions.includes(:stock).select(:stock_id).distinct.to_a
+    unique_stocks.map! { |transaction| transaction.stock }
 
     # Dynamically generate API url based on stocks owned by user and make batch request to IEX
-    url = "https://api.iextrading.com/1.0/stock/market/batch?types=quote,news,chart&range=1d&last=5&symbols="
+    url = "https://cloud.iexapis.com/stable/stock/market/batch?types=quote,news,chart&range=1d&last=5&token=pk_fb8f7b4b957c4ca2acee83cb23cd44ac&symbols="
     unique_stocks.each { |stock| url += "#{stock.ticker}, " }
     response = JSON.parse(open(url).read)
-
-
+    
     times = ['09:30', '09:35', '09:40', '09:45', '09:50', '09:55', '10:00', '10:05', '10:10', '10:15', '10:20', '10:25', '10:30', '10:35', '10:40', '10:45', '10:50', '10:55', '11:00', '11:05', '11:10', '11:15', '11:20', '11:25', '11:30', '11:35', '11:40', '11:45', '11:50', '11:55', '12:00', '12:05', '12:10', '12:15', '12:20', '12:25', '12:30', '12:35', '12:40', '12:45', '12:50', '12:55', '13:00', '13:05', '13:10', '13:15', '13:20', '13:25', '13:30', '13:35', '13:40', '13:45', '13:50', '13:55', '14:00', '14:05', '14:10', '14:15', '14:20', '14:25', '14:30', '14:35', '14:40', '14:45', '14:50', '14:55', '15:00', '15:05', '15:10', '15:15:', '15:20', '15:25', '15:30', '15:35', '15:40', '15:45', '15:50', '15:55', '16:00']
     open_balance = net_deposits
     balance = calculate_balance
@@ -352,14 +344,14 @@ class User < ApplicationRecord
       curr_stocks.each do |k, v|
         search_time = time == '16:00' ? '15:59' : time
         stock_day_info = response[k]['chart'].find { |times| times['minute'] == search_time}
-        if stock_day_info && stock_day_info['marketOpen']
-          stock_value += stock_day_info['marketOpen'] * v unless stock_day_info.nil?
+        if stock_day_info && stock_day_info['open']
+          stock_value += stock_day_info['open'] * v unless stock_day_info.nil?
         end
 
-        until stock_day_info && stock_day_info['marketOpen']
+        until stock_day_info && stock_day_info['open']
           search_time = increment_time(search_time)
           stock_day_info = response[k]['chart'].find { |times| times['minute'] == search_time}
-          stock_value += stock_day_info['marketOpen'] * v unless stock_day_info.nil? || !stock_day_info['marketOpen']
+          stock_value += stock_day_info['open'] * v unless stock_day_info.nil? || !stock_day_info['open']
         end
       end
 
@@ -378,9 +370,5 @@ class User < ApplicationRecord
     end
 
     data
-  end
-
-  def calculate_daily_data
-    
   end
 end

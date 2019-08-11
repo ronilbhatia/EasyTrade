@@ -29,7 +29,7 @@ class StockChart extends React.Component {
     // Getting the stock data from the API response into the proper format for recharts
     // Track the most recent price (prevPrice) if data is ever unavailable for a desired time. Initialize prevPrice to prev day close
     // Basic strategy is to iterate through data, stopping at a data point if it matches a desired time.
-    // If there is price data (average !== -1), use that price, otherwise use prevPrice
+    // If there is price data (average !== null), use that price, otherwise use prevPrice
     let data = [];
     for (let i = 0; i < intradayData.length; i++) {
       let price;
@@ -44,7 +44,7 @@ class StockChart extends React.Component {
           continue;
         }
         // check if there is price data, if not take most recent price
-        if (intradayData[i].average === -1) {
+        if (!intradayData[i].average) {
           price = prevPrice;
         } else {
           price = intradayData[i].average;
@@ -62,11 +62,10 @@ class StockChart extends React.Component {
           price: prevPrice
         })
         times.shift();
-      } else if (intradayData[i].average !== -1) {
+      } else if (intradayData[i].average) {
         prevPrice = intradayData[i].average;
       }
     }
-    debugger
     // get list of all prices throughout the day to find key data points (high, low)
     const prices = [];
     for (let i = 0; i < data.length; i++) {

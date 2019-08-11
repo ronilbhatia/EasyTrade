@@ -42,7 +42,7 @@ class StockShow extends React.Component {
                 <StockAbout stock={stock} />
                 <StockNews news={stock.news} />
               </main>
-              {/* <StockTransaction currentUser={currentUser} stock={stock} errors={errors} createTransaction={createTransaction} /> */}
+              <StockTransaction currentUser={currentUser} stock={stock} errors={errors} createTransaction={createTransaction} />
             </section>
             <Footer />
           </div>

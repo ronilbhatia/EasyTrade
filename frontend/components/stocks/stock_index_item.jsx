@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const StockIndexItem = ({ stock }) => {
-  return (
+  return (stock.shares > 0) ? (
     <Link to={`/stocks/${stock.symbol}`}>
       <li className='stock-index-item'>
         <div>
@@ -14,7 +14,7 @@ const StockIndexItem = ({ stock }) => {
         </div>
       </li>
     </Link>
-  );
+  ) : null;
 };
 
 export default StockIndexItem;

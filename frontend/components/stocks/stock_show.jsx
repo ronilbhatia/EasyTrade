@@ -33,20 +33,20 @@ class StockShow extends React.Component {
     const { stock, currentUser, logout, createTransaction, errors } = this.props;
     return (
       <div>
-        <NavBar currentUser={currentUser} logout={logout}/>
-          {stock && stock.hasOwnProperty('shortDescription') && stock.hasOwnProperty('intradayData') && stock.hasOwnProperty('dailyData') && stock.hasOwnProperty('news') ? (
-            <div>
-              <section className="stock-show">
-                <main>
-                  <StockChart stock={stock} />
-                  <StockAbout stock={stock} />
-                  <StockNews news={stock.news} />
-                </main>
-                <StockTransaction currentUser={currentUser} stock={stock} errors={errors} createTransaction={createTransaction}/>
-              </section>
-              <Footer />
-            </div>
-          ) : (
+        <NavBar currentUser={currentUser} logout={logout} />
+        {stock && stock.hasOwnProperty('description') && stock.hasOwnProperty('intradayData') && stock.hasOwnProperty('dailyData') && stock.hasOwnProperty('news') ? (
+          <div>
+            <section className="stock-show">
+              <main>
+                <StockChart stock={stock} />
+                <StockAbout stock={stock} />
+                <StockNews news={stock.news} />
+              </main>
+              {/* <StockTransaction currentUser={currentUser} stock={stock} errors={errors} createTransaction={createTransaction} /> */}
+            </section>
+            <Footer />
+          </div>
+        ) : (
             <div className='stock-loading'>
               <BeatLoader
                 className={override}

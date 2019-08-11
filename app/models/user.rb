@@ -121,16 +121,24 @@ class User < ApplicationRecord
     stocks
   end
 
+  def calculate_stocks
+    
+  end
+
+  
   def calculate_balance
     stocks = calculate_stocks
     balance = calculate_buying_power
     stocks.each do |stock|
       balance += (stock[:price].to_f * stock[:shares])
     end
-
+    
     balance.round(2)
   end
-
+  
+  def calculate_balance
+    
+  end
   def grab_portfolio_data
     portfolio_snapshots.map do |snapshot|
       { time: format_date(snapshot[:date]), balance: snapshot[:balance] }
@@ -370,5 +378,9 @@ class User < ApplicationRecord
     end
 
     data
+  end
+
+  def calculate_daily_data
+    
   end
 end

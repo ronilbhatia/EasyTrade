@@ -1,6 +1,12 @@
+// export const fetchStock = (ticker) => (
+//   $.ajax({
+//     url: `api/stocks/${ticker}`
+//   })
+// );
+
 export const fetchStock = (ticker) => (
   $.ajax({
-    url: `api/stocks/${ticker}`
+    url: `https://cloud.iexapis.com/stable/stock/${ticker}/company/?token=pk_fb8f7b4b957c4ca2acee83cb23cd44ac`
   })
 );
 
@@ -13,19 +19,13 @@ export const fetchStocks = () => (
 export const fetchStockDailyData = ticker => (
   $.ajax({
     method: 'get',
-    url: `https://api.iextrading.com/1.0/stock/${ticker}/chart/5y`
+    url: `https://sandbox.iexapis.com/stable/stock/${ticker}/chart/5y/?token=Tpk_9ae29b1583b348919535a4d19affb8dc`
   })
 );
 
 export const fetchStockIntradayData = ticker => (
   $.ajax({
-    url: `https://api.iextrading.com/1.0/stock/${ticker}/chart/1d`
-  })
-);
-
-export const fetchStockHistoricalData = ticker => (
-  $.ajax({
-    url: `https://api.intrinio.com/historical_data?identifier=${ticker}&start_date=2013-08-10&item=adj_close_price&page_size=2500&sort_order=asc`
+    url: `https://cloud.iexapis.com/stable/stock/${ticker}/intraday-prices/?token=pk_fb8f7b4b957c4ca2acee83cb23cd44ac`
   })
 );
 
@@ -37,6 +37,12 @@ export const fetchStockNews = ticker => (
 
 export const fetchStockInfo = ticker => (
   $.ajax({
-    url: `https://api.iextrading.com/1.0/stock/market/batch?symbols=${ticker}&types=quote,company,info`
+    url: `https://cloud.iexapis.com/stable/stock/aapl/stats?token=pk_fb8f7b4b957c4ca2acee83cb23cd44ac`
+  })
+);
+
+export const fetchStockInfo2 = ticker => (
+  $.ajax({
+    url: `https://cloud.iexapis.com/stable/stock/aapl/batch?types=quote&token=pk_fb8f7b4b957c4ca2acee83cb23cd44ac`
   })
 );

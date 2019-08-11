@@ -22,14 +22,14 @@ class StockChart extends React.Component {
     let prevPrice, openPrice = dailyData[dailyData.length - 1].close;
 
     // if market is closed then dailyData will have today's information, therefore previous day's close will actually be second to last item in it
-    if (intradayData.length === 0 || dailyData[dailyData.length-1].date.split("-").join("") === intradayData[intradayData.length-1].date) {
+    if (intradayData.length === 0 || dailyData[dailyData.length - 1].date.split("-").join("") === intradayData[intradayData.length - 1].date) {
       openPrice = dailyData[dailyData.length - 2].close;
     }
 
     // Getting the stock data from the API response into the proper format for recharts
     // Track the most recent price (prevPrice) if data is ever unavailable for a desired time. Initialize prevPrice to prev day close
     // Basic strategy is to iterate through data, stopping at a data point if it matches a desired time.
-    // If there is price data (marketAverage !== -1), use that price, otherwise use prevPrice
+    // If there is price data (average !== -1), use that price, otherwise use prevPrice
     let data = [];
     for (let i = 0; i < intradayData.length; i++) {
       let price;
@@ -44,10 +44,10 @@ class StockChart extends React.Component {
           continue;
         }
         // check if there is price data, if not take most recent price
-        if (intradayData[i].marketAverage === -1) {
+        if (intradayData[i].average === -1) {
           price = prevPrice;
         } else {
-          price = intradayData[i].marketAverage;
+          price = intradayData[i].average;
           prevPrice = price;
         }
         let time = (intradayData[i].label.includes(":")) ? `${intradayData[i].label} ET` : `${intradayData[i].label.split(" ")[0]}:00 ${intradayData[i].label.split(" ")[1]} ET`
@@ -62,11 +62,11 @@ class StockChart extends React.Component {
           price: prevPrice
         })
         times.shift();
-      } else if (intradayData[i].marketAverage !== -1) {
-        prevPrice = intradayData[i].marketAverage;
+      } else if (intradayData[i].average !== -1) {
+        prevPrice = intradayData[i].average;
       }
     }
-
+    debugger
     // get list of all prices throughout the day to find key data points (high, low)
     const prices = [];
     for (let i = 0; i < data.length; i++) {
@@ -74,14 +74,14 @@ class StockChart extends React.Component {
     }
     let max = Math.max(...prices);
     let min = Math.min(...prices);
-    let currPrice = Math.round(prevPrice * 100)/100;
-    let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
-    let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
+    let currPrice = Math.round(prevPrice * 100) / 100;
+    let priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100) / 100;
+    let priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice)) / parseFloat(openPrice)) * 10000) / 100;
     let neg = "+";
-    if (priceFlux < 0) { neg = "-" ;}
+    if (priceFlux < 0) { neg = "-"; }
     let color = (neg === '+') ? "#82ca9d" : "#f45531";
     if (neg === '-') document.getElementsByTagName('body')[0].className = 'negative';
-    
+
     // After key data points have been determined iterate through rest of times and add nil balance (there will only be remaining times if in middle of market hours)
     for (let i = 0; i < times.length; i++) {
       let hours = parseInt(times[i].split(":")[0]);
@@ -98,7 +98,7 @@ class StockChart extends React.Component {
         let hours = parseInt(t.split(":")[0]);
         let minutes = t.split(":")[1];
         let dayHalf = (hours >= 12) ? "PM" : "AM";
-        if (hours > 12) hours -= 12; 
+        if (hours > 12) hours -= 12;
         let time = `${hours}:${minutes} ${dayHalf} ET`;
         let closePrice = dailyData[dailyData.length - 1].close;
         currPrice = closePrice;
@@ -125,16 +125,16 @@ class StockChart extends React.Component {
               color={color}
             />
           ) : (
-            <div className='sweet-loading'>
-              <ClipLoader
-                className={override}
-                sizeUnit={"px"}
-                size={150}
-                color={'#123abc'}
-                loading={true}
-              />
-            </div>
-          )
+              <div className='sweet-loading'>
+                <ClipLoader
+                  className={override}
+                  sizeUnit={"px"}
+                  size={150}
+                  color={'#123abc'}
+                  loading={true}
+                />
+              </div>
+            )
         }
       </div>
     );

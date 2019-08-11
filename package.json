@@ -13,7 +13,7 @@
     "chartjs-plugin-annotation": "^0.5.7",
     "emotion": "^9.2.6",
     "install": "^0.12.1",
-    "lodash": ">=4.17.11",
+    "lodash": "^4.17.15",
     "react": "^16.4.2",
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.4.2",
@@ -42,7 +42,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack --watch --mode=development",
+    "start": "webpack --watch --mode=development",
     "postinstall": "webpack"
   },
   "repository": {

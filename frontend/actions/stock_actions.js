@@ -3,6 +3,7 @@ import * as StockApiUtil from '../util/stock_api_util';
 export const RECEIVE_STOCK = 'RECEIVE_STOCK';
 export const RECEIVE_STOCKS = 'RECEIVE_STOCKS';
 export const RECEIVE_STOCK_INFO = 'RECEIVE_STOCK_INFO';
+export const RECEIVE_STOCK_INFO2 = 'RECEIVE_STOCK_INFO2';
 export const RECEIVE_STOCK_INTRADAY_DATA = 'RECEIVE_STOCK_INTRADAY_DATA';
 export const RECEIVE_STOCK_DAILY_DATA = 'RECEIVE_STOCK_DAILY_DATA';
 export const RECEIVE_STOCK_NEWS = 'RECEIVE_STOCK_NEWS';
@@ -20,6 +21,12 @@ const receiveStocks = allStocks => ({
 
 const receiveStockInfo = (ticker, stockInfo) => ({
   type: RECEIVE_STOCK_INFO,
+  ticker,
+  stockInfo
+});
+
+const receiveStockInfo2 = (ticker, stockInfo) => ({
+  type: RECEIVE_STOCK_INFO2,
   ticker,
   stockInfo
 });
@@ -50,6 +57,7 @@ const receiveUserStocks = stocks => ({
 export const fetchStock = ticker => dispatch => {
   const performFetches = () => Promise.all([
     dispatch(fetchStockInfo(ticker)),
+    dispatch(fetchStockInfo2(ticker)),
     dispatch(fetchStockIntradayData(ticker)),
     dispatch(fetchStockDailyData(ticker)),
     dispatch(fetchStockNews(ticker))
@@ -67,7 +75,11 @@ export const fetchStocks = () => dispatch => (
 
 export const fetchStockInfo = ticker => dispatch => (
   StockApiUtil.fetchStockInfo(ticker)
-    .then(stockInfo => dispatch(receiveStockInfo(ticker, stockInfo[ticker])))
+    .then(stockInfo => dispatch(receiveStockInfo(ticker, stockInfo)))
+);
+export const fetchStockInfo2 = ticker => dispatch => (
+  StockApiUtil.fetchStockInfo2(ticker)
+    .then(stockInfo => dispatch(receiveStockInfo2(ticker, stockInfo)))
 );
 
 export const fetchStockIntradayData = ticker => dispatch => (

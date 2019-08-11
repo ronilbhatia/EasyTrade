@@ -3,7 +3,7 @@ import React from 'react';
 class StockAbout extends React.Component {
 
   renderShortDescription() {
-    let shortDescription = this.props.stock.shortDescription;
+    let shortDescription = this.props.stock.description;
     return (
       <p className="stock-short-description">
         {shortDescription}
@@ -13,13 +13,13 @@ class StockAbout extends React.Component {
 
   renderLargeNum(largeNum) {
     if (largeNum < 1000000) {
-      return <h4>{(largeNum/1000).formatMoney()}K</h4>
+      return <h4>{(largeNum / 1000).formatMoney()}K</h4>
     } else if (largeNum < 1000000000) {
-      return <h4>{(largeNum/1000000).formatMoney()}M</h4>
+      return <h4>{(largeNum / 1000000).formatMoney()}M</h4>
     } else if (largeNum < 1000000000000) {
-      return <h4>{(largeNum/1000000000).formatMoney()}B</h4>
+      return <h4>{(largeNum / 1000000000).formatMoney()}B</h4>
     } else {
-      return <h4>{(largeNum/1000000000000).formatMoney()}T</h4>
+      return <h4>{(largeNum / 1000000000000).formatMoney()}T</h4>
     }
   }
 
@@ -50,7 +50,7 @@ class StockAbout extends React.Component {
               <ul className="stock-facts">
                 <li>
                   <h3>CEO</h3>
-                  <h4 className='ceo'>{stock.ceo}</h4>
+                  <h4 className='ceo'>{stock.CEO}</h4>
                 </li>
                 <li>
                   <h3>Sector</h3>
@@ -103,10 +103,10 @@ class StockAbout extends React.Component {
               </ul>
             </div>
           ) : (
-            <p>
-              LOADING
+              <p>
+                LOADING
             </p>
-          )
+            )
         }
 
       </div>

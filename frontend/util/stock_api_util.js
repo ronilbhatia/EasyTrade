@@ -6,7 +6,7 @@
 
 export const fetchStock = (ticker) => (
   $.ajax({
-    url: `https://cloud.iexapis.com/stable/stock/${ticker}/company/?token=pk_fb8f7b4b957c4ca2acee83cb23cd44ac`
+    url: `https://cloud.iexapis.com/stable/stock/${ticker}/company/?token=${window.iexKey}`
   })
 );
 
@@ -19,30 +19,30 @@ export const fetchStocks = () => (
 export const fetchStockDailyData = ticker => (
   $.ajax({
     method: 'get',
-    url: `https://sandbox.iexapis.com/stable/stock/${ticker}/chart/5y/?token=Tpk_9ae29b1583b348919535a4d19affb8dc`
+    url: `https://cloud.iexapis.com/stable/stock/${ticker}/chart/5y/?token=${window.iexKey}`
   })
 );
 
 export const fetchStockIntradayData = ticker => (
   $.ajax({
-    url: `https://cloud.iexapis.com/stable/stock/${ticker}/intraday-prices/?token=pk_fb8f7b4b957c4ca2acee83cb23cd44ac`
+    url: `https://cloud.iexapis.com/stable/stock/${ticker}/intraday-prices/?token=${window.iexKey}`
   })
 );
 
 export const fetchStockNews = ticker => (
   $.ajax({
-    url: `https://newsapi.org/v2/everything?q=${ticker}&sortBy=publishedAt&apiKey=f0b1d8074e784145b023467d4fc9c649&language=en&domains=wsj.com,nytimes.com,seekingalpha.com,yahoo.com`
+    url: `https://newsapi.org/v2/everything?q=${ticker}&sortBy=publishedAt&apiKey=${window.newsKey}&language=en&domains=wsj.com,nytimes.com,seekingalpha.com,yahoo.com`
   })
 );
 
 export const fetchStockInfo = ticker => (
   $.ajax({
-    url: `https://cloud.iexapis.com/stable/stock/aapl/stats?token=pk_fb8f7b4b957c4ca2acee83cb23cd44ac`
+    url: `https://cloud.iexapis.com/stable/stock/aapl/stats?token=${window.iexKey}`
   })
 );
 
 export const fetchStockInfo2 = ticker => (
   $.ajax({
-    url: `https://cloud.iexapis.com/stable/stock/aapl/batch?types=quote&token=pk_fb8f7b4b957c4ca2acee83cb23cd44ac`
+    url: `https://cloud.iexapis.com/stable/stock/aapl/batch?types=quote&token=${window.iexKey}`
   })
 );

@@ -31,10 +31,11 @@ class StockShow extends React.Component {
 
   render() {
     const { stock, currentUser, logout, createTransaction, errors } = this.props;
+    debugger
     return (
       <div>
         <NavBar currentUser={currentUser} logout={logout} />
-        {stock && stock.hasOwnProperty('description') && stock.hasOwnProperty('intradayData') && stock.hasOwnProperty('dailyData') && stock.hasOwnProperty('news') ? (
+        {stock && stock.hasOwnProperty('description') && stock.hasOwnProperty('intradayData') && stock['intradayData'] && stock.hasOwnProperty('dailyData') && stock.hasOwnProperty('news') && stock.hasOwnProperty('openPrice') && stock.hasOwnProperty('employees') ? (
           <div>
             <section className="stock-show">
               <main>

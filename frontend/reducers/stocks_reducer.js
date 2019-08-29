@@ -16,6 +16,7 @@ const stocksReducer = (state = {}, action) => {
     case RECEIVE_STOCK:
       action.stock.name = action.stock.companyName
       action.stock.ticker = action.stock.symbol
+      debugger
       nextState[action.stock.symbol] = action.stock;
       return nextState;
     case RECEIVE_STOCKS:
@@ -31,9 +32,9 @@ const stocksReducer = (state = {}, action) => {
       nextState[action.ticker].yearLow = action.stockInfo.week52low;
       return nextState;
     case RECEIVE_STOCK_INFO2:
-      nextState[action.ticker].openPrice = action.stockInfo.quote.open;
-      nextState[action.ticker].high = action.stockInfo.quote.high;
-      nextState[action.ticker].low = action.stockInfo.quote.low;
+      nextState[action.ticker].openPrice = action.stockInfo.quote.open || action.stockInfo.quote.previousClose;
+      nextState[action.ticker].high = action.stockInfo.quote.high || action.stockInfo.quote.previousClose;
+      nextState[action.ticker].low = action.stockInfo.quote.low || action.stockInfo.quote.previousClose;
     case RECEIVE_STOCK_INTRADAY_DATA:
       nextState[action.ticker].intradayData = action.data;
       return nextState;

@@ -37,6 +37,7 @@ class StockAbout extends React.Component {
 
   render() {
     const { stock } = this.props;
+    debugger
     return (
       <div className="stock-about">
         <div className="header">

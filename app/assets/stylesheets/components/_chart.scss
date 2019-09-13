@@ -48,3 +48,15 @@ body.negative .chart-choice.active {
   color: $red;
   border-bottom: 2px solid $red;
 }
+
+.chart-loading {
+  width: 710;
+  height: 195;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-loading::after {
+  content: ''
+}

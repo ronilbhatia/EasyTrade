@@ -8,6 +8,7 @@ export const RECEIVE_STOCK_INTRADAY_DATA = 'RECEIVE_STOCK_INTRADAY_DATA';
 export const RECEIVE_STOCK_DAILY_DATA = 'RECEIVE_STOCK_DAILY_DATA';
 export const RECEIVE_STOCK_NEWS = 'RECEIVE_STOCK_NEWS';
 export const RECEIVE_USER_STOCKS = 'RECEIVE_USER_STOCKS';
+export const START_LOADING = 'START_LOADING';
 
 const receiveStock = stock => ({
   type: RECEIVE_STOCK,
@@ -54,6 +55,10 @@ const receiveUserStocks = stocks => ({
   stocks
 });
 
+const startLoading = () => ({
+  type: START_LOADING
+});
+
 export const fetchStock = ticker => dispatch => {
   const performFetches = () => Promise.all([
     dispatch(fetchStockInfo(ticker)),
@@ -91,6 +96,12 @@ export const fetchStockDailyData = ticker => dispatch => (
   StockApiUtil.fetchStockDailyData(ticker)
     .then(data => dispatch(receiveStockDailyData(ticker, data)))
 );
+
+export const fetchStock5yData = ticker => dispatch => {
+  dispatch(startLoading());
+  return StockApiUtil.fetchStock5yData(ticker)
+    .then(data => dispatch(receiveStockDailyData(ticker, data)))
+};
 
 export const fetchStockNews = ticker => dispatch => (
   StockApiUtil.fetchStockNews(ticker)

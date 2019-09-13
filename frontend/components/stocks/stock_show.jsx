@@ -31,7 +31,6 @@ class StockShow extends React.Component {
 
   render() {
     const { stock, currentUser, logout, createTransaction, errors } = this.props;
-    debugger
     return (
       <div>
         <NavBar currentUser={currentUser} logout={logout} />

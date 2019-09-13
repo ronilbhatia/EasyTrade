@@ -1,6 +1,5 @@
 import React from 'react';
 import { LineChart, Line, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
-import StockRechart from './stock_rechart';
 import CustomTooltip from './custom_tooltip';
 
 class PortfolioChart extends React.Component {

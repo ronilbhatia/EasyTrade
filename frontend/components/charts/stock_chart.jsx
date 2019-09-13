@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'react-emotion';
 import { Line } from 'react-chartjs-2';
-import StockRechart from './stock_rechart';
+import StockRechartContainer from './stock_rechart_container';
 import { ClipLoader } from 'react-spinners';
 
 const override = css`
@@ -22,7 +22,6 @@ class StockChart extends React.Component {
     let prevPrice, openPrice = dailyData[dailyData.length - 1].close;
 
     // if market is closed then dailyData will have today's information, therefore previous day's close will actually be second to last item in it
-    debugger
     if (intradayData.length === 0 || dailyData[dailyData.length - 1].date.split("-").join("") === intradayData[intradayData.length - 1].date) {
       openPrice = dailyData[dailyData.length - 2].close;
     }
@@ -110,7 +109,7 @@ class StockChart extends React.Component {
       <div>
         {
           (Object.keys(stock).length > 31) ? (
-            <StockRechart
+            <StockRechartContainer
               stock={stock}
               openPrice={openPrice}
               currPrice={currPrice}

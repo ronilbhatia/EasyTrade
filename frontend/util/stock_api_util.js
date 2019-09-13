@@ -19,6 +19,13 @@ export const fetchStocks = () => (
 export const fetchStockDailyData = ticker => (
   $.ajax({
     method: 'get',
+    url: `https://cloud.iexapis.com/stable/stock/${ticker}/chart/1y/?token=${window.iexKey}`
+  })
+);
+
+export const fetchStock5yData = ticker => (
+  $.ajax({
+    method: 'get',
     url: `https://cloud.iexapis.com/stable/stock/${ticker}/chart/5y/?token=${window.iexKey}`
   })
 );

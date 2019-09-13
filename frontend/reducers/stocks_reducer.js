@@ -16,7 +16,6 @@ const stocksReducer = (state = {}, action) => {
     case RECEIVE_STOCK:
       action.stock.name = action.stock.companyName
       action.stock.ticker = action.stock.symbol
-      debugger
       nextState[action.stock.symbol] = action.stock;
       return nextState;
     case RECEIVE_STOCKS:

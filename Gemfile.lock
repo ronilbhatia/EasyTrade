@@ -136,7 +136,7 @@ GEM
     msgpack (1.2.6)
     multi_json (1.13.1)
     nio4r (2.3.1)
-    nokogiri (1.10.1)
+    nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     pg (1.1.4)
     pry (0.12.2)

@@ -11,11 +11,11 @@ const override = css`
 `;
 
 const RANGES = {
-  '1W': { length: 5, increment: 1},
-  '1M': { length: 23, increment: 1},
-  '3M': { length: 66, increment: 1},
-  '1Y': { length: 251, increment: 1},
-  '5Y': { length: 1265, increment: 5},
+  '1W': { length: 5, increment: 1 },
+  '1M': { length: 23, increment: 1 },
+  '3M': { length: 66, increment: 1 },
+  '1Y': { length: 251, increment: 1 },
+  '5Y': { length: 1265, increment: 5 },
 };
 
 const MONTHS = {

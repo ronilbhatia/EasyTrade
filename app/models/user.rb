@@ -350,8 +350,9 @@ class User < ApplicationRecord
       minute_string = time.split(':')[1]
       timeObject = Time.new(Time.now.year, Time.now.month, Time.now.day, hour + 5, minute, 0, "+00:00")
 
-      # if time we are iterating over is within 20 mins of current time, push in current balance the first time and nil every time after (IEX API has 15 minute delay)
-      # unless it's on the weekend
+      # if time we are iterating over is within 20 mins of current time, push in 
+      # current balance the first time and nil every time after (IEX API has 
+      # 15 minute delay) unless it's on the weekend
       unless timeObject.on_weekend?
         if timeObject > Time.now.getgm - 1200 || response.all? { |k, _| response[k]['chart'].last['minute'] < time}
           label = hour > 12 ? "#{hour - 12}:#{minute_string} PM ET" : "#{time} AM ET"
@@ -386,26 +387,33 @@ class User < ApplicationRecord
 
       stock_value = 0
       stock_day_info = nil
-      if response.all? { |k, _| response[k]['chart'].empty? }
-        return []
-      end
-
-      if response.all? { |k, _| response[k]['chart'].last['minute'] < time}
-        return data
-      end
 
       curr_stocks.each do |k, v|
-        puts k
+        # What minute of the current 5-minute window are we on for this stock
+        minute = 0
+
         search_time = time == '16:00' ? '15:59' : time
         stock_day_info = response[k]['chart'].find { |times| times['minute'] == search_time}
+
         if stock_day_info && stock_day_info['open']
           stock_value += stock_day_info['open'] * v unless stock_day_info.nil?
         end
 
-        until stock_day_info && stock_day_info['open']
+        until (stock_day_info && stock_day_info['open']) || minute == 30
           search_time = increment_time(search_time)
           stock_day_info = response[k]['chart'].find { |times| times['minute'] == search_time}
           stock_value += stock_day_info['open'] * v unless stock_day_info.nil? || !stock_day_info['open']
+
+          minute += 1
+        end
+
+        # If we haven't found a stock price in 30 minutes of searching we'll 
+        # just go based on the quote. Need the additional checks in case we 
+        # found the data on exactly minute 30, don't want to double count it
+        if (minute == 30 && !stock_day_info) || (minute == 30 && !stock_day_info['open'])
+          quote = response[k]['quote']
+          price = quote['open'] || quote['close'] || quote['high'] || quote['low'] || quote['latestPrice']
+          stock_value += price * v
         end
       end
 

@@ -395,6 +395,7 @@ class User < ApplicationRecord
       end
 
       curr_stocks.each do |k, v|
+        puts k
         search_time = time == '16:00' ? '15:59' : time
         stock_day_info = response[k]['chart'].find { |times| times['minute'] == search_time}
         if stock_day_info && stock_day_info['open']

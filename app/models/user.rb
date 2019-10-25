@@ -264,7 +264,6 @@ class User < ApplicationRecord
 
     # Return nothing if it is a holiday and there is no data this day
     if response.all? { |k, _| response[k]['chart'].empty? }
-
       times.each do |time|
         hour = time.split(':')[0].to_i
         minute_string = time.split(':')[1]
@@ -299,8 +298,11 @@ class User < ApplicationRecord
     prev_balance = open_balance
     curr_bal_pushed = false
 
-    # Get rid of stocks we don
+    # Get rid of stocks we don't own anymore - irrelevant to 1D chart
     curr_stocks.select! { |_, shares| !shares.zero? }
+    
+    # Filter out response for stocks we no longer own or are potentially delisted
+    response.select! { |k, v| curr_stocks.has_key?(k) && !response[k]['chart'].empty? }
 
     # iterate through times and add data points as necessary
     times.each do |time|

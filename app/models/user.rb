@@ -107,6 +107,8 @@ class User < ApplicationRecord
   end
 
   def calculate_stocks
+    return [] if stocks_owned.empty?
+
     stocks = stocks_owned
               .map { |stock| {symbol: stock[0], shares: stock[1]} }
               .sort_by { |stock| stock[:symbol] }

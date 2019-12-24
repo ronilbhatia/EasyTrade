@@ -8,7 +8,9 @@ export const RECEIVE_STOCK_INTRADAY_DATA = 'RECEIVE_STOCK_INTRADAY_DATA';
 export const RECEIVE_STOCK_DAILY_DATA = 'RECEIVE_STOCK_DAILY_DATA';
 export const RECEIVE_STOCK_NEWS = 'RECEIVE_STOCK_NEWS';
 export const RECEIVE_USER_STOCKS = 'RECEIVE_USER_STOCKS';
-export const START_LOADING = 'START_LOADING';
+export const START_DAILY_LOADING = 'START_DAILY_LOADING';
+export const START_STOCK_LOADING = 'START_STOCK_LOADING';
+export const STOP_STOCK_LOADING = 'STOP_STOCK_LOADING';
 
 const receiveStock = stock => ({
   type: RECEIVE_STOCK,
@@ -55,8 +57,16 @@ const receiveUserStocks = stocks => ({
   stocks
 });
 
-const startLoading = () => ({
-  type: START_LOADING
+const startDailyLoading = () => ({
+  type: START_DAILY_LOADING
+});
+
+const startStockLoading = () => ({
+  type: START_STOCK_LOADING
+});
+
+const stopStockLoading = () => ({
+  type: STOP_STOCK_LOADING
 });
 
 export const fetchStock = ticker => dispatch => {
@@ -66,9 +76,10 @@ export const fetchStock = ticker => dispatch => {
     dispatch(fetchStockIntradayData(ticker)),
     dispatch(fetchStockDailyData(ticker)),
     dispatch(fetchStockNews(ticker))
-  ]);
+  ]).then(() => dispatch(stopStockLoading()));
 
-  StockApiUtil.fetchStock(ticker)
+  dispatch(startStockLoading());
+  return StockApiUtil.fetchStock(ticker)
     .then(stock => dispatch(receiveStock(stock)))
     .then(performFetches);
 };
@@ -98,7 +109,7 @@ export const fetchStockDailyData = ticker => dispatch => (
 );
 
 export const fetchStock5yData = ticker => dispatch => {
-  dispatch(startLoading());
+  dispatch(startDailyLoading());
   return StockApiUtil.fetchStock5yData(ticker)
     .then(data => dispatch(receiveStockDailyData(ticker, data)))
 };

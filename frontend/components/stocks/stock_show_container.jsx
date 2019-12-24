@@ -14,7 +14,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     stock: state.entities.stocks[ownProps.match.params.ticker],
     currentUser: state.entities.users[state.session.id],
-    errors: state.errors.transaction
+    errors: state.errors.transaction,
+    loading: state.ui.stockLoading
   };
 };
 

@@ -34,6 +34,7 @@ const stocksReducer = (state = {}, action) => {
       nextState[action.ticker].openPrice = action.stockInfo.quote.open || action.stockInfo.quote.previousClose;
       nextState[action.ticker].high = action.stockInfo.quote.high || action.stockInfo.quote.previousClose;
       nextState[action.ticker].low = action.stockInfo.quote.low || action.stockInfo.quote.previousClose;
+      return nextState;
     case RECEIVE_STOCK_INTRADAY_DATA:
       nextState[action.ticker].intradayData = action.data;
       return nextState;

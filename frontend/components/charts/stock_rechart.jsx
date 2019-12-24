@@ -80,6 +80,19 @@ class StockRechart extends React.Component {
     if (this.state.active === '5Y' && prevState.active !== '5Y' && !prevState.fetched5Y) {
       this.renderChart('5Y')
     }
+
+    if (prevProps.stock.ticker !== this.props.stock.ticker) {
+      this.setState({
+        currData: this.props,
+        initialData: this.props,
+        active: '1D',
+        fetched5Y: false
+      });
+    }
+
+    if (prevProps.currPrice !== this.props.currPrice) {
+      this.forceUpdate();
+    }
   }
   
   render1DChart() {
@@ -145,18 +158,17 @@ class StockRechart extends React.Component {
   }
 
   render() {
-
-    let { currPrice, openPrice, priceFlux, priceFluxPercentage, data, min, max, neg } = this.state.currData;
+    let { openPrice, priceFlux, priceFluxPercentage, data, min, max, neg } = this.state.currData;
     let color = (neg === '+') ? "#82ca9d" : "#f45531";
     if (neg === '-') {
       document.getElementsByTagName('body')[0].className = 'negative';
     } else {
       document.getElementsByTagName('body')[0].className = '';
     }
-    currPrice = parseFloat(currPrice).formatMoney(2);
+    currPrice = parseFloat(this.props.currPrice).formatMoney(2);
     priceFlux = Math.abs(parseFloat(priceFlux)).formatMoney(2);
     priceFluxPercentage = parseFloat(priceFluxPercentage).formatMoney(2);
-
+    debugger
     return (
       <div className="chart">
         <h1>{this.props.stock.name}</h1>

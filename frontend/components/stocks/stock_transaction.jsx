@@ -6,7 +6,8 @@ class StockTransaction extends React.Component {
     let { stock } = this.props;
     const intradayData = stock.intradayData;
 
-    // Grab most recent price available by iterating backwards through intradayData until value other than -1 is returned
+    // Grab most recent price available by iterating backwards through 
+    // intradayData until value other than -1 is returned
     let currPrice = this.props.stock.openPrice;
     for (let i = intradayData.length - 1; i > 0; i--) {
       if (intradayData[i].average !== -1) {
@@ -14,6 +15,7 @@ class StockTransaction extends React.Component {
         break;
       }
     }
+
     this.state = {
       ticker: stock.ticker,
       num_shares: '',
@@ -22,9 +24,25 @@ class StockTransaction extends React.Component {
       currPrice,
       submitted: ''
     };
+    
     this.update = this.update.bind(this);
     this.updateType = this.updateType.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.stock.ticker !== prevProps.stock.ticker) {
+      const intradayData = this.props.stock.intradayData;
+      let currPrice = this.props.stock.openPrice;
+      for (let i = intradayData.length - 1; i > 0; i--) {
+        if (intradayData[i].average !== -1) {
+          currPrice = Math.round(intradayData[i].average * 100) / 100;
+          break;
+        }
+      }
+
+      this.setState({ ticker: this.props.stock.ticker, currPrice });
+    }
   }
 
   update(e) {
@@ -65,7 +83,14 @@ class StockTransaction extends React.Component {
   renderSellButton() {
     const { currentUser, stock } = this.props
     if (currentUser.stocks.find(el => el.symbol === stock.ticker && el.shares > 0)) {
-      return <a className={this.state.order_type === 'sell' ? 'active' : ''} onClick={() => this.updateType('sell')}>Sell {`${stock.ticker}`}</a>;
+      return (
+        <a 
+          className={this.state.order_type === 'sell' ? 'active' : ''} 
+          onClick={() => this.updateType('sell')}
+        >
+          Sell {`${stock.ticker}`}
+        </a>
+      );
     }
     return null;
   }

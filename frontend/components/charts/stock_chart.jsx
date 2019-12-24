@@ -1,6 +1,5 @@
 import React from 'react';
 import { css } from 'react-emotion';
-import { Line } from 'react-chartjs-2';
 import StockRechartContainer from './stock_rechart_container';
 import { ClipLoader } from 'react-spinners';
 
@@ -11,7 +10,6 @@ const override = css`
 `;
 
 class StockChart extends React.Component {
-
   render() {
     const { stock } = this.props;
     const { intradayData, dailyData } = this.props.stock;

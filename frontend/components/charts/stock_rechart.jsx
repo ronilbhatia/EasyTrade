@@ -1,8 +1,8 @@
 import React from 'react';
-import { LineChart, Line, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
+import { LineChart, Line, YAxis, Tooltip } from 'recharts';
 import CustomStockTooltip from './custom_stock_tooltip';
 import { css } from 'react-emotion';
-import { BeatLoader, ScaleLoader } from 'react-spinners';
+import { ScaleLoader } from 'react-spinners';
 
 const override = css`
   display: block;
@@ -168,7 +168,6 @@ class StockRechart extends React.Component {
     let currPrice = parseFloat(this.props.currPrice).formatMoney(2);
     priceFlux = Math.abs(parseFloat(priceFlux)).formatMoney(2);
     priceFluxPercentage = parseFloat(priceFluxPercentage).formatMoney(2);
-    debugger
     return (
       <div className="chart">
         <h1>{this.props.stock.name}</h1>

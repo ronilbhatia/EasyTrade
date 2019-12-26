@@ -24,17 +24,17 @@ class StockSearchBar extends React.Component {
     const { allStocks } = this.props;
     let stocks;
     if (allStocks && this.state.inputVal.length > 0) {
-      stocks = allStocks.filter( (stock) => {
+      stocks = allStocks.filter((stock) => {
         return (stock.ticker.toLowerCase().includes(this.state.inputVal.toLowerCase()) || stock.name.toLowerCase().includes(this.state.inputVal.toLowerCase()));
       }).slice(0, 6);
       return (
         <ul className={this.state.hidden ? "search-res hide" : "search-res"}>
           <h4 key="header">Stocks</h4>
           {
-            stocks.map( (stock, idx) => {
+            stocks.map((stock, idx) => {
               return (
-                <NavLink key={stock.id} to={`/stocks/${stock.ticker}`}>
-                  <li key={stock.id} className="search-res-item" onClick={this.addHiddenClass}>
+                <NavLink key={stock.ticker} to={`/stocks/${stock.ticker}`}>
+                  <li className="search-res-item" onClick={this.addHiddenClass}>
                     <p className='search-ticker'>{stock.ticker}</p>
                     <p className='search-name'>{stock.name}</p>
                   </li>
@@ -74,7 +74,7 @@ class StockSearchBar extends React.Component {
             type="text"
             placeholder="Search"
             onChange={this.handleInput.bind(this)}
-            />
+          />
         </div>
         {this.renderStocks()}
       </div>

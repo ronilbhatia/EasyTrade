@@ -1,9 +1,3 @@
-// export const fetchStock = (ticker) => (
-//   $.ajax({
-//     url: `api/stocks/${ticker}`
-//   })
-// );
-
 export const fetchStock = (ticker) => (
   $.ajax({
     url: `https://cloud.iexapis.com/stable/stock/${ticker}/company/?token=${window.iexKey}`

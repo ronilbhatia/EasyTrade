@@ -44,12 +44,12 @@ export const fetchStockNews = ticker => (
 
 export const fetchStockInfo = ticker => (
   $.ajax({
-    url: `https://cloud.iexapis.com/stable/stock/aapl/stats?token=${window.iexKey}`
+    url: `https://cloud.iexapis.com/stable/stock/${ticker}/stats?token=${window.iexKey}`
   })
 );
 
 export const fetchStockInfo2 = ticker => (
   $.ajax({
-    url: `https://cloud.iexapis.com/stable/stock/aapl/batch?types=quote&token=${window.iexKey}`
+    url: `https://cloud.iexapis.com/stable/stock/${ticker}/batch?types=quote&token=${window.iexKey}`
   })
 );

@@ -61,9 +61,9 @@ class StockRechart extends React.Component {
     const min = Math.min(...prices);
     const currPrice = this.state.initialData.currPrice;
     const openPrice = dailyData[startIdx].close;
-    const priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100)/100;
-    const priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice))/parseFloat(openPrice)) * 10000)/100;
-    if (priceFlux < 0) { neg = "-" ;}
+    const priceFlux = Math.round((parseFloat(currPrice) - parseFloat(openPrice)) * 100) / 100;
+    const priceFluxPercentage = Math.round(((parseFloat(currPrice) - parseFloat(openPrice)) / parseFloat(openPrice)) * 10000) / 100;
+    if (priceFlux < 0) { neg = "-"; }
 
     return {
       max,
@@ -94,7 +94,7 @@ class StockRechart extends React.Component {
       this.forceUpdate();
     }
   }
-  
+
   render1DChart() {
     this.setState({ currData: this.state.initialData, active: '1D' });
   }
@@ -121,7 +121,7 @@ class StockRechart extends React.Component {
     if (startIdx > dailyData.length) startIdx = dailyData.length;
     let lastIdx;
 
-    for(let i = dailyData.length - startIdx; i < dailyData.length; i+=RANGES[range].increment) {
+    for (let i = dailyData.length - startIdx; i < dailyData.length; i += RANGES[range].increment) {
       if (i < 0) i = 0;
       let time = this.formatDate(dailyData[i].date);
       data.push({
@@ -133,7 +133,7 @@ class StockRechart extends React.Component {
 
     // Set last date as most recent data point regardless
     if (lastIdx !== dailyData.length - 1) {
-      let time = this.formatDate(dailyData[dailyData.length-1].date);
+      let time = this.formatDate(dailyData[dailyData.length - 1].date);
       data.push({
         time,
         price: dailyData[dailyData.length - 1].close
@@ -165,7 +165,7 @@ class StockRechart extends React.Component {
     } else {
       document.getElementsByTagName('body')[0].className = '';
     }
-    currPrice = parseFloat(this.props.currPrice).formatMoney(2);
+    let currPrice = parseFloat(this.props.currPrice).formatMoney(2);
     priceFlux = Math.abs(parseFloat(priceFlux)).formatMoney(2);
     priceFluxPercentage = parseFloat(priceFluxPercentage).formatMoney(2);
     debugger
@@ -187,21 +187,21 @@ class StockRechart extends React.Component {
                 />
               </div>
             ) : (
-              <LineChart width={710} height={195} data={data}
-                margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
-                <YAxis
-                  hide={true}
-                  domain={[min, max]}
-                />
-                <Tooltip
-                  content={<CustomStockTooltip price={currPrice} priceFlux={priceFlux} priceFluxPercentage={priceFluxPercentage} openPrice={openPrice} neg={neg} />}
-                  offset={-40}
-                  position={{ y: -20 }}
-                  isAnimationActive={false}
-                />
-                <Line type="linear" dataKey="price" stroke={color} dot={false} strokeWidth={2} />
-              </LineChart>
-            )
+                <LineChart width={710} height={195} data={data}
+                  margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
+                  <YAxis
+                    hide={true}
+                    domain={[min, max]}
+                  />
+                  <Tooltip
+                    content={<CustomStockTooltip price={currPrice} priceFlux={priceFlux} priceFluxPercentage={priceFluxPercentage} openPrice={openPrice} neg={neg} />}
+                    offset={-40}
+                    position={{ y: -20 }}
+                    isAnimationActive={false}
+                  />
+                  <Line type="linear" dataKey="price" stroke={color} dot={false} strokeWidth={2} />
+                </LineChart>
+              )
           }
           <ul className="chart-range stock">
             <li><a className={this.state.active === '1D' ? 'chart-choice active' : 'chart-choice'} onClick={this.render1DChart}>1D</a></li>

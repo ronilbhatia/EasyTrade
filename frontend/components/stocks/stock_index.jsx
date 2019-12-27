@@ -1,5 +1,4 @@
 import React from 'react';
-import StockRechart from '../charts/stock_rechart';
 import StockIndexItem from './stock_index_item';
 
 const StockIndex = ({ currentUser }) => {
@@ -11,14 +10,14 @@ const StockIndex = ({ currentUser }) => {
             {
               currentUser.stocks.map((stock, idx) => {
                 return (
-                  <StockIndexItem stock={stock} key={idx}/>
+                  <StockIndexItem stock={stock} key={idx} />
                 );
               })
             }
           </ul>
         ) : (
-          <div></div>
-        )
+            <div></div>
+          )
       }
     </div>
   );

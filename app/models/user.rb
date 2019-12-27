@@ -113,7 +113,7 @@ class User < ApplicationRecord
               .map { |stock| {symbol: stock[0], shares: stock[1]} }
               .sort_by { |stock| stock[:symbol] }
 
-    url = "https://cloud.iexapis.com/stable/stock/market/batch?types=quote&token=#{Rails.application.credentials.iex_key}&symbols="
+    url = "https://cloud.iexapis.com/stable/stock/market/batch?types=quote,chart&range=1d&token=#{Rails.application.credentials.iex_key}&symbols="
     stocks.each { |stock| url += "#{stock[:symbol]},"}
     response = JSON.parse(open(url).read)
 
@@ -127,6 +127,8 @@ class User < ApplicationRecord
         price += '0'
       end
       stock[:price] = price
+      stock[:intradayData] = response[stock[:symbol]]['chart']
+      stock[:openPrice] = stock[:intradayData][0]['open']
     end
 
     stocks

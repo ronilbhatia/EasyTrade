@@ -12,6 +12,7 @@
     flex-direction: column;
     justify-content: space-between;
     font-size: 10px;
+    width: 70px;
   }
   h5 {
     padding-top: 4px;
@@ -24,8 +25,14 @@
     font-weight: 400;
   }
   h6 {
-    font-size: 16px;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 13px;
     font-weight: 400;
+  }
+
+  .stock-mini-chart {
+    padding-left: 5px;
   }
 }
 

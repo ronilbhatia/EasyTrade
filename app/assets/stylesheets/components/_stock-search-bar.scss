@@ -10,10 +10,10 @@
     i {
       display: inline-block;
       padding-left: 20px;
-      color: #ddd;
+      color: var(--search);
     }
     input::placeholder {
-      color: #ddd;
+      color: var(--search);
     }
   }
 
@@ -33,7 +33,7 @@
   .search-bar:focus-within + .search-res, .search-res:focus-within, .search-res:focus, .search-res:active {
     display: block;
     visibility: visible;
-    background: white;
+    background: var(--bg);
     z-index: 999;
     font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
     width: 477px;
@@ -41,7 +41,7 @@
     box-shadow: 3px 2px 2px #fafafa, -3px 2px 2px #fafafa, 0px 3px 2px #fafafa, 0px 0px 2px #fafafa;
     h4 {
       padding: 15px 20px;
-      color: #ddd;
+      color: var(--search);
     }
     .search-res-item {
       padding: 15px 20px;

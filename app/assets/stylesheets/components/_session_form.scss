@@ -76,11 +76,11 @@
 }
 
 .sessionform input:hover {
-  border: 1px solid lightgray;
+  border: 1px solid var(--border);
 }
 
 .sessionform input:focus {
-  border: 1px solid #21ce99;
+  border: 1px solid $green;
   outline: none;
 }
 
@@ -91,7 +91,7 @@
   font-weight: 700;
   height: auto;
   width: auto;
-  background: #21ce99;
+  background: $green;
 }
 
 .sessionform .session-buttons {

@@ -17,9 +17,9 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
   validates :password, length: { minimum: 6, allow_nil: true }
 
-  has_many :transactions
-  has_many :deposits
-  has_many :portfolio_snapshots
+  has_many :transactions, dependent: :destroy
+  has_many :deposits, dependent: :destroy 
+  has_many :portfolio_snapshots, dependent: :destroy
 
   has_one_attached :photo
 

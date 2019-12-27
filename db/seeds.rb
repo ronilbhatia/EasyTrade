@@ -17,7 +17,7 @@ ActiveRecord::Base.transaction do
 
 
   # Create demo user
-  demo_user = User.new({ email: 'user@user.com', username: 'user', password: 'testing' })
+  demo_user = User.new({ email: 'wbuffet@berkshirehathaway.com', username: 'wbuffet', password: 'password' })
   demo_user.save!
   demo_user.photo.attach(io: File.open("#{Rails.root}/app/assets/images/ronil.jpg"), filename: 'ronil')
 

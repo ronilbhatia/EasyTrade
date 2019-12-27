@@ -5,8 +5,8 @@ class SessionForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username:'',
-      password:'',
+      username: '',
+      password: '',
       email: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,7 +20,7 @@ class SessionForm extends React.Component {
       this.handleDemoLogin();
     }
   }
-  
+
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
@@ -36,7 +36,7 @@ class SessionForm extends React.Component {
       return
     }
 
-    const username = 'user'.split('');
+    const username = 'wbuffet'.split('');
     this.handleDemoUsername(username);
   }
 

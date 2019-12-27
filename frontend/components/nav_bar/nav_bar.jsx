@@ -3,8 +3,17 @@ import { NavLink } from 'react-router-dom';
 import StockSearchBarContainer from '../stocks/stock_search_bar_container';
 
 const NavBar = ({ currentUser, demoLogin, logout }) => {
-  const display = currentUser ? (
+  const toggleMode = (e) => {
+    if (e.target.innerText === 'Dark Mode') {
+      document.documentElement.setAttribute('data-theme', 'dark')
+      e.target.innerText = 'Light Mode'
+    } else {
+      document.documentElement.removeAttribute('data-theme')
+      e.target.innerText = 'Dark Mode'
+    }
+  }
 
+  const display = currentUser ? (
     <nav className="loggedin-nav-bar">
       <NavLink to="/">
         <svg className="svg-logo" width="21px" height="28px" viewBox="0 0 21 28" version="1.1">
@@ -17,21 +26,22 @@ const NavBar = ({ currentUser, demoLogin, logout }) => {
       <section className="site-navigation">
         <StockSearchBarContainer />
         <section className="loggedin-nav-links">
+          <div className="loggedin-nav-link" onClick={toggleMode}>Dark Mode</div>
           <NavLink to="/" className="loggedin-nav-link">Home</NavLink>
           <button onClick={logout} className="loggedin-nav-link">Log Out</button>
         </section>
       </section>
     </nav>
   ) : (
-    <nav className="nav-bar">
-      <img src={window.images.logo} />
-      <section className="nav-links">
-        <button onClick={demoLogin} className="nav-link">Demo</button>
-        <NavLink to="/login" className="nav-link">Log In</NavLink>
-        <NavLink to="/signup" className="nav-link">Sign Up</NavLink>
-      </section>
-    </nav>
-  );
+      <nav className="nav-bar">
+        <img src={window.images.logo} />
+        <section className="nav-links">
+          <button onClick={demoLogin} className="nav-link">Demo</button>
+          <NavLink to="/login" className="nav-link">Log In</NavLink>
+          <NavLink to="/signup" className="nav-link">Sign Up</NavLink>
+        </section>
+      </nav>
+    );
   return (
     <div>
       {display}

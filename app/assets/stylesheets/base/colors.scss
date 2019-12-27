@@ -2,8 +2,31 @@ $green: #21ce99;
 $light-green: #1ae9aa;
 $red: #f45531;
 $light-red: #ff6340;
-$faint: #fafafa;
-$light-gray: #eee;
-$gray: #cbcbcd;
+
+// light mode
 $white: #fff;
-$caption: #cbcbcd;
+$light-gray: #eee;
+$medium-gray: #ddd;
+$gray: #cbcbcd;
+$light-shadow-1: #fafafa;
+$light-shadow-2: rgba(0, 0, 0, 0.01);
+$light-shadow-3: rgba(48, 51, 51, 0.09);
+
+// dark mode
+$black: #1B1B1B;
+$border-black: #0E0D0D;
+
+html {
+  --bg: $white;
+  --border: $light-gray;
+  --input: $gray;
+  --search: $medium-gray
+  --shadow-1: $light-shadow-1;
+  --shadow-2: $light-shadow-2;
+  --shadow-3: $light-shadow-3;
+}
+
+html[data-theme='dark'] {
+  --bg: $black;
+  --border: $border-black;
+}

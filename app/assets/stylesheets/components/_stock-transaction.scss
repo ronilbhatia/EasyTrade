@@ -1,7 +1,7 @@
 .stock-transaction {
   width: 600px;
   margin-left: 10px;
-  border: 1px solid #eee;
+  border: 1px solid var(--border);
   box-shadow: 3px 0px 2px #fafafa, -3px 0px 2px #fafafa, 0px 3px 2px #fafafa, 0px -3px 2px #fafafa;
   height: 402px;
   position: sticky;
@@ -20,7 +20,7 @@
     a:hover {
       color: $green;
     }
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border);
   }
   h4 {
     font-weight: 500;
@@ -36,13 +36,13 @@
       height: 12px;
       padding: 10px;
       text-align: right;
-      background: $faint;
-      border: 1px solid $faint;
+      background: $light-shadow-1;
+      border: 1px solid $light-shadow-1;
       outline: none;
     }
     input:hover, input:focus {
       border: 1px solid $gray;
-      background: $white;
+      background: var(--bg);
       outline: none;
       border-radius: 4px;
     }
@@ -65,7 +65,7 @@
   }
 
   .transaction-price {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border);
   }
 
   .transaction-errors {
@@ -109,7 +109,7 @@
       outline: none;
     }
     padding-bottom: 22px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border);
   }
 
   .buying-power {

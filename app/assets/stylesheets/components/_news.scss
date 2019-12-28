@@ -9,12 +9,8 @@
   font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
   padding-bottom: 15px;
   margin-right: 55px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border);
   margin-bottom: 0;
-}
-
-.stock-show .news ul {
-  // margin-top: 25px;
 }
 
 .user-home .news h2 {
@@ -24,12 +20,11 @@
   font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
   padding-bottom: 15px;
   margin-right: 35px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border);
   margin-bottom: 0;
 }
 
 .user-home .news ul {
-  // margin-top: 28px;
   margin-left: 7px;
 }
 

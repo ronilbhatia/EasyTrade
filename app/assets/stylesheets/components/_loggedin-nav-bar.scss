@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   right: 0;
-  background: white;
+  background: var(--bg);
   justify-content: space-between;
   z-index: 999;
   align-items: center;
@@ -13,14 +13,13 @@
 
 .loggedin-nav-link {
   display: inline-block;
-  padding-top: 5px;
+  padding: 5px 7px 2px 7px;
   margin-right: 30px;
-  margin-left: 30px;
-  color: black;
+  color: var(--color);
   font-size: 12.5px;
   font-family: DIN Pro,-apple-system,BlinkMacSystemFont, sans-serif;
   font-weight: 500;
-  background-color: white;
+  background-color: var(--bg);
   border-color: rgba(0, 0, 0, 1);
   border: none;
   cursor: pointer;
@@ -36,6 +35,10 @@
 
 .loggedin-nav-link:focus {
   outline: none;
+}
+
+.svg-logo {
+  fill: var(--color);
 }
 
 .svg-logo:hover {

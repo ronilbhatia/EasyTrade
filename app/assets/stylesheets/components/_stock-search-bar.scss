@@ -1,5 +1,5 @@
 .stock-search {
-  border: 1px solid #eee;
+  border: 1px solid var(--border);
   width: 477px;
   height: 36px;
 
@@ -10,22 +10,20 @@
     i {
       display: inline-block;
       padding-left: 20px;
-      color: #ddd;
+      color: var(--search);
     }
     input::placeholder {
-      color: #ddd;
+      color: var(--search);
     }
   }
 
   .search-bar:focus-within, .search-bar:hover {
     i, input::placeholder {
-      color: black;
+      color: var(--color);
     }
-    // box-shadow: 3px 0px 2px #fafafa, -3px 0px 2px #fafafa, 0px 3px 2px #fafafa, 0px -3px 2px #fafafa;
   }
 
   .search-res {
-    // display: none;
     position: absolute;
     visibility: hidden;
   }
@@ -33,21 +31,21 @@
   .search-bar:focus-within + .search-res, .search-res:focus-within, .search-res:focus, .search-res:active {
     display: block;
     visibility: visible;
-    background: white;
+    background: var(--bg);
     z-index: 999;
     font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
     width: 477px;
     margin-right: -5px;
-    box-shadow: 3px 2px 2px #fafafa, -3px 2px 2px #fafafa, 0px 3px 2px #fafafa, 0px 0px 2px #fafafa;
+    box-shadow: 3px 2px 2px var(--shadow-1), -3px 2px 2px var(--shadow-1), 0px 3px 2px var(--shadow-1), 0px 0px 2px var(--shadow-1);
     h4 {
       padding: 15px 20px;
-      color: #ddd;
+      color: var(--search);
     }
     .search-res-item {
       padding: 15px 20px;
       p {
         display: inline-block;
-        color: black;
+        color: var(--color);
         font-size: 12px;
         font-weight: 500;
       }
@@ -59,7 +57,7 @@
       }
     }
     .search-res-item:hover {
-      background: #fafafa;
+      background: var(--shadow-1);
     }
   }
 
@@ -70,7 +68,7 @@
 
 .stock-search:focus-within, .stock-search:hover {
   border: none;
-  box-shadow: 3px -2px 2px #fafafa, -3px -2px 2px #fafafa, 0px 3px 2px #fafafa, 0px -3px 2px #fafafa;
+  box-shadow: 3px -2px 2px var(--shadow-1), -3px -2px 2px var(--shadow-1), 0px 3px 2px var(--shadow-1), 0px -3px 2px var(--shadow-1);
 }
 
 .search-res.hide {

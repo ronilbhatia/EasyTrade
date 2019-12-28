@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   right: 0;
-  background: white;
+  background: var(--bg);
   justify-content: space-between;
   align-items: center;
   padding: 8px 45px 8px 55px;
@@ -21,11 +21,11 @@
   width: 80px;
   margin-right: 20px;
   margin-left: 15px;
-  color: #21ce99;
+  color: $green;
   font-size: 13px;
   font-family: "DIN Web", "Hiragino Sans GB", STXihei, 华文细黑, "Microsoft YaHei", 微软雅黑, sans-serif;
   font-weight: bold;
-  background-color: white;
+  background-color: var(--bg);
   border-color: rgba(0, 0, 0, 1);
   border: none;
   cursor: pointer;
@@ -36,7 +36,7 @@
 }
 
 .nav-link:hover {
-  color: #1ae9aa;
+  color: $light-green;
 }
 
 .nav-link:focus {

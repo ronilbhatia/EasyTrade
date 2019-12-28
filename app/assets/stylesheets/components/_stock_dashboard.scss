@@ -3,18 +3,16 @@
   margin-left: 35px;
 }
 .stock-dashboard {
-  border: 1px solid #eee;
-  // width: 275px;
+  border: 1px solid var(--border);
   position: fixed;
   top: 12%;
   bottom: 3%;
-  // box-shadow: 3px 0px 2px #fafafa, -3px 0px 2px #fafafa, 0px 3px 2px #fafafa, 0px -3px 2px #fafafa;
-  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.01), 0 3px 24px rgba(48, 51, 51, 0.09);
+  box-shadow: 0 0 4px 1px var(--shadow-2), 0 3px 24px var(--shadow-3);
   overflow: scroll;
 
   h4 {
     padding: 15px 25px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border);
     font-weight: 500;
     width: 275px;
     height: 52px;

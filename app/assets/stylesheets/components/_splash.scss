@@ -38,8 +38,8 @@
 
 .signup-button {
   cursor: pointer;
-  color: white;
-  background: #21ce99;
+  color: $white;
+  background: $green;
   margin: 0;
   padding: 14px 21px;
   font-weight: normal;
@@ -49,7 +49,7 @@
 }
 
 .signup-button:hover {
-  background: #1ae9aa;
+  background: $light-green;
 }
 
 .signup-button:focus {

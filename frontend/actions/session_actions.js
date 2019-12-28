@@ -32,19 +32,24 @@ const receiveUserPortfolio = data => ({
 
 export const signup = (user) => dispatch => (
   SessionApiUtil.signup(user)
-  .then(newUser => dispatch(receiveCurrentUser(newUser)),
-        errors => dispatch(receiveErrors(errors.responseJSON)))
+    .then(newUser => dispatch(receiveCurrentUser(newUser)),
+      errors => dispatch(receiveErrors(errors.responseJSON)))
 );
 
 export const login = (user) => dispatch => (
   SessionApiUtil.login(user)
-  .then(newUser => dispatch(receiveCurrentUser(newUser)),
-        errors => dispatch(receiveErrors(errors.responseJSON)))
+    .then(newUser => dispatch(receiveCurrentUser(newUser)),
+      errors => dispatch(receiveErrors(errors.responseJSON)))
 );
 
 export const logout = () => dispatch => (
   SessionApiUtil.logout()
-    .then( () => dispatch(logoutCurrentUser()))
+    .then(() => {
+      dispatch(logoutCurrentUser())
+      // Always in light mode, unless logged in
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.removeItem('theme');
+    })
 );
 
 export const fetchUserInfo = user => dispatch => (

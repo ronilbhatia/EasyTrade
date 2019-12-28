@@ -1,6 +1,6 @@
 .stock-index-item {
   display: flex;
-  color: black;
+  color: var(--color);
   justify-content: space-between;
   align-items: center;
   padding: 0px 24px;
@@ -37,5 +37,5 @@
 }
 
 .stock-index-item:hover {
-  background: #fafafa;
+  background: var(--shadow-1);
 }

@@ -145,7 +145,7 @@ class User < ApplicationRecord
   end
   
   def grab_portfolio_data
-    portfolio_snapshots.map do |snapshot|
+    portfolio_snapshots.order(:date).map do |snapshot|
       { time: format_date(snapshot[:date]), balance: snapshot[:balance] }
     end
   end

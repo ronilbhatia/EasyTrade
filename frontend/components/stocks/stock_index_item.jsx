@@ -95,7 +95,7 @@ const StockIndexItem = ({ stock }) => {
               hide={true}
               domain={[min, max]}
             />
-            <Line type="linear" dataKey="price" stroke={color} dot={false} strokeWidth={2} />
+            <Line type="linear" dataKey="price" stroke={color} dot={false} strokeWidth={1} />
           </LineChart>
         </div>
         <div>

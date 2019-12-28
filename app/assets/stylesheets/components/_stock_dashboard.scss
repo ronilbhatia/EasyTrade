@@ -4,12 +4,10 @@
 }
 .stock-dashboard {
   border: 1px solid var(--border);
-  // width: 275px;
   position: fixed;
   top: 12%;
   bottom: 3%;
-  // box-shadow: 3px 0px 2px #fafafa, -3px 0px 2px #fafafa, 0px 3px 2px #fafafa, 0px -3px 2px #fafafa;
-  box-shadow: 0 0 4px 1px $light-shadow-2, 0 3px 24px $light-shadow-3;
+  box-shadow: 0 0 4px 1px var(--shadow-2), 0 3px 24px var(--shadow-3);
   overflow: scroll;
 
   h4 {

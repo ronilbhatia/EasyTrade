@@ -5,6 +5,7 @@ menu, ul, ol {
   margin: 0;
   padding: 0;
   border: 0;
+  color: inherit;
   background: transparent;
   font-family: inherit;
 }
@@ -19,4 +20,10 @@ li {
 
 body {
   font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif
+}
+
+input {
+  background-color: var(--bg);
+  color: var(--color);
+  border: none;
 }

@@ -2,7 +2,7 @@
   width: 600px;
   margin-left: 10px;
   border: 1px solid var(--border);
-  box-shadow: 3px 0px 2px #fafafa, -3px 0px 2px #fafafa, 0px 3px 2px #fafafa, 0px -3px 2px #fafafa;
+  box-shadow: 3px 0px 2px var(--shadow-1), -3px 0px 2px var(--shadow-1), 0px 3px 2px var(--shadow-1), 0px -3px 2px var(--shadow-1);
   height: 402px;
   position: sticky;
   h3 {
@@ -36,8 +36,8 @@
       height: 12px;
       padding: 10px;
       text-align: right;
-      background: $light-shadow-1;
-      border: 1px solid $light-shadow-1;
+      background: var(--shadow-1);
+      border: 1px solid var(--shadow-1);
       outline: none;
     }
     input:hover, input:focus {

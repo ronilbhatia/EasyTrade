@@ -68,15 +68,15 @@
   margin: 10px 0;
   width: 372px;
   height: 28px;
-  border: 1px solid #fafafa;
+  border: 1px solid var(--shadow-1);
   border-radius: 4px;
   padding: 10px 20px;
   font-size: 13px;
-  background: #fafafa;
+  background: var(--shadow-1);
 }
 
 .sessionform input:hover {
-  border: 1px solid var(--border);
+  border: 1px solid lightgray;
 }
 
 .sessionform input:focus {

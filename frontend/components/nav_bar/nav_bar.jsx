@@ -3,6 +3,9 @@ import { NavLink } from 'react-router-dom';
 import StockSearchBarContainer from '../stocks/stock_search_bar_container';
 
 const NavBar = ({ currentUser, demoLogin, logout }) => {
+  const mode = document.documentElement.getAttribute('data-theme') ?
+    'Light Mode' : 'Dark Mode';
+
   const toggleMode = (e) => {
     if (e.target.innerText === 'Dark Mode') {
       document.documentElement.setAttribute('data-theme', 'dark')
@@ -26,7 +29,7 @@ const NavBar = ({ currentUser, demoLogin, logout }) => {
       <section className="site-navigation">
         <StockSearchBarContainer />
         <section className="loggedin-nav-links">
-          <div className="loggedin-nav-link" onClick={toggleMode}>Dark Mode</div>
+          <div className="loggedin-nav-link" onClick={toggleMode}>{mode}</div>
           <NavLink to="/" className="loggedin-nav-link">Home</NavLink>
           <button onClick={logout} className="loggedin-nav-link">Log Out</button>
         </section>

@@ -13,13 +13,14 @@
  *= require_self
  */
 
- // CSS Reset
- @import "base/reset.scss";
-
+ 
  // Core
  @import "base/colors.scss";
  @import "base/fonts.scss";
  @import "base/layout.scss";
+ 
+ // CSS Reset
+ @import "base/reset.scss";
 
  // Grid
  @import "base/grid.scss";

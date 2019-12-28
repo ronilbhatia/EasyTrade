@@ -17,21 +17,21 @@
   }
   h3 {
     margin: 0;
-    color: black;
+    color: var(--color);
     font-size: 30px;
     font-weight: 700;
     font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
   }
   h4 {
     margin-bottom: 5px;
-    color: black;
+    color: var(--color);
     font-size: 12px;
     font-weight: 600;
     font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
   }
   p {
     margin: 0;
-    color: black;
+    color: var(--color);
     font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
     font-size: 14px;
   }

@@ -21,6 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     store = configureStore();
   }
+
+  // If user was on dark mode before page refresh they should be still
+  if (localStorage.getItem('theme')) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+
   window.getState = store.getState;
   window.dispatch = store.dispatch;
   window.fetchStockInfo = fetchStockInfo;
@@ -28,5 +34,5 @@ document.addEventListener('DOMContentLoaded', () => {
   window.fetchUserInfo = fetchUserInfo;
   window.state = store.getState();
   // window.currentUser = state.users[state.session.id];
-  ReactDOM.render(<Root store={store}/>, root);
+  ReactDOM.render(<Root store={store} />, root);
 });

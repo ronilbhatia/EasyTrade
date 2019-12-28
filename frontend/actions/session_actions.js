@@ -48,6 +48,7 @@ export const logout = () => dispatch => (
       dispatch(logoutCurrentUser())
       // Always in light mode, unless logged in
       document.documentElement.removeAttribute('data-theme');
+      localStorage.removeItem('theme');
     })
 );
 

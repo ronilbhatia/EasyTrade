@@ -6,11 +6,22 @@ const NavBar = ({ currentUser, demoLogin, logout }) => {
   const mode = document.documentElement.getAttribute('data-theme') ?
     'Light Mode' : 'Dark Mode';
 
+  // const trans = () => {
+  //   document.documentElement.classList.add('transition');
+  //   setTimeout(() => {
+  //     document.documentElement.classList.remove('transition');
+  //   }, 400);
+  // }
+
   const toggleMode = (e) => {
     if (e.target.innerText === 'Dark Mode') {
+      // trans();
+      localStorage.setItem('theme', 'dark');
       document.documentElement.setAttribute('data-theme', 'dark')
       e.target.innerText = 'Light Mode'
     } else {
+      // trans();
+      localStorage.removeItem('theme');
       document.documentElement.removeAttribute('data-theme')
       e.target.innerText = 'Dark Mode'
     }

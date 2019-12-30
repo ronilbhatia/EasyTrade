@@ -7,7 +7,8 @@ class SessionForm extends React.Component {
     this.state = {
       username: '',
       password: '',
-      email: ''
+      email: '',
+      processing: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDemoLogin = this.handleDemoLogin.bind(this);
@@ -27,7 +28,7 @@ class SessionForm extends React.Component {
     this.props.processForm(user);
   }
 
-  handleDemoLogin() {
+  handleDemoLogin(e) {
     if (this.props.formType === 'signup') {
       this.props.history.push({
         pathname: '/login',
@@ -35,9 +36,10 @@ class SessionForm extends React.Component {
       });
       return
     }
-
-    const username = 'wbuffet'.split('');
-    this.handleDemoUsername(username);
+    this.setState({ processing: true }, () => {
+      const username = 'wbuffet'.split('');
+      this.handleDemoUsername(username);
+    })
   }
 
   handleDemoUsername(username) {
@@ -120,8 +122,19 @@ class SessionForm extends React.Component {
               }
             </ul>
             <div className="session-buttons">
-              <input className="signup-button" type="submit" value={buttonTxt} />
-              <button type="button" className="signup-button demo" onClick={this.handleDemoLogin}>Demo</button>
+              <input
+                className="signup-button"
+                type="submit"
+                value={buttonTxt}
+                disabled={this.state.processing ? true : false}
+              />
+              <button
+                type="button"
+                className="signup-button demo"
+                onClick={this.handleDemoLogin}
+                disabled={this.state.processing ? true : false}
+              >Demo
+              </button>
             </div>
           </form>
         </div>

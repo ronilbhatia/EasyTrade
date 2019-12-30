@@ -25,13 +25,13 @@ class Home extends React.Component {
     this.handleScroll = this.handleScroll.bind(this);
     this.handleLoad = this.handleLoad.bind(this);
     this.handleDemoLogin = this.handleDemoLogin.bind(this)
-    
+
     window.addEventListener('scroll', this.handleScroll);
   }
 
   componentDidMount() {
     if (this.props.currentUser) {
-      this.props.fetchUserInfo(this.props.currentUser);      
+      this.props.fetchUserInfo(this.props.currentUser);
     }
   }
 
@@ -62,7 +62,7 @@ class Home extends React.Component {
 
   render() {
     const { currentUser, logout, fetchNews } = this.props;
-    
+
     let balance, balanceData, dailyData, monthData, openBalance, balances, max, min, balanceFlux, balanceFluxPercentage;
     let neg = "+";
     if (currentUser && currentUser.hasOwnProperty('balanceData')) {
@@ -76,20 +76,20 @@ class Home extends React.Component {
         max = 0;
         min = 0;
       } else {
-        if (dailyData[0]) { openBalance = dailyData[0].balance;}
+        if (dailyData[0]) { openBalance = dailyData[0].balance; }
         balances = [];
         for (let i = 0; i < dailyData.length; i++) {
           balances.push(parseFloat(dailyData[i].balance));
         }
         max = Math.max(...balances);
         min = Math.min(...balances);
-        balanceFlux = Math.round((balance - openBalance) * 100)/100;
-        balanceFluxPercentage = Math.round((balanceFlux/openBalance)*10000)/100;
-        if (balanceFlux < 0) { neg = "-" ;}
+        balanceFlux = Math.round((balance - openBalance) * 100) / 100;
+        balanceFluxPercentage = Math.round((balanceFlux / openBalance) * 10000) / 100;
+        if (balanceFlux < 0) { neg = "-"; }
       }
     }
 
-    
+
     let portfolioData = undefined
     if (currentUser && currentUser.hasOwnProperty('portfolioData')) {
       portfolioData = currentUser.portfolioData;
@@ -98,7 +98,7 @@ class Home extends React.Component {
     const display = currentUser ? (
       currentUser.hasOwnProperty('balanceData') ? (
         <div>
-          <NavBar currentUser={currentUser} logout={logout}/>
+          <NavBar currentUser={currentUser} logout={logout} />
           <section className="user-home" onScroll={this.handleScroll}>
             <main onScroll={this.handleScroll}>
               <PortfolioChart
@@ -115,7 +115,7 @@ class Home extends React.Component {
                 balanceFlux={balanceFlux}
                 balanceFluxPercentage={balanceFluxPercentage}
               />
-              <NewsIndexContainer handleLoad={this.handleLoad}/>
+              <NewsIndexContainer handleLoad={this.handleLoad} />
             </main>
             <aside className="stock-dashboard-container">
               <div className={this.state.footerOverflow ? "stock-dashboard overflow" : "stock-dashboard"}>
@@ -127,23 +127,23 @@ class Home extends React.Component {
           <Footer />
         </div>
       ) : (
-        <div className='stock-loading'>
-          <BeatLoader
-            className={override}
-            sizeUnit={"px"}
-            size={20}
-            color={'#21ce99'}
-            loading={true}
-          />
-        </div>
-      )
+          <div className='stock-loading'>
+            <BeatLoader
+              className={override}
+              sizeUnit={"px"}
+              size={20}
+              color={'#21ce99'}
+              loading={true}
+            />
+          </div>
+        )
     ) : (
-      <div>
-        <NavBar currentUser={currentUser} demoLogin={this.handleDemoLogin} />
-        <Splash demoLogin={this.handleDemoLogin} />
-        <Footer />
-      </div>
-    );
+        <div>
+          <NavBar currentUser={currentUser} demoLogin={this.handleDemoLogin} />
+          <Splash demoLogin={this.handleDemoLogin} />
+          <Footer />
+        </div>
+      );
     return (
       <div>
         {display}

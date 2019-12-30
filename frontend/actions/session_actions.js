@@ -36,11 +36,15 @@ export const signup = (user) => dispatch => (
       errors => dispatch(receiveErrors(errors.responseJSON)))
 );
 
-export const login = (user) => dispatch => (
+export const login = (user) => dispatch => {
+  // If user was last logged in under dark mode log them back in with dark mode
+  if (localStorage.getItem('theme')) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
   SessionApiUtil.login(user)
     .then(newUser => dispatch(receiveCurrentUser(newUser)),
       errors => dispatch(receiveErrors(errors.responseJSON)))
-);
+};
 
 export const logout = () => dispatch => (
   SessionApiUtil.logout()

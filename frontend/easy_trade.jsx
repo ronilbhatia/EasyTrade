@@ -5,6 +5,7 @@ import configureStore from './store/store';
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
+
   let store;
   if (window.currentUser1) {
     const preloadedState = {
@@ -14,14 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
       session: { id: window.currentUser1.id }
     };
     store = configureStore(preloadedState);
+    // If user was on dark mode before page refresh they should be still
+    if (localStorage.getItem('theme')) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
     delete window.currentUser1;
   } else {
     store = configureStore();
-  }
-
-  // If user was on dark mode before page refresh they should be still
-  if (localStorage.getItem('theme')) {
-    document.documentElement.setAttribute('data-theme', 'dark');
   }
 
   ReactDOM.render(<Root store={store} />, root);

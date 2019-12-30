@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <script>
-      window.iexKey = "<%= Rails.application.credentials.iex_key %>"
-      window.newsKey = "<%= Rails.application.credentials.news_key %>"
+      window.iexKey = "<%= ENV['IEX_API_KEY'] || Rails.application.credentials.iex_key %>";
+      window.newsKey = "<%= Rails.application.credentials.news_key %>";
     </script>
   </head>
 

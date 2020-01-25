@@ -5,3 +5,9 @@ export const createTransaction = transaction => (
     data: { transaction }
   })
 );
+
+export const fetchTransactions = () => (
+  $.ajax({
+    url: '/api/transactions'
+  })
+);

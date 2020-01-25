@@ -1,0 +1,44 @@
+.transaction-index-item {
+  display: flex;
+  justify-content: space-between;
+  width: 676px;
+  height: 41px;
+  padding: 24px;
+  padding-left: 29px;
+  margin: 0 -24px;
+  position: relative;
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 13px;
+  }
+}
+
+.transaction-index-item::after {
+  content: '';
+  position: absolute;
+  width: 685px;
+  height: 100%;
+  top: -5px;
+  right: 17px;
+  border-bottom: 1px solid var(--border);
+}
+
+.transaction-index-item:hover {
+  background: var(--border);
+}
+
+.transaction-index-item-right {
+  text-align: end;
+}

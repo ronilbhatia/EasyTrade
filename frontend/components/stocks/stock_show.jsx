@@ -4,6 +4,7 @@ import StockChart from '../charts/stock_chart';
 import StockAbout from './stock_about';
 import StockNews from './stock_news';
 import StockTransaction from './stock_transaction';
+import TransactionIndex from '../transactions/transaction_index';
 import Footer from '../footer/footer';
 import { css } from 'react-emotion';
 import { BeatLoader } from 'react-spinners';
@@ -17,9 +18,8 @@ const override = css`
 class StockShow extends React.Component {
   componentDidMount() {
     const ticker = this.props.match.params.ticker;
-    if (!this.props.stock) {
-      this.props.fetchStock(ticker);
-    }
+    if (!this.props.stock) this.props.fetchStock(ticker);
+    if (!this.props.transactions.length) this.props.fetchTransactions();
   }
 
   componentDidUpdate(prevProps) {
@@ -30,7 +30,7 @@ class StockShow extends React.Component {
   }
 
   render() {
-    const { stock, currentUser, logout, createTransaction, errors, loading } = this.props;
+    const { stock, currentUser, logout, createTransaction, transactions, errors, loading } = this.props;
     return (
       <div>
         <NavBar currentUser={currentUser} logout={logout} />
@@ -41,6 +41,7 @@ class StockShow extends React.Component {
                 <StockChart stock={stock} />
                 <StockAbout stock={stock} />
                 <StockNews news={stock.news} />
+                <TransactionIndex transactions={transactions} />
               </main>
               <StockTransaction currentUser={currentUser} stock={stock} errors={errors} createTransaction={createTransaction} />
             </section>

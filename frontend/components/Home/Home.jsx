@@ -32,12 +32,14 @@ class Home extends React.Component {
   componentDidMount() {
     if (this.props.currentUser) {
       this.props.fetchUserInfo(this.props.currentUser);
+      this.props.fetchTransactions();
     }
   }
 
   componentDidUpdate(prevProps) {
     if (!prevProps.currentUser && this.props.currentUser) {
-      prevProps.fetchUserInfo(this.props.currentUser);
+      this.props.fetchUserInfo(this.props.currentUser);
+      this.props.fetchTransactions();
     }
   }
 

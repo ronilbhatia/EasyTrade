@@ -3,9 +3,6 @@
   justify-content: space-between;
   width: 676px;
   height: 41px;
-  padding: 24px;
-  padding-left: 29px;
-  margin: 0 -24px;
   position: relative;
 
   div {
@@ -28,17 +25,33 @@
 .transaction-index-item::after {
   content: '';
   position: absolute;
-  width: 685px;
+  width: 100%;
   height: 100%;
-  top: -5px;
-  right: 17px;
+  top: 24px;
   border-bottom: 1px solid var(--border);
 }
 
-.transaction-index-item:hover {
+.transaction-display:hover {
   background: var(--border);
 }
 
 .transaction-index-item-right {
   text-align: end;
+}
+
+.transaction-display {
+  width: 735px;
+  padding: 24px;
+  padding-left: 29px;
+  margin: 0 -24px;
+  cursor: pointer;
+}
+
+.transaction-display.detail {
+  box-shadow: 0 0 4px 1px var(--shadow-2), 0 3px 24px var(--shadow-3);
+  margin-bottom: 10px;
+}
+
+.transaction-display.detail:hover {
+  background: inherit;
 }

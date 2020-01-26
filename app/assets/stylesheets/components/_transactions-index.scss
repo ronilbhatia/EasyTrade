@@ -1,14 +1,61 @@
-.transactions-index {
+.stock-history {
+  margin: 0 128px 0 123px;
+}
+
+.transactions-index, .stock-history {
   margin-top: 60px;
-  
-  h2 {
+
+  h1 {
+    font-weight: 600;
+    font-size: 36px;
+    padding-bottom: 20px;
+    margin-top: 100px;
     margin-left: 5px;
-    font-size: 24px;
-    font-weight: 700;
-    font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
-    padding-bottom: 15px;
-    margin-right: 55px;
+    width: 700px;
+    border-bottom: 1px solid var(--border)
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid var(--border);
-    margin-bottom: 0;
+    margin-left: 5px;
+    padding-bottom: 10px;
+    margin-right: 55px;
+
+
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      font-family: DIN Pro,-apple-system,BlinkMacSystemFont,sans-serif;
+      padding-bottom: 15px;
+      margin-bottom: 0;
+    }
+
+    a {
+      margin-top: 5px;
+      color: $green;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    a:hover {
+      color: $light-green;
+      cursor: pointer;
+    }
+  }
+}
+
+body.negative {
+  .header {
+    a {
+      color: $red;
+    }
+
+    a:hover {
+      color: $light-red;
+      cursor: pointer;
+    }
   }
 }

@@ -89,6 +89,11 @@ export const fetchStocks = () => dispatch => (
     .then(allStocks => dispatch(receiveStocks(allStocks)))
 );
 
+export const fetchStockBasic = (ticker) => dispatch => (
+  StockApiUtil.fetchStock(ticker)
+    .then(stock => dispatch(receiveStock(stock)))
+);
+
 export const fetchStockInfo = ticker => dispatch => (
   StockApiUtil.fetchStockInfo(ticker)
     .then(stockInfo => dispatch(receiveStockInfo(ticker, stockInfo)))

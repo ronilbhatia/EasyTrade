@@ -1,0 +1,22 @@
+.transaction-detail {
+  display: flex;
+  flex-wrap: wrap;
+  width: 685px;
+  margin-left: 5px;
+  margin-top: 44px;
+
+  .transaction-detail-item {
+    width: 33%;
+    font-size: 13px;
+    margin-bottom: 14px;
+
+    h4 {
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+}

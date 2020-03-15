@@ -9,7 +9,7 @@ const StockNewsItem = ({ newsItem }) => {
   };
   return (
     <li>
-      <a href={newsItem.url} className="stock-news-item">
+      <a target="_blank" href={newsItem.url} className="stock-news-item">
         <img src={newsItem.urlToImage} />
         <main>
           <h4>{newsItem.source.name}</h4>

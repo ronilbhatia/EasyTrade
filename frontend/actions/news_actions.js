@@ -10,4 +10,5 @@ const receiveNews = news => ({
 export const fetchNews = () => dispatch => (
   NewsApiUtil.fetchNews()
     .then(news => dispatch(receiveNews(news.articles)))
+    .fail(news => dispatch(receiveNews(news.responseJSON.articles)))
 );

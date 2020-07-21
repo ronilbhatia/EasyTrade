@@ -20,15 +20,22 @@ class StockShow extends React.Component {
     const ticker = this.props.match.params.ticker;
     if (!this.props.stock || !this.props.stock.hasOwnProperty('intradayData')) {
       this.props.fetchStock(ticker);
+      this.intervalID = setInterval(() => this.props.fetchStockIntradayData(ticker), 3000);
     } 
     if (!this.props.transactions.length) this.props.fetchTransactions();
   }
 
   componentDidUpdate(prevProps) {
     if ((this.props.match.params.ticker !== prevProps.match.params.ticker) && !this.props.stock) {
+      clearInterval(this.intervalID);
       const ticker = this.props.match.params.ticker;
       this.props.fetchStock(ticker);
+      this.intervalID = setInterval(() => this.props.fetchStockIntradayData(ticker), 3000);
     }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
   }
 
   render() {

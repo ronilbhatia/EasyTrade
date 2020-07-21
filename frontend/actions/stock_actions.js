@@ -103,10 +103,10 @@ export const fetchStockInfo2 = ticker => dispatch => (
     .then(stockInfo => dispatch(receiveStockInfo2(ticker, stockInfo)))
 );
 
-export const fetchStockIntradayData = ticker => dispatch => (
+export const fetchStockIntradayData = ticker => dispatch => {
   StockApiUtil.fetchStockIntradayData(ticker)
     .then(data => dispatch(receiveStockIntradayData(ticker, data)))
-);
+};
 
 export const fetchStockDailyData = ticker => dispatch => (
   StockApiUtil.fetchStockDailyData(ticker)
@@ -122,6 +122,7 @@ export const fetchStock5yData = ticker => dispatch => {
 export const fetchStockNews = ticker => dispatch => (
   StockApiUtil.fetchStockNews(ticker)
     .then(news => dispatch(receiveStockNews(ticker, news.articles)))
+    .fail(news => dispatch(receiveStockNews(ticker, news.responseJSON.articles)))
 );
 
 export const fetchUserStocks = tickers => dispatch => (

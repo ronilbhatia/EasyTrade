@@ -32,7 +32,7 @@ export const fetchStockIntradayData = ticker => (
 
 export const fetchStockNews = ticker => (
   $.ajax({
-    url: `https://newsapi.org/v2/everything?q=${ticker}&sortBy=publishedAt&apiKey=${window.newsKey}&language=en&domains=wsj.com,nytimes.com,seekingalpha.com,yahoo.com`
+    url: `/api/news/${ticker}`
   })
 );
 

@@ -10,5 +10,6 @@ Rails.application.routes.draw do
     resources :stocks, only: [:index]
     get '/stocks/:ticker', to: 'stocks#show'
     resources :transactions, except: [:new, :edit]
+    resources :news, only: [:index, :show]
   end
 end

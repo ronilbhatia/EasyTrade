@@ -8,7 +8,7 @@
     "babel-plugin-emotion": "^9.2.6",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.9.4",
     "chartjs": "^0.3.24",
     "chartjs-plugin-annotation": "^0.5.7",
     "emotion": "^9.2.6",
